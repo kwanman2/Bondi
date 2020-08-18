@@ -1,0 +1,146 @@
+#!/bin/bash
+
+# REMEMBER for HARM code:
+# 1) PRODUCTION 1 in init.h
+# 2) Set N1,N2,N3, and MAXBND in init.h
+# 3) set lim[] in init.c
+#
+#
+# login:
+# ssh tg802609@ranger.tacc.utexas.edu
+
+# To get environment (should do before compile as well):
+# MPI-2 (mvapich2) has bugs and MPI stalls under some cases like large files being written -- clearly bug.
+# Use MPI-1 or OpenMPI.  OpenMPI supports MPI-2, so that's preferred
+# NO, apparently OpenMPI on Ranger is unstable in their environment according to their own comments!  So only MPI-1 is supported.
+#module unload mvapich2 pgi
+#module load intel
+#module load mvapich2
+#module load mkl
+#module load openmpi/1.3
+module unload mvapich2 mvaphich1 mvapich/1.0.1 openmpi/1.3 pgi mkl
+module load intel
+module load mvapich/1.0.1
+module load mkl
+
+# do "module avail" to see other things that are available
+
+# Docs:
+# http://www.tacc.utexas.edu/services/userguides/ranger/
+#
+# qsub <thisbatchfilename>
+
+# check on jobs
+# qstat or showq
+#
+
+################
+# QSUB commands:
+################
+#
+#     -pe 16way 32 means 16cores/node and 32 cores total
+#$ -pe 4way 16
+#
+#     job name (default = name of script file)
+#$ -N harm3dnewtest1
+#
+#     -l h_rt=01:30:00 means 1.5 hours
+#$ -l h_rt=00:10:00
+#
+# queue name (normal, large,development,serial)
+#$ -q development
+#
+#
+#
+# export all my environment variables to the job
+#$ -V
+#$ -A TG-AST080025N
+#    combine standard output and standard error (optional)
+#$ -j y
+#    output files
+#$ -o job.out
+#$ -cwd
+#$ -e job.err
+#
+#    filename for standard output (default = <job_name>.o<job_id>)
+#$ -o $JOB_NAME.o$JOB_ID
+#$ -M jmckinne@stanford.edu
+#    send mail when the job begins and ends (optional)
+#$ -m abe
+#    End of embedded QSUB options
+
+
+set -x
+
+#set echo               # echo commands before execution; use for debugging
+wait
+date
+#
+# do qsub mako.qsub
+#
+# other commands: qstat, qdel, xpbsmon
+###################
+#
+# setup run
+#
+##################
+# below is number of OpenMP Threads
+export NOPENMPI=4
+# below is number of MPI rasks in each spatial direction
+export NCPUX1=2
+export NCPUX2=2
+export NCPUX3=1
+# below is total number of MPI tasks
+export NTOT=4
+export FILENAME="grmhdperf"
+export DIRFILE="/share/home/01014/tg802609/perftest/"
+export RUNDIR=$WORK/$JOB_NAME/
+
+
+#############
+echo "ncpux1 $NCPUX1"
+echo "ncpux2 $NCPUX2"
+echo "ncpux3 $NCPUX3"
+echo "ntot $NTOT"
+echo "filename $FILENAME"
+echo "dirfile $DIRFILE"
+echo "rundir $RUNDIR"
+############################
+#
+# rest shouldn't change
+#
+###############################
+export BEFOREDIR=`pwd`
+mkdir -p $RUNDIR
+cd $RUNDIR
+
+mkdir -p dumps
+mkdir -p images
+
+cp $DIRFILE/$FILENAME .
+cp $DIRFILE/*.dat .
+cp $DIRFILE/*.txt .
+wait
+chmod u+x $FILENAME
+#wait
+#save node list to a file
+#cp $PBS_NODEFILE node.list
+
+# below means 4 thread/task, to be used with -pe 4way 32 (e.g.) instead of -pe 16way 32
+export OMP_NUM_THREADS=$NOPENMPI
+
+# true number of tasks launched (only needed if not multiple of 16)
+#export MY_NSLOTS=$NTOT
+
+# FRESH START:
+#ibrun ./$FILENAME $NCPUX1 $NCPUX2 $NCPUX3 > $FILENAME.so 2>&1
+
+# Must use below to ensure affinity with sockets
+# Below assumed when doing GRIDSECTIONING and overloading node
+ibrun tacc_affinity ./$FILENAME $NOPENMPI $NCPUX1 $NCPUX2 $NCPUX3 > $FILENAME.so 2>&1
+
+#./$FILENAME > $FILENAME.so
+
+wait   # for the ssh's above to complete
+
+date
