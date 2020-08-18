@@ -1,0 +1,71 @@
+Code is under GPLv3.  In addition, private single-person use need not
+be made publicly available (as GPLv3), but any public use
+(e.g. publications) requires that any new code be publicly and freely
+available (e.g. at github) under the same license terms.  This is
+maximally open-source and copyleft.
+
+========================
+Requirements
+========================
+
+1) Linux (e.g. like Ubuntu, what's on NASA Pleides, TACC Stampede, etc.)
+
+2) MPI (for mpicc and mpirun)
+
+If have no MPI, then change USEMPI to 0 in makehead.inc.
+If have no OpenMP, then change USEOPENMP to 0 in makehead.inc
+
+For no MPI or OpenMP, then change scripts/fulltest.sh command to
+mkdir run ; cd run ; cp ../grmhd . ; ./grmhd 1 1 1
+
+For no MPI, then change scripts/fulltest.sh command to
+mkdir run ; cd run ; cp ../grmhd . ; ./grmhd 1 1 1 1
+
+3) Intel MKL (for lapack related library)
+
+If have no Intel MKL, then change USELAPACK and USELAPACKNEW to 0 in makehead.inc.
+
+4) For the analysis stage, many python 2.7 related packages (see
+docs/general_plotting_guide.txt for details, but all standard packages
+one can easily install on Ubuntu).  Python packages used include:
+python, python2.7-setuptools, python-dateutil, yasm, ipython,
+python-nose, python2.7-scipy, python2.7-numpy, python-matplotlib,
+python-matplotlib-data, dvipng .  Try installing these, then if below
+"fulltest.sh" doesn't work, then send me your output and we can figure
+out what packages you are missing.
+
+========================
+Basic Instructions (assuming MPI, OpenMP, and MKL taken care of as above):
+========================
+
+git clone git@github.com:pseudotensor/harm_harmgit.git
+cd harm_harmgit
+git branch master
+# for single node 16-task MPI test from setting up run through analysis
+sh scripts/fulltest.sh
+
+
+========================
+Code Design
+========================
+
+See
+
+http://pseudotensor.github.io/
+
+for code help and graphical/interactive search and call graph from doxygen
+
+========================
+Example Resulting python analysis movies and vis5d+ movies
+========================
+
+https://www.youtube.com/user/pseudotensor2/videos
+
+========================
+Articles to read about the work
+========================
+
+HARM as described in McKinney et al. (2012) in master. HARMRAD as described in McKinney et al. (2014) in koralinsert.
+
+https://scholar.google.com/citations?user=5L3LfOYAAAAJ&hl=en
+
