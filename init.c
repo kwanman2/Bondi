@@ -1138,7 +1138,7 @@ void init_bondi_am()        //tom
     //angular momentum below bondi radius in the equatorial plane (assuming angular momentum is conserved in the infall phase)
     lb = sqrt(rc);
 
-    kappa = 1.e-3;   //tom
+    kappa = 1.e-3;
 
     //double f1, f2, guess;
     
@@ -1181,7 +1181,7 @@ void init_bondi_am()        //tom
             }
             kappa = pow(4 * M_PI * guess * guess * pow(ur0 / sqrt(guess / rhor), (2 / (gam - 1) + 1)) / (mdot * pow(gam, 1 / (gam - 1))), (gam - 1));
             //u = UUMINLIMIT + (r / 10. / rhor) / pow(r, 4);     //***
-            u = kappa * pow(rho, gam) / (gam - 1.);
+            u = kappa * pow(rho, gam - 1.) / (gam - 1.);	//tom
             //u = 0.0002;
             
 
@@ -1287,7 +1287,7 @@ void init_bondi_am()        //tom
             if (th > 0.5 * M_PI) {
                 thetafactin = 1.0 - cos(M_PI - th);
             }
-            thetafactout = pow(sin(th), 1.0 + jonmadhpow);              // (sin£c)^(1+h)
+            thetafactout = pow(sin(th), 1.0 + jonmadhpow);              // (sinÂ£c)^(1+h)
             thetafact1 = thetafactout * interp + thetafactin * (1.0 - interp);  //tom why do this
 
             double interp2;
@@ -1309,9 +1309,9 @@ void init_bondi_am()        //tom
             thetafact = thetafact2; //useless
             
             double rfact;
-            rfact = max(pow(r - JONMADR0, rpow) * 1E40 - 0.02, 0.0);    //MAX(r^£h 10^40 - 0.02, 0)
+            rfact = max(pow(r - JONMADR0, rpow) * 1E40 - 0.02, 0.0);    //MAX(r^Â£h 10^40 - 0.02, 0)
             if (r >= JONMADROUT) {
-                rfact = max(pow(JONMADROUT - JONMADR0, rpow) * 1E40 - 0.02, 0.0); //to monopolar  //MAX(r_0^£h 10^40 - 0.02, 0)
+                rfact = max(pow(JONMADROUT - JONMADR0, rpow) * 1E40 - 0.02, 0.0); //to monopolar  //MAX(r_0^Â£h 10^40 - 0.02, 0)
             }
             if (r <= JONMADRIN) {
                 rfact = max(pow(JONMADRIN - JONMADR0, rpow) * 1E40 - 0.02, 0.0); //inner edge
