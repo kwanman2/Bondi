@@ -1,0 +1,2870 @@
+fail_file: 192738368 log_file: 192738944
+end: init_genfiles
+begin: init_placeongrid_gridlocation ... myid=3 node_name=GP-4-6.local procnamelen=12
+
+numprocs(MPI)=20 ncpux1=10 ncpux2=2 ncpux3=1 numopenmpthreads=0
+
+ Per MPI Task: N1=16 N2=16 N3=16
+per: 0 0
+mycpupos[1]: 3
+startpos[1]: 48
+endpos[1]: 63
+totalsize[1]: 160
+mycpupos[2]: 0
+startpos[2]: 0
+endpos[2]: 15
+totalsize[2]: 32
+mycpupos[3]: 0
+startpos[3]: 0
+endpos[3]: 15
+totalsize[3]: 16
+totalzones: 81920
+end: init_placeongrid_gridlocation
+done with init_MPI_setupfilesandgrid()
+BEGIN Rank orders in physical model space
+
+rankk=0::
+0000 0001 0002 0003 0004 0005 0006 0007 0008 0009
+0010 0011 0012 0013 0014 0015 0016 0017 0018 0019
+
+
+
+END Rank orders in physical model space
+System is Little Endian
+Size of char: 1
+Size of short: 2
+Size of int: 4
+Size of size_t: 8
+Size of long int: 8
+Size of long long int: 8
+Size of float: 4
+Size of double: 8
+Size of long double: 16
+WARNING: Since size of integer is only 4 bytes, some routines that input and output integer arguments will be limited to 2GB.  For example, ROMIO will fail to work if try to write >2GB file, since buffer sizes must then be <2GB
+begin: init_dumps
+dump number of columns(see global.nondepmnemonics.h)
+IMAGEDUMPTYPE dnumcolumns[0]=1
+RESTARTDUMPTYPE dnumcolumns[1]=50
+RESTARTUPPERPOLEDUMPTYPE dnumcolumns[2]=4
+RESTARTMETRICDUMPTYPE dnumcolumns[3]=0
+MAINDUMPTYPE dnumcolumns[4]=73
+GRIDDUMPTYPE dnumcolumns[5]=126
+AVG1DUMPTYPE dnumcolumns[6]=348
+AVG2DUMPTYPE dnumcolumns[7]=0
+DEBUGDUMPTYPE dnumcolumns[8]=120
+FIELDLINEDUMPTYPE dnumcolumns[9]=11
+ENODEBUGDUMPTYPE dnumcolumns[10]=0
+DISSDUMPTYPE dnumcolumns[11]=19
+OTHERDUMPTYPE dnumcolumns[12]=0
+FLUXDUMPTYPE dnumcolumns[13]=0
+EOSDUMPTYPE dnumcolumns[14]=54
+VPOTDUMPTYPE dnumcolumns[15]=4
+FAILFLOORDUDUMPTYPE dnumcolumns[16]=9
+ENERDUMPTYPE dnumcolumns[17]=0
+FAKEDUMPTYPE dnumcolumns[18]=0
+
+end: init_dumps
+proc: 3 doing enerregion=0 flux 1 rind=0
+proc: 3 doing enerregion=0 flux 0 rind=15
+proc: 3 doing enerregion=0 flux 3 rind=0
+proc: 3 doing enerregion=0 flux 2 rind=15
+proc: 3 doing enerregion=0 flux 5 rind=0
+proc: 3 doing enerregion=0 flux 4 rind=15
+proc: 3 enerregion=0: doflux[0]=16 enerpos[0]=15
+proc: 3 enerregion=0: doflux[1]=0 enerpos[1]=0
+proc: 3 enerregion=0: doflux[2]=16 enerpos[2]=15
+proc: 3 enerregion=0: doflux[3]=0 enerpos[3]=0
+proc: 3 enerregion=0: doflux[4]=16 enerpos[4]=15
+proc: 3 enerregion=0: doflux[5]=0 enerpos[5]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=0 section: totaldiff=6 localdoflux[0]=16 localenerpos[0]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=0 section: totaldiff=6 localdoflux[1]=0 localenerpos[1]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=0 section: totaldiff=6 localdoflux[2]=16 localenerpos[2]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=0 section: totaldiff=6 localdoflux[3]=0 localenerpos[3]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=0 section: totaldiff=6 localdoflux[4]=16 localenerpos[4]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=0 section: totaldiff=6 localdoflux[5]=0 localenerpos[5]=0
+t =                     0, ud_{i,j,k} = 1 1 1 :: CORNT_enerregiondef_{i,j,k} = 0 0 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 1 0 :: CORNT_enerregiondef_{i,j,k} = 0 0 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 0 1 :: CORNT_enerregiondef_{i,j,k} = 0 32 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 0 0 :: CORNT_enerregiondef_{i,j,k} = 0 32 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 1 1 :: CORNT_enerregiondef_{i,j,k} = 160 0 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 1 0 :: CORNT_enerregiondef_{i,j,k} = 160 0 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 0 1 :: CORNT_enerregiondef_{i,j,k} = 160 32 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 0 0 :: CORNT_enerregiondef_{i,j,k} = 160 32 16 :: V_{1,2,3} =                     1                     0                     0 
+proc: 3 doing enerregion=1 flux 1 rind=0
+proc: 3 doing enerregion=1 flux 0 rind=15
+proc: 3 doing enerregion=1 flux 3 rind=0
+proc: 3 doing enerregion=1 flux 2 rind=15
+proc: 3 doing enerregion=1 flux 5 rind=0
+proc: 3 doing enerregion=1 flux 4 rind=15
+proc: 3 enerregion=1: doflux[0]=16 enerpos[0]=15
+proc: 3 enerregion=1: doflux[1]=0 enerpos[1]=0
+proc: 3 enerregion=1: doflux[2]=16 enerpos[2]=15
+proc: 3 enerregion=1: doflux[3]=0 enerpos[3]=0
+proc: 3 enerregion=1: doflux[4]=16 enerpos[4]=15
+proc: 3 enerregion=1: doflux[5]=0 enerpos[5]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=1 section: totaldiff=6 localdoflux[0]=16 localenerpos[0]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=1 section: totaldiff=6 localdoflux[1]=0 localenerpos[1]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=1 section: totaldiff=6 localdoflux[2]=16 localenerpos[2]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=1 section: totaldiff=6 localdoflux[3]=0 localenerpos[3]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=1 section: totaldiff=6 localdoflux[4]=16 localenerpos[4]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=1 section: totaldiff=6 localdoflux[5]=0 localenerpos[5]=0
+t =                     0, ud_{i,j,k} = 1 1 1 :: CORNT_enerregiondef_{i,j,k} = 0 0 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 1 0 :: CORNT_enerregiondef_{i,j,k} = 0 0 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 0 1 :: CORNT_enerregiondef_{i,j,k} = 0 32 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 0 0 :: CORNT_enerregiondef_{i,j,k} = 0 32 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 1 1 :: CORNT_enerregiondef_{i,j,k} = 160 0 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 1 0 :: CORNT_enerregiondef_{i,j,k} = 160 0 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 0 1 :: CORNT_enerregiondef_{i,j,k} = 160 32 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 0 0 :: CORNT_enerregiondef_{i,j,k} = 160 32 16 :: V_{1,2,3} =                     1                     0                     0 
+proc: 3 doing enerregion=2 flux 1 rind=0
+proc: 3 doing enerregion=3 sectionflux 1 rindglobal=-4
+proc: 3 doing enerregion=2 flux 0 rind=15
+proc: 3 doing enerregion=3 flux 0
+proc: 3 doing enerregion=2 flux 3 rind=0
+proc: 3 doing enerregion=3 sectionflux 3 rindglobal=-4
+proc: 3 doing enerregion=2 flux 2 rind=15
+proc: 3 doing enerregion=3 flux 2
+proc: 3 doing enerregion=2 flux 5 rind=0
+proc: 3 doing enerregion=3 sectionflux 5 rindglobal=-4
+proc: 3 doing enerregion=2 flux 4 rind=15
+proc: 3 doing enerregion=3 flux 4
+proc: 3 enerregion=2: doflux[0]=16 enerpos[0]=15
+proc: 3 enerregion=2: doflux[1]=0 enerpos[1]=0
+proc: 3 enerregion=2: doflux[2]=16 enerpos[2]=15
+proc: 3 enerregion=2: doflux[3]=0 enerpos[3]=0
+proc: 3 enerregion=2: doflux[4]=16 enerpos[4]=15
+proc: 3 enerregion=2: doflux[5]=0 enerpos[5]=0
+proc: 3 enerregion=3: doflux[0]=19 enerpos[0]=19
+proc: 3 enerregion=3: doflux[1]=-4 enerpos[1]=-4
+proc: 3 enerregion=3: doflux[2]=19 enerpos[2]=19
+proc: 3 enerregion=3: doflux[3]=-4 enerpos[3]=-4
+proc: 3 enerregion=3: doflux[4]=19 enerpos[4]=19
+proc: 3 enerregion=3: doflux[5]=-4 enerpos[5]=-4
+proc: myid=3  :: t=                    0 nstep=0 enerregion=2 section: totaldiff=6 localdoflux[0]=16 localenerpos[0]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=2 section: totaldiff=6 localdoflux[1]=0 localenerpos[1]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=2 section: totaldiff=6 localdoflux[2]=16 localenerpos[2]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=2 section: totaldiff=6 localdoflux[3]=0 localenerpos[3]=0
+proc: myid=3  :: t=                    0 nstep=0 enerregion=2 section: totaldiff=6 localdoflux[4]=16 localenerpos[4]=15
+proc: myid=3  :: t=                    0 nstep=0 enerregion=2 section: totaldiff=6 localdoflux[5]=0 localenerpos[5]=0
+t =                     0, ud_{i,j,k} = 1 1 1 :: CORNT_enerregiondef_{i,j,k} = 0 0 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 1 0 :: CORNT_enerregiondef_{i,j,k} = 0 0 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 0 1 :: CORNT_enerregiondef_{i,j,k} = 0 32 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 1 0 0 :: CORNT_enerregiondef_{i,j,k} = 0 32 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 1 1 :: CORNT_enerregiondef_{i,j,k} = 160 0 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 1 0 :: CORNT_enerregiondef_{i,j,k} = 160 0 16 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 0 1 :: CORNT_enerregiondef_{i,j,k} = 160 32 0 :: V_{1,2,3} =                     1                     0                     0 
+t =                     0, ud_{i,j,k} = 0 0 0 :: CORNT_enerregiondef_{i,j,k} = 160 32 16 :: V_{1,2,3} =                     1                     0                     0 
+proc: 3 doing inner jet flux X2DN
+proc: 3 doing inner jet flux X3DN
+proc: 3 doing inner jet flux X3UP
+proc: 3 6 innerjet: doflux[0]=-100 enerpos[0]=15
+proc: 3 6 innerjet: doflux[1]=-100 enerpos[1]=0
+proc: 3 6 innerjet: doflux[2]=-100 enerpos[2]=15
+proc: 3 6 innerjet: doflux[3]=0 enerpos[3]=0
+proc: 3 6 innerjet: doflux[4]=16 enerpos[4]=15
+proc: 3 6 innerjet: doflux[5]=0 enerpos[5]=0
+proc: 3 7 outerjet: doflux[0]=-100 enerpos[0]=-100
+proc: 3 7 outerjet: doflux[1]=-100 enerpos[1]=-100
+proc: 3 7 outerjet: doflux[2]=-100 enerpos[2]=-100
+proc: 3 7 outerjet: doflux[3]=-100 enerpos[3]=-100
+proc: 3 7 outerjet: doflux[4]=-100 enerpos[4]=-100
+proc: 3 7 outerjet: doflux[5]=-100 enerpos[5]=-100
+Using full 3D polar boundary conditions
+R0=                   -4 Rhor=                    2 Rin=                    1 Rout=                10000 ihor=4
+begin: init_placeongrid_griddecomposition ... dirgenset[0][0][0]: 1
+dirgenset[0][0][1]: 18432
+dirgenset[0][0][2]: 4
+dirgenset[0][0][3]: 18
+dirgenset[0][0][4]: 25
+dirgenset[0][0][5]: 1
+dirgenset[0][0][6]: 8
+dirgenset[0][1][0]: 1
+dirgenset[0][1][1]: 18432
+dirgenset[0][1][2]: 2
+dirgenset[0][1][3]: 19
+dirgenset[0][1][4]: 12
+dirgenset[0][1][5]: 0
+dirgenset[0][1][6]: 8
+dirgenset[0][2][0]: 1
+dirgenset[0][2][1]: 18432
+dirgenset[0][2][2]: 13
+dirgenset[0][2][3]: 20
+dirgenset[0][2][4]: 81
+dirgenset[0][2][5]: 3
+dirgenset[0][2][6]: 8
+dirgenset[0][3][0]: 0
+dirgenset[0][3][1]: 0
+dirgenset[0][3][2]: 0
+dirgenset[0][3][3]: 21
+dirgenset[0][3][4]: 2
+dirgenset[0][3][5]: 2
+dirgenset[0][3][6]: 0
+dirgenset[0][4][0]: 0
+dirgenset[0][4][1]: 0
+dirgenset[0][4][2]: 0
+dirgenset[0][4][3]: 22
+dirgenset[0][4][4]: 5
+dirgenset[0][4][5]: 5
+dirgenset[0][4][6]: 0
+dirgenset[0][5][0]: 0
+dirgenset[0][5][1]: 0
+dirgenset[0][5][2]: 0
+dirgenset[0][5][3]: 23
+dirgenset[0][5][4]: 4
+dirgenset[0][5][5]: 4
+dirgenset[0][5][6]: 0
+dirgenset[1][0][0]: 1
+dirgenset[1][0][1]: 2592
+dirgenset[1][0][2]: 4
+dirgenset[1][0][3]: 18
+dirgenset[1][0][4]: 25
+dirgenset[1][0][5]: 1
+dirgenset[1][0][6]: 8
+dirgenset[1][1][0]: 1
+dirgenset[1][1][1]: 2592
+dirgenset[1][1][2]: 2
+dirgenset[1][1][3]: 19
+dirgenset[1][1][4]: 12
+dirgenset[1][1][5]: 0
+dirgenset[1][1][6]: 8
+dirgenset[1][2][0]: 1
+dirgenset[1][2][1]: 2592
+dirgenset[1][2][2]: 13
+dirgenset[1][2][3]: 20
+dirgenset[1][2][4]: 81
+dirgenset[1][2][5]: 3
+dirgenset[1][2][6]: 8
+dirgenset[1][3][0]: 0
+dirgenset[1][3][1]: 0
+dirgenset[1][3][2]: 0
+dirgenset[1][3][3]: 21
+dirgenset[1][3][4]: 2
+dirgenset[1][3][5]: 2
+dirgenset[1][3][6]: 0
+dirgenset[1][4][0]: 0
+dirgenset[1][4][1]: 0
+dirgenset[1][4][2]: 0
+dirgenset[1][4][3]: 22
+dirgenset[1][4][4]: 5
+dirgenset[1][4][5]: 5
+dirgenset[1][4][6]: 0
+dirgenset[1][5][0]: 0
+dirgenset[1][5][1]: 0
+dirgenset[1][5][2]: 0
+dirgenset[1][5][3]: 23
+dirgenset[1][5][4]: 4
+dirgenset[1][5][5]: 4
+dirgenset[1][5][6]: 0
+dirgenset[2][0][0]: 1
+dirgenset[2][0][1]: 18432
+dirgenset[2][0][2]: 4
+dirgenset[2][0][3]: 18
+dirgenset[2][0][4]: 25
+dirgenset[2][0][5]: 1
+dirgenset[2][0][6]: 8
+dirgenset[2][1][0]: 1
+dirgenset[2][1][1]: 18432
+dirgenset[2][1][2]: 2
+dirgenset[2][1][3]: 19
+dirgenset[2][1][4]: 12
+dirgenset[2][1][5]: 0
+dirgenset[2][1][6]: 8
+dirgenset[2][2][0]: 1
+dirgenset[2][2][1]: 18432
+dirgenset[2][2][2]: 13
+dirgenset[2][2][3]: 20
+dirgenset[2][2][4]: 81
+dirgenset[2][2][5]: 3
+dirgenset[2][2][6]: 8
+dirgenset[2][3][0]: 0
+dirgenset[2][3][1]: 0
+dirgenset[2][3][2]: 0
+dirgenset[2][3][3]: 21
+dirgenset[2][3][4]: 2
+dirgenset[2][3][5]: 2
+dirgenset[2][3][6]: 0
+dirgenset[2][4][0]: 0
+dirgenset[2][4][1]: 0
+dirgenset[2][4][2]: 0
+dirgenset[2][4][3]: 22
+dirgenset[2][4][4]: 5
+dirgenset[2][4][5]: 5
+dirgenset[2][4][6]: 0
+dirgenset[2][5][0]: 0
+dirgenset[2][5][1]: 0
+dirgenset[2][5][2]: 0
+dirgenset[2][5][3]: 23
+dirgenset[2][5][4]: 4
+dirgenset[2][5][5]: 4
+dirgenset[2][5][6]: 0
+dirgenset[3][0][0]: 1
+dirgenset[3][0][1]: 2592
+dirgenset[3][0][2]: 4
+dirgenset[3][0][3]: 18
+dirgenset[3][0][4]: 25
+dirgenset[3][0][5]: 1
+dirgenset[3][0][6]: 8
+dirgenset[3][1][0]: 1
+dirgenset[3][1][1]: 2592
+dirgenset[3][1][2]: 2
+dirgenset[3][1][3]: 19
+dirgenset[3][1][4]: 12
+dirgenset[3][1][5]: 0
+dirgenset[3][1][6]: 8
+dirgenset[3][2][0]: 1
+dirgenset[3][2][1]: 2592
+dirgenset[3][2][2]: 13
+dirgenset[3][2][3]: 20
+dirgenset[3][2][4]: 81
+dirgenset[3][2][5]: 3
+dirgenset[3][2][6]: 8
+dirgenset[3][3][0]: 0
+dirgenset[3][3][1]: 0
+dirgenset[3][3][2]: 0
+dirgenset[3][3][3]: 21
+dirgenset[3][3][4]: 2
+dirgenset[3][3][5]: 2
+dirgenset[3][3][6]: 0
+dirgenset[3][4][0]: 0
+dirgenset[3][4][1]: 0
+dirgenset[3][4][2]: 0
+dirgenset[3][4][3]: 22
+dirgenset[3][4][4]: 5
+dirgenset[3][4][5]: 5
+dirgenset[3][4][6]: 0
+dirgenset[3][5][0]: 0
+dirgenset[3][5][1]: 0
+dirgenset[3][5][2]: 0
+dirgenset[3][5][3]: 23
+dirgenset[3][5][4]: 4
+dirgenset[3][5][5]: 4
+dirgenset[3][5][6]: 0
+dirgenset[4][0][0]: 1
+dirgenset[4][0][1]: 324
+dirgenset[4][0][2]: 4
+dirgenset[4][0][3]: 18
+dirgenset[4][0][4]: 25
+dirgenset[4][0][5]: 1
+dirgenset[4][0][6]: 8
+dirgenset[4][1][0]: 1
+dirgenset[4][1][1]: 324
+dirgenset[4][1][2]: 2
+dirgenset[4][1][3]: 19
+dirgenset[4][1][4]: 12
+dirgenset[4][1][5]: 0
+dirgenset[4][1][6]: 8
+dirgenset[4][2][0]: 1
+dirgenset[4][2][1]: 324
+dirgenset[4][2][2]: 13
+dirgenset[4][2][3]: 20
+dirgenset[4][2][4]: 81
+dirgenset[4][2][5]: 3
+dirgenset[4][2][6]: 8
+dirgenset[4][3][0]: 0
+dirgenset[4][3][1]: 0
+dirgenset[4][3][2]: 0
+dirgenset[4][3][3]: 21
+dirgenset[4][3][4]: 2
+dirgenset[4][3][5]: 2
+dirgenset[4][3][6]: 0
+dirgenset[4][4][0]: 0
+dirgenset[4][4][1]: 0
+dirgenset[4][4][2]: 0
+dirgenset[4][4][3]: 22
+dirgenset[4][4][4]: 5
+dirgenset[4][4][5]: 5
+dirgenset[4][4][6]: 0
+dirgenset[4][5][0]: 0
+dirgenset[4][5][1]: 0
+dirgenset[4][5][2]: 0
+dirgenset[4][5][3]: 23
+dirgenset[4][5][4]: 4
+dirgenset[4][5][5]: 4
+dirgenset[4][5][6]: 0
+dirgenset[5][0][0]: 1
+dirgenset[5][0][1]: 20736
+dirgenset[5][0][2]: 4
+dirgenset[5][0][3]: 18
+dirgenset[5][0][4]: 25
+dirgenset[5][0][5]: 1
+dirgenset[5][0][6]: 9
+dirgenset[5][1][0]: 1
+dirgenset[5][1][1]: 20736
+dirgenset[5][1][2]: 2
+dirgenset[5][1][3]: 19
+dirgenset[5][1][4]: 12
+dirgenset[5][1][5]: 0
+dirgenset[5][1][6]: 9
+dirgenset[5][2][0]: 1
+dirgenset[5][2][1]: 20736
+dirgenset[5][2][2]: 13
+dirgenset[5][2][3]: 20
+dirgenset[5][2][4]: 81
+dirgenset[5][2][5]: 3
+dirgenset[5][2][6]: 9
+dirgenset[5][3][0]: 0
+dirgenset[5][3][1]: 0
+dirgenset[5][3][2]: 0
+dirgenset[5][3][3]: 21
+dirgenset[5][3][4]: 2
+dirgenset[5][3][5]: 2
+dirgenset[5][3][6]: 0
+dirgenset[5][4][0]: 0
+dirgenset[5][4][1]: 0
+dirgenset[5][4][2]: 0
+dirgenset[5][4][3]: 22
+dirgenset[5][4][4]: 5
+dirgenset[5][4][5]: 5
+dirgenset[5][4][6]: 0
+dirgenset[5][5][0]: 0
+dirgenset[5][5][1]: 0
+dirgenset[5][5][2]: 0
+dirgenset[5][5][3]: 23
+dirgenset[5][5][4]: 4
+dirgenset[5][5][5]: 4
+dirgenset[5][5][6]: 0
+dirgenset[6][0][0]: 1
+dirgenset[6][0][1]: 2916
+dirgenset[6][0][2]: 4
+dirgenset[6][0][3]: 18
+dirgenset[6][0][4]: 25
+dirgenset[6][0][5]: 1
+dirgenset[6][0][6]: 9
+dirgenset[6][1][0]: 1
+dirgenset[6][1][1]: 2916
+dirgenset[6][1][2]: 2
+dirgenset[6][1][3]: 19
+dirgenset[6][1][4]: 12
+dirgenset[6][1][5]: 0
+dirgenset[6][1][6]: 9
+dirgenset[6][2][0]: 1
+dirgenset[6][2][1]: 2916
+dirgenset[6][2][2]: 13
+dirgenset[6][2][3]: 20
+dirgenset[6][2][4]: 81
+dirgenset[6][2][5]: 3
+dirgenset[6][2][6]: 9
+dirgenset[6][3][0]: 0
+dirgenset[6][3][1]: 0
+dirgenset[6][3][2]: 0
+dirgenset[6][3][3]: 21
+dirgenset[6][3][4]: 2
+dirgenset[6][3][5]: 2
+dirgenset[6][3][6]: 0
+dirgenset[6][4][0]: 0
+dirgenset[6][4][1]: 0
+dirgenset[6][4][2]: 0
+dirgenset[6][4][3]: 22
+dirgenset[6][4][4]: 5
+dirgenset[6][4][5]: 5
+dirgenset[6][4][6]: 0
+dirgenset[6][5][0]: 0
+dirgenset[6][5][1]: 0
+dirgenset[6][5][2]: 0
+dirgenset[6][5][3]: 23
+dirgenset[6][5][4]: 4
+dirgenset[6][5][5]: 4
+dirgenset[6][5][6]: 0
+dirgenset[7][0][0]: 1
+dirgenset[7][0][1]: 9216
+dirgenset[7][0][2]: 4
+dirgenset[7][0][3]: 18
+dirgenset[7][0][4]: 25
+dirgenset[7][0][5]: 1
+dirgenset[7][0][6]: 4
+dirgenset[7][1][0]: 1
+dirgenset[7][1][1]: 9216
+dirgenset[7][1][2]: 2
+dirgenset[7][1][3]: 19
+dirgenset[7][1][4]: 12
+dirgenset[7][1][5]: 0
+dirgenset[7][1][6]: 4
+dirgenset[7][2][0]: 1
+dirgenset[7][2][1]: 9216
+dirgenset[7][2][2]: 13
+dirgenset[7][2][3]: 20
+dirgenset[7][2][4]: 81
+dirgenset[7][2][5]: 3
+dirgenset[7][2][6]: 4
+dirgenset[7][3][0]: 0
+dirgenset[7][3][1]: 0
+dirgenset[7][3][2]: 0
+dirgenset[7][3][3]: 21
+dirgenset[7][3][4]: 2
+dirgenset[7][3][5]: 2
+dirgenset[7][3][6]: 0
+dirgenset[7][4][0]: 0
+dirgenset[7][4][1]: 0
+dirgenset[7][4][2]: 0
+dirgenset[7][4][3]: 22
+dirgenset[7][4][4]: 5
+dirgenset[7][4][5]: 5
+dirgenset[7][4][6]: 0
+dirgenset[7][5][0]: 0
+dirgenset[7][5][1]: 0
+dirgenset[7][5][2]: 0
+dirgenset[7][5][3]: 23
+dirgenset[7][5][4]: 4
+dirgenset[7][5][5]: 4
+dirgenset[7][5][6]: 0
+dirgenset[8][0][0]: 1
+dirgenset[8][0][1]: 1296
+dirgenset[8][0][2]: 4
+dirgenset[8][0][3]: 18
+dirgenset[8][0][4]: 25
+dirgenset[8][0][5]: 1
+dirgenset[8][0][6]: 4
+dirgenset[8][1][0]: 1
+dirgenset[8][1][1]: 1296
+dirgenset[8][1][2]: 2
+dirgenset[8][1][3]: 19
+dirgenset[8][1][4]: 12
+dirgenset[8][1][5]: 0
+dirgenset[8][1][6]: 4
+dirgenset[8][2][0]: 1
+dirgenset[8][2][1]: 1296
+dirgenset[8][2][2]: 13
+dirgenset[8][2][3]: 20
+dirgenset[8][2][4]: 81
+dirgenset[8][2][5]: 3
+dirgenset[8][2][6]: 4
+dirgenset[8][3][0]: 0
+dirgenset[8][3][1]: 0
+dirgenset[8][3][2]: 0
+dirgenset[8][3][3]: 21
+dirgenset[8][3][4]: 2
+dirgenset[8][3][5]: 2
+dirgenset[8][3][6]: 0
+dirgenset[8][4][0]: 0
+dirgenset[8][4][1]: 0
+dirgenset[8][4][2]: 0
+dirgenset[8][4][3]: 22
+dirgenset[8][4][4]: 5
+dirgenset[8][4][5]: 5
+dirgenset[8][4][6]: 0
+dirgenset[8][5][0]: 0
+dirgenset[8][5][1]: 0
+dirgenset[8][5][2]: 0
+dirgenset[8][5][3]: 23
+dirgenset[8][5][4]: 4
+dirgenset[8][5][5]: 4
+dirgenset[8][5][6]: 0
+dirloopset[0][0][0][0]: 12
+dirloopset[0][0][0][1]: 15
+dirloopset[0][0][0][2]: 1
+dirloopset[0][0][0][3]: 16
+dirloopset[0][0][0][4]: 19
+dirloopset[0][0][0][5]: 1
+dirloopset[0][0][0][6]: -4
+dirloopset[0][0][0][7]: 19
+dirloopset[0][0][0][8]: 1
+dirloopset[0][0][0][9]: -4
+dirloopset[0][0][0][10]: 19
+dirloopset[0][0][0][11]: 1
+dirloopset[0][0][0][12]: -4
+dirloopset[0][0][0][13]: 19
+dirloopset[0][0][0][14]: 1
+dirloopset[0][0][0][15]: -4
+dirloopset[0][0][0][16]: 19
+dirloopset[0][0][0][17]: 1
+dirloopset[0][0][1][0]: 12
+dirloopset[0][0][1][1]: 15
+dirloopset[0][0][1][2]: 1
+dirloopset[0][0][1][3]: 16
+dirloopset[0][0][1][4]: 19
+dirloopset[0][0][1][5]: 1
+dirloopset[0][0][1][6]: -4
+dirloopset[0][0][1][7]: 19
+dirloopset[0][0][1][8]: 1
+dirloopset[0][0][1][9]: -4
+dirloopset[0][0][1][10]: 19
+dirloopset[0][0][1][11]: 1
+dirloopset[0][0][1][12]: -4
+dirloopset[0][0][1][13]: 19
+dirloopset[0][0][1][14]: 1
+dirloopset[0][0][1][15]: -4
+dirloopset[0][0][1][16]: 19
+dirloopset[0][0][1][17]: 1
+dirloopset[0][1][0][0]: 0
+dirloopset[0][1][0][1]: 3
+dirloopset[0][1][0][2]: 1
+dirloopset[0][1][0][3]: -4
+dirloopset[0][1][0][4]: -1
+dirloopset[0][1][0][5]: 1
+dirloopset[0][1][0][6]: -4
+dirloopset[0][1][0][7]: 19
+dirloopset[0][1][0][8]: 1
+dirloopset[0][1][0][9]: -4
+dirloopset[0][1][0][10]: 19
+dirloopset[0][1][0][11]: 1
+dirloopset[0][1][0][12]: -4
+dirloopset[0][1][0][13]: 19
+dirloopset[0][1][0][14]: 1
+dirloopset[0][1][0][15]: -4
+dirloopset[0][1][0][16]: 19
+dirloopset[0][1][0][17]: 1
+dirloopset[0][1][1][0]: 0
+dirloopset[0][1][1][1]: 3
+dirloopset[0][1][1][2]: 1
+dirloopset[0][1][1][3]: -4
+dirloopset[0][1][1][4]: -1
+dirloopset[0][1][1][5]: 1
+dirloopset[0][1][1][6]: -4
+dirloopset[0][1][1][7]: 19
+dirloopset[0][1][1][8]: 1
+dirloopset[0][1][1][9]: -4
+dirloopset[0][1][1][10]: 19
+dirloopset[0][1][1][11]: 1
+dirloopset[0][1][1][12]: -4
+dirloopset[0][1][1][13]: 19
+dirloopset[0][1][1][14]: 1
+dirloopset[0][1][1][15]: -4
+dirloopset[0][1][1][16]: 19
+dirloopset[0][1][1][17]: 1
+dirloopset[0][2][0][0]: -4
+dirloopset[0][2][0][1]: 19
+dirloopset[0][2][0][2]: 1
+dirloopset[0][2][0][3]: -4
+dirloopset[0][2][0][4]: 19
+dirloopset[0][2][0][5]: 1
+dirloopset[0][2][0][6]: 12
+dirloopset[0][2][0][7]: 15
+dirloopset[0][2][0][8]: 1
+dirloopset[0][2][0][9]: 16
+dirloopset[0][2][0][10]: 19
+dirloopset[0][2][0][11]: 1
+dirloopset[0][2][0][12]: -4
+dirloopset[0][2][0][13]: 19
+dirloopset[0][2][0][14]: 1
+dirloopset[0][2][0][15]: -4
+dirloopset[0][2][0][16]: 19
+dirloopset[0][2][0][17]: 1
+dirloopset[0][2][1][0]: -4
+dirloopset[0][2][1][1]: 19
+dirloopset[0][2][1][2]: 1
+dirloopset[0][2][1][3]: -4
+dirloopset[0][2][1][4]: 19
+dirloopset[0][2][1][5]: 1
+dirloopset[0][2][1][6]: 12
+dirloopset[0][2][1][7]: 15
+dirloopset[0][2][1][8]: 1
+dirloopset[0][2][1][9]: 16
+dirloopset[0][2][1][10]: 19
+dirloopset[0][2][1][11]: 1
+dirloopset[0][2][1][12]: -4
+dirloopset[0][2][1][13]: 19
+dirloopset[0][2][1][14]: 1
+dirloopset[0][2][1][15]: -4
+dirloopset[0][2][1][16]: 19
+dirloopset[0][2][1][17]: 1
+dirloopset[0][3][0][0]: 0
+dirloopset[0][3][0][1]: 0
+dirloopset[0][3][0][2]: 0
+dirloopset[0][3][0][3]: 0
+dirloopset[0][3][0][4]: 0
+dirloopset[0][3][0][5]: 0
+dirloopset[0][3][0][6]: 0
+dirloopset[0][3][0][7]: 0
+dirloopset[0][3][0][8]: 0
+dirloopset[0][3][0][9]: 0
+dirloopset[0][3][0][10]: 0
+dirloopset[0][3][0][11]: 0
+dirloopset[0][3][0][12]: 0
+dirloopset[0][3][0][13]: 0
+dirloopset[0][3][0][14]: 0
+dirloopset[0][3][0][15]: 0
+dirloopset[0][3][0][16]: 0
+dirloopset[0][3][0][17]: 0
+dirloopset[0][3][1][0]: 0
+dirloopset[0][3][1][1]: 0
+dirloopset[0][3][1][2]: 0
+dirloopset[0][3][1][3]: 0
+dirloopset[0][3][1][4]: 0
+dirloopset[0][3][1][5]: 0
+dirloopset[0][3][1][6]: 0
+dirloopset[0][3][1][7]: 0
+dirloopset[0][3][1][8]: 0
+dirloopset[0][3][1][9]: 0
+dirloopset[0][3][1][10]: 0
+dirloopset[0][3][1][11]: 0
+dirloopset[0][3][1][12]: 0
+dirloopset[0][3][1][13]: 0
+dirloopset[0][3][1][14]: 0
+dirloopset[0][3][1][15]: 0
+dirloopset[0][3][1][16]: 0
+dirloopset[0][3][1][17]: 0
+dirloopset[0][4][0][0]: 0
+dirloopset[0][4][0][1]: 0
+dirloopset[0][4][0][2]: 0
+dirloopset[0][4][0][3]: 0
+dirloopset[0][4][0][4]: 0
+dirloopset[0][4][0][5]: 0
+dirloopset[0][4][0][6]: 0
+dirloopset[0][4][0][7]: 0
+dirloopset[0][4][0][8]: 0
+dirloopset[0][4][0][9]: 0
+dirloopset[0][4][0][10]: 0
+dirloopset[0][4][0][11]: 0
+dirloopset[0][4][0][12]: 0
+dirloopset[0][4][0][13]: 0
+dirloopset[0][4][0][14]: 0
+dirloopset[0][4][0][15]: 0
+dirloopset[0][4][0][16]: 0
+dirloopset[0][4][0][17]: 0
+dirloopset[0][4][1][0]: 0
+dirloopset[0][4][1][1]: 0
+dirloopset[0][4][1][2]: 0
+dirloopset[0][4][1][3]: 0
+dirloopset[0][4][1][4]: 0
+dirloopset[0][4][1][5]: 0
+dirloopset[0][4][1][6]: 0
+dirloopset[0][4][1][7]: 0
+dirloopset[0][4][1][8]: 0
+dirloopset[0][4][1][9]: 0
+dirloopset[0][4][1][10]: 0
+dirloopset[0][4][1][11]: 0
+dirloopset[0][4][1][12]: 0
+dirloopset[0][4][1][13]: 0
+dirloopset[0][4][1][14]: 0
+dirloopset[0][4][1][15]: 0
+dirloopset[0][4][1][16]: 0
+dirloopset[0][4][1][17]: 0
+dirloopset[0][5][0][0]: 0
+dirloopset[0][5][0][1]: 0
+dirloopset[0][5][0][2]: 0
+dirloopset[0][5][0][3]: 0
+dirloopset[0][5][0][4]: 0
+dirloopset[0][5][0][5]: 0
+dirloopset[0][5][0][6]: 0
+dirloopset[0][5][0][7]: 0
+dirloopset[0][5][0][8]: 0
+dirloopset[0][5][0][9]: 0
+dirloopset[0][5][0][10]: 0
+dirloopset[0][5][0][11]: 0
+dirloopset[0][5][0][12]: 0
+dirloopset[0][5][0][13]: 0
+dirloopset[0][5][0][14]: 0
+dirloopset[0][5][0][15]: 0
+dirloopset[0][5][0][16]: 0
+dirloopset[0][5][0][17]: 0
+dirloopset[0][5][1][0]: 0
+dirloopset[0][5][1][1]: 0
+dirloopset[0][5][1][2]: 0
+dirloopset[0][5][1][3]: 0
+dirloopset[0][5][1][4]: 0
+dirloopset[0][5][1][5]: 0
+dirloopset[0][5][1][6]: 0
+dirloopset[0][5][1][7]: 0
+dirloopset[0][5][1][8]: 0
+dirloopset[0][5][1][9]: 0
+dirloopset[0][5][1][10]: 0
+dirloopset[0][5][1][11]: 0
+dirloopset[0][5][1][12]: 0
+dirloopset[0][5][1][13]: 0
+dirloopset[0][5][1][14]: 0
+dirloopset[0][5][1][15]: 0
+dirloopset[0][5][1][16]: 0
+dirloopset[0][5][1][17]: 0
+dirloopset[1][0][0][0]: 15
+dirloopset[1][0][0][1]: 15
+dirloopset[1][0][0][2]: 1
+dirloopset[1][0][0][3]: 16
+dirloopset[1][0][0][4]: 16
+dirloopset[1][0][0][5]: 1
+dirloopset[1][0][0][6]: -1
+dirloopset[1][0][0][7]: 16
+dirloopset[1][0][0][8]: 1
+dirloopset[1][0][0][9]: -1
+dirloopset[1][0][0][10]: 16
+dirloopset[1][0][0][11]: 1
+dirloopset[1][0][0][12]: -1
+dirloopset[1][0][0][13]: 16
+dirloopset[1][0][0][14]: 1
+dirloopset[1][0][0][15]: -1
+dirloopset[1][0][0][16]: 16
+dirloopset[1][0][0][17]: 1
+dirloopset[1][0][1][0]: 15
+dirloopset[1][0][1][1]: 15
+dirloopset[1][0][1][2]: 1
+dirloopset[1][0][1][3]: 16
+dirloopset[1][0][1][4]: 16
+dirloopset[1][0][1][5]: 1
+dirloopset[1][0][1][6]: -1
+dirloopset[1][0][1][7]: 16
+dirloopset[1][0][1][8]: 1
+dirloopset[1][0][1][9]: -1
+dirloopset[1][0][1][10]: 16
+dirloopset[1][0][1][11]: 1
+dirloopset[1][0][1][12]: -1
+dirloopset[1][0][1][13]: 16
+dirloopset[1][0][1][14]: 1
+dirloopset[1][0][1][15]: -1
+dirloopset[1][0][1][16]: 16
+dirloopset[1][0][1][17]: 1
+dirloopset[1][1][0][0]: 0
+dirloopset[1][1][0][1]: 0
+dirloopset[1][1][0][2]: 1
+dirloopset[1][1][0][3]: -1
+dirloopset[1][1][0][4]: -1
+dirloopset[1][1][0][5]: 1
+dirloopset[1][1][0][6]: -1
+dirloopset[1][1][0][7]: 16
+dirloopset[1][1][0][8]: 1
+dirloopset[1][1][0][9]: -1
+dirloopset[1][1][0][10]: 16
+dirloopset[1][1][0][11]: 1
+dirloopset[1][1][0][12]: -1
+dirloopset[1][1][0][13]: 16
+dirloopset[1][1][0][14]: 1
+dirloopset[1][1][0][15]: -1
+dirloopset[1][1][0][16]: 16
+dirloopset[1][1][0][17]: 1
+dirloopset[1][1][1][0]: 0
+dirloopset[1][1][1][1]: 0
+dirloopset[1][1][1][2]: 1
+dirloopset[1][1][1][3]: -1
+dirloopset[1][1][1][4]: -1
+dirloopset[1][1][1][5]: 1
+dirloopset[1][1][1][6]: -1
+dirloopset[1][1][1][7]: 16
+dirloopset[1][1][1][8]: 1
+dirloopset[1][1][1][9]: -1
+dirloopset[1][1][1][10]: 16
+dirloopset[1][1][1][11]: 1
+dirloopset[1][1][1][12]: -1
+dirloopset[1][1][1][13]: 16
+dirloopset[1][1][1][14]: 1
+dirloopset[1][1][1][15]: -1
+dirloopset[1][1][1][16]: 16
+dirloopset[1][1][1][17]: 1
+dirloopset[1][2][0][0]: -1
+dirloopset[1][2][0][1]: 16
+dirloopset[1][2][0][2]: 1
+dirloopset[1][2][0][3]: -1
+dirloopset[1][2][0][4]: 16
+dirloopset[1][2][0][5]: 1
+dirloopset[1][2][0][6]: 15
+dirloopset[1][2][0][7]: 15
+dirloopset[1][2][0][8]: 1
+dirloopset[1][2][0][9]: 16
+dirloopset[1][2][0][10]: 16
+dirloopset[1][2][0][11]: 1
+dirloopset[1][2][0][12]: -1
+dirloopset[1][2][0][13]: 16
+dirloopset[1][2][0][14]: 1
+dirloopset[1][2][0][15]: -1
+dirloopset[1][2][0][16]: 16
+dirloopset[1][2][0][17]: 1
+dirloopset[1][2][1][0]: -1
+dirloopset[1][2][1][1]: 16
+dirloopset[1][2][1][2]: 1
+dirloopset[1][2][1][3]: -1
+dirloopset[1][2][1][4]: 16
+dirloopset[1][2][1][5]: 1
+dirloopset[1][2][1][6]: 15
+dirloopset[1][2][1][7]: 15
+dirloopset[1][2][1][8]: 1
+dirloopset[1][2][1][9]: 16
+dirloopset[1][2][1][10]: 16
+dirloopset[1][2][1][11]: 1
+dirloopset[1][2][1][12]: -1
+dirloopset[1][2][1][13]: 16
+dirloopset[1][2][1][14]: 1
+dirloopset[1][2][1][15]: -1
+dirloopset[1][2][1][16]: 16
+dirloopset[1][2][1][17]: 1
+dirloopset[1][3][0][0]: 0
+dirloopset[1][3][0][1]: 0
+dirloopset[1][3][0][2]: 0
+dirloopset[1][3][0][3]: 0
+dirloopset[1][3][0][4]: 0
+dirloopset[1][3][0][5]: 0
+dirloopset[1][3][0][6]: 0
+dirloopset[1][3][0][7]: 0
+dirloopset[1][3][0][8]: 0
+dirloopset[1][3][0][9]: 0
+dirloopset[1][3][0][10]: 0
+dirloopset[1][3][0][11]: 0
+dirloopset[1][3][0][12]: 0
+dirloopset[1][3][0][13]: 0
+dirloopset[1][3][0][14]: 0
+dirloopset[1][3][0][15]: 0
+dirloopset[1][3][0][16]: 0
+dirloopset[1][3][0][17]: 0
+dirloopset[1][3][1][0]: 0
+dirloopset[1][3][1][1]: 0
+dirloopset[1][3][1][2]: 0
+dirloopset[1][3][1][3]: 0
+dirloopset[1][3][1][4]: 0
+dirloopset[1][3][1][5]: 0
+dirloopset[1][3][1][6]: 0
+dirloopset[1][3][1][7]: 0
+dirloopset[1][3][1][8]: 0
+dirloopset[1][3][1][9]: 0
+dirloopset[1][3][1][10]: 0
+dirloopset[1][3][1][11]: 0
+dirloopset[1][3][1][12]: 0
+dirloopset[1][3][1][13]: 0
+dirloopset[1][3][1][14]: 0
+dirloopset[1][3][1][15]: 0
+dirloopset[1][3][1][16]: 0
+dirloopset[1][3][1][17]: 0
+dirloopset[1][4][0][0]: 0
+dirloopset[1][4][0][1]: 0
+dirloopset[1][4][0][2]: 0
+dirloopset[1][4][0][3]: 0
+dirloopset[1][4][0][4]: 0
+dirloopset[1][4][0][5]: 0
+dirloopset[1][4][0][6]: 0
+dirloopset[1][4][0][7]: 0
+dirloopset[1][4][0][8]: 0
+dirloopset[1][4][0][9]: 0
+dirloopset[1][4][0][10]: 0
+dirloopset[1][4][0][11]: 0
+dirloopset[1][4][0][12]: 0
+dirloopset[1][4][0][13]: 0
+dirloopset[1][4][0][14]: 0
+dirloopset[1][4][0][15]: 0
+dirloopset[1][4][0][16]: 0
+dirloopset[1][4][0][17]: 0
+dirloopset[1][4][1][0]: 0
+dirloopset[1][4][1][1]: 0
+dirloopset[1][4][1][2]: 0
+dirloopset[1][4][1][3]: 0
+dirloopset[1][4][1][4]: 0
+dirloopset[1][4][1][5]: 0
+dirloopset[1][4][1][6]: 0
+dirloopset[1][4][1][7]: 0
+dirloopset[1][4][1][8]: 0
+dirloopset[1][4][1][9]: 0
+dirloopset[1][4][1][10]: 0
+dirloopset[1][4][1][11]: 0
+dirloopset[1][4][1][12]: 0
+dirloopset[1][4][1][13]: 0
+dirloopset[1][4][1][14]: 0
+dirloopset[1][4][1][15]: 0
+dirloopset[1][4][1][16]: 0
+dirloopset[1][4][1][17]: 0
+dirloopset[1][5][0][0]: 0
+dirloopset[1][5][0][1]: 0
+dirloopset[1][5][0][2]: 0
+dirloopset[1][5][0][3]: 0
+dirloopset[1][5][0][4]: 0
+dirloopset[1][5][0][5]: 0
+dirloopset[1][5][0][6]: 0
+dirloopset[1][5][0][7]: 0
+dirloopset[1][5][0][8]: 0
+dirloopset[1][5][0][9]: 0
+dirloopset[1][5][0][10]: 0
+dirloopset[1][5][0][11]: 0
+dirloopset[1][5][0][12]: 0
+dirloopset[1][5][0][13]: 0
+dirloopset[1][5][0][14]: 0
+dirloopset[1][5][0][15]: 0
+dirloopset[1][5][0][16]: 0
+dirloopset[1][5][0][17]: 0
+dirloopset[1][5][1][0]: 0
+dirloopset[1][5][1][1]: 0
+dirloopset[1][5][1][2]: 0
+dirloopset[1][5][1][3]: 0
+dirloopset[1][5][1][4]: 0
+dirloopset[1][5][1][5]: 0
+dirloopset[1][5][1][6]: 0
+dirloopset[1][5][1][7]: 0
+dirloopset[1][5][1][8]: 0
+dirloopset[1][5][1][9]: 0
+dirloopset[1][5][1][10]: 0
+dirloopset[1][5][1][11]: 0
+dirloopset[1][5][1][12]: 0
+dirloopset[1][5][1][13]: 0
+dirloopset[1][5][1][14]: 0
+dirloopset[1][5][1][15]: 0
+dirloopset[1][5][1][16]: 0
+dirloopset[1][5][1][17]: 0
+dirloopset[2][0][0][0]: 12
+dirloopset[2][0][0][1]: 15
+dirloopset[2][0][0][2]: 1
+dirloopset[2][0][0][3]: 16
+dirloopset[2][0][0][4]: 19
+dirloopset[2][0][0][5]: 1
+dirloopset[2][0][0][6]: -4
+dirloopset[2][0][0][7]: 19
+dirloopset[2][0][0][8]: 1
+dirloopset[2][0][0][9]: -4
+dirloopset[2][0][0][10]: 19
+dirloopset[2][0][0][11]: 1
+dirloopset[2][0][0][12]: -4
+dirloopset[2][0][0][13]: 19
+dirloopset[2][0][0][14]: 1
+dirloopset[2][0][0][15]: -4
+dirloopset[2][0][0][16]: 19
+dirloopset[2][0][0][17]: 1
+dirloopset[2][0][1][0]: 12
+dirloopset[2][0][1][1]: 15
+dirloopset[2][0][1][2]: 1
+dirloopset[2][0][1][3]: 16
+dirloopset[2][0][1][4]: 19
+dirloopset[2][0][1][5]: 1
+dirloopset[2][0][1][6]: -4
+dirloopset[2][0][1][7]: 19
+dirloopset[2][0][1][8]: 1
+dirloopset[2][0][1][9]: -4
+dirloopset[2][0][1][10]: 19
+dirloopset[2][0][1][11]: 1
+dirloopset[2][0][1][12]: -4
+dirloopset[2][0][1][13]: 19
+dirloopset[2][0][1][14]: 1
+dirloopset[2][0][1][15]: -4
+dirloopset[2][0][1][16]: 19
+dirloopset[2][0][1][17]: 1
+dirloopset[2][1][0][0]: 0
+dirloopset[2][1][0][1]: 3
+dirloopset[2][1][0][2]: 1
+dirloopset[2][1][0][3]: -4
+dirloopset[2][1][0][4]: -1
+dirloopset[2][1][0][5]: 1
+dirloopset[2][1][0][6]: -4
+dirloopset[2][1][0][7]: 19
+dirloopset[2][1][0][8]: 1
+dirloopset[2][1][0][9]: -4
+dirloopset[2][1][0][10]: 19
+dirloopset[2][1][0][11]: 1
+dirloopset[2][1][0][12]: -4
+dirloopset[2][1][0][13]: 19
+dirloopset[2][1][0][14]: 1
+dirloopset[2][1][0][15]: -4
+dirloopset[2][1][0][16]: 19
+dirloopset[2][1][0][17]: 1
+dirloopset[2][1][1][0]: 0
+dirloopset[2][1][1][1]: 3
+dirloopset[2][1][1][2]: 1
+dirloopset[2][1][1][3]: -4
+dirloopset[2][1][1][4]: -1
+dirloopset[2][1][1][5]: 1
+dirloopset[2][1][1][6]: -4
+dirloopset[2][1][1][7]: 19
+dirloopset[2][1][1][8]: 1
+dirloopset[2][1][1][9]: -4
+dirloopset[2][1][1][10]: 19
+dirloopset[2][1][1][11]: 1
+dirloopset[2][1][1][12]: -4
+dirloopset[2][1][1][13]: 19
+dirloopset[2][1][1][14]: 1
+dirloopset[2][1][1][15]: -4
+dirloopset[2][1][1][16]: 19
+dirloopset[2][1][1][17]: 1
+dirloopset[2][2][0][0]: -4
+dirloopset[2][2][0][1]: 19
+dirloopset[2][2][0][2]: 1
+dirloopset[2][2][0][3]: -4
+dirloopset[2][2][0][4]: 19
+dirloopset[2][2][0][5]: 1
+dirloopset[2][2][0][6]: 12
+dirloopset[2][2][0][7]: 15
+dirloopset[2][2][0][8]: 1
+dirloopset[2][2][0][9]: 16
+dirloopset[2][2][0][10]: 19
+dirloopset[2][2][0][11]: 1
+dirloopset[2][2][0][12]: -4
+dirloopset[2][2][0][13]: 19
+dirloopset[2][2][0][14]: 1
+dirloopset[2][2][0][15]: -4
+dirloopset[2][2][0][16]: 19
+dirloopset[2][2][0][17]: 1
+dirloopset[2][2][1][0]: -4
+dirloopset[2][2][1][1]: 19
+dirloopset[2][2][1][2]: 1
+dirloopset[2][2][1][3]: -4
+dirloopset[2][2][1][4]: 19
+dirloopset[2][2][1][5]: 1
+dirloopset[2][2][1][6]: 12
+dirloopset[2][2][1][7]: 15
+dirloopset[2][2][1][8]: 1
+dirloopset[2][2][1][9]: 16
+dirloopset[2][2][1][10]: 19
+dirloopset[2][2][1][11]: 1
+dirloopset[2][2][1][12]: -4
+dirloopset[2][2][1][13]: 19
+dirloopset[2][2][1][14]: 1
+dirloopset[2][2][1][15]: -4
+dirloopset[2][2][1][16]: 19
+dirloopset[2][2][1][17]: 1
+dirloopset[2][3][0][0]: 0
+dirloopset[2][3][0][1]: 0
+dirloopset[2][3][0][2]: 0
+dirloopset[2][3][0][3]: 0
+dirloopset[2][3][0][4]: 0
+dirloopset[2][3][0][5]: 0
+dirloopset[2][3][0][6]: 0
+dirloopset[2][3][0][7]: 0
+dirloopset[2][3][0][8]: 0
+dirloopset[2][3][0][9]: 0
+dirloopset[2][3][0][10]: 0
+dirloopset[2][3][0][11]: 0
+dirloopset[2][3][0][12]: 0
+dirloopset[2][3][0][13]: 0
+dirloopset[2][3][0][14]: 0
+dirloopset[2][3][0][15]: 0
+dirloopset[2][3][0][16]: 0
+dirloopset[2][3][0][17]: 0
+dirloopset[2][3][1][0]: 0
+dirloopset[2][3][1][1]: 0
+dirloopset[2][3][1][2]: 0
+dirloopset[2][3][1][3]: 0
+dirloopset[2][3][1][4]: 0
+dirloopset[2][3][1][5]: 0
+dirloopset[2][3][1][6]: 0
+dirloopset[2][3][1][7]: 0
+dirloopset[2][3][1][8]: 0
+dirloopset[2][3][1][9]: 0
+dirloopset[2][3][1][10]: 0
+dirloopset[2][3][1][11]: 0
+dirloopset[2][3][1][12]: 0
+dirloopset[2][3][1][13]: 0
+dirloopset[2][3][1][14]: 0
+dirloopset[2][3][1][15]: 0
+dirloopset[2][3][1][16]: 0
+dirloopset[2][3][1][17]: 0
+dirloopset[2][4][0][0]: 0
+dirloopset[2][4][0][1]: 0
+dirloopset[2][4][0][2]: 0
+dirloopset[2][4][0][3]: 0
+dirloopset[2][4][0][4]: 0
+dirloopset[2][4][0][5]: 0
+dirloopset[2][4][0][6]: 0
+dirloopset[2][4][0][7]: 0
+dirloopset[2][4][0][8]: 0
+dirloopset[2][4][0][9]: 0
+dirloopset[2][4][0][10]: 0
+dirloopset[2][4][0][11]: 0
+dirloopset[2][4][0][12]: 0
+dirloopset[2][4][0][13]: 0
+dirloopset[2][4][0][14]: 0
+dirloopset[2][4][0][15]: 0
+dirloopset[2][4][0][16]: 0
+dirloopset[2][4][0][17]: 0
+dirloopset[2][4][1][0]: 0
+dirloopset[2][4][1][1]: 0
+dirloopset[2][4][1][2]: 0
+dirloopset[2][4][1][3]: 0
+dirloopset[2][4][1][4]: 0
+dirloopset[2][4][1][5]: 0
+dirloopset[2][4][1][6]: 0
+dirloopset[2][4][1][7]: 0
+dirloopset[2][4][1][8]: 0
+dirloopset[2][4][1][9]: 0
+dirloopset[2][4][1][10]: 0
+dirloopset[2][4][1][11]: 0
+dirloopset[2][4][1][12]: 0
+dirloopset[2][4][1][13]: 0
+dirloopset[2][4][1][14]: 0
+dirloopset[2][4][1][15]: 0
+dirloopset[2][4][1][16]: 0
+dirloopset[2][4][1][17]: 0
+dirloopset[2][5][0][0]: 0
+dirloopset[2][5][0][1]: 0
+dirloopset[2][5][0][2]: 0
+dirloopset[2][5][0][3]: 0
+dirloopset[2][5][0][4]: 0
+dirloopset[2][5][0][5]: 0
+dirloopset[2][5][0][6]: 0
+dirloopset[2][5][0][7]: 0
+dirloopset[2][5][0][8]: 0
+dirloopset[2][5][0][9]: 0
+dirloopset[2][5][0][10]: 0
+dirloopset[2][5][0][11]: 0
+dirloopset[2][5][0][12]: 0
+dirloopset[2][5][0][13]: 0
+dirloopset[2][5][0][14]: 0
+dirloopset[2][5][0][15]: 0
+dirloopset[2][5][0][16]: 0
+dirloopset[2][5][0][17]: 0
+dirloopset[2][5][1][0]: 0
+dirloopset[2][5][1][1]: 0
+dirloopset[2][5][1][2]: 0
+dirloopset[2][5][1][3]: 0
+dirloopset[2][5][1][4]: 0
+dirloopset[2][5][1][5]: 0
+dirloopset[2][5][1][6]: 0
+dirloopset[2][5][1][7]: 0
+dirloopset[2][5][1][8]: 0
+dirloopset[2][5][1][9]: 0
+dirloopset[2][5][1][10]: 0
+dirloopset[2][5][1][11]: 0
+dirloopset[2][5][1][12]: 0
+dirloopset[2][5][1][13]: 0
+dirloopset[2][5][1][14]: 0
+dirloopset[2][5][1][15]: 0
+dirloopset[2][5][1][16]: 0
+dirloopset[2][5][1][17]: 0
+dirloopset[3][0][0][0]: 15
+dirloopset[3][0][0][1]: 15
+dirloopset[3][0][0][2]: 1
+dirloopset[3][0][0][3]: 16
+dirloopset[3][0][0][4]: 16
+dirloopset[3][0][0][5]: 1
+dirloopset[3][0][0][6]: -1
+dirloopset[3][0][0][7]: 16
+dirloopset[3][0][0][8]: 1
+dirloopset[3][0][0][9]: -1
+dirloopset[3][0][0][10]: 16
+dirloopset[3][0][0][11]: 1
+dirloopset[3][0][0][12]: -1
+dirloopset[3][0][0][13]: 16
+dirloopset[3][0][0][14]: 1
+dirloopset[3][0][0][15]: -1
+dirloopset[3][0][0][16]: 16
+dirloopset[3][0][0][17]: 1
+dirloopset[3][0][1][0]: 15
+dirloopset[3][0][1][1]: 15
+dirloopset[3][0][1][2]: 1
+dirloopset[3][0][1][3]: 16
+dirloopset[3][0][1][4]: 16
+dirloopset[3][0][1][5]: 1
+dirloopset[3][0][1][6]: -1
+dirloopset[3][0][1][7]: 16
+dirloopset[3][0][1][8]: 1
+dirloopset[3][0][1][9]: -1
+dirloopset[3][0][1][10]: 16
+dirloopset[3][0][1][11]: 1
+dirloopset[3][0][1][12]: -1
+dirloopset[3][0][1][13]: 16
+dirloopset[3][0][1][14]: 1
+dirloopset[3][0][1][15]: -1
+dirloopset[3][0][1][16]: 16
+dirloopset[3][0][1][17]: 1
+dirloopset[3][1][0][0]: 0
+dirloopset[3][1][0][1]: 0
+dirloopset[3][1][0][2]: 1
+dirloopset[3][1][0][3]: -1
+dirloopset[3][1][0][4]: -1
+dirloopset[3][1][0][5]: 1
+dirloopset[3][1][0][6]: -1
+dirloopset[3][1][0][7]: 16
+dirloopset[3][1][0][8]: 1
+dirloopset[3][1][0][9]: -1
+dirloopset[3][1][0][10]: 16
+dirloopset[3][1][0][11]: 1
+dirloopset[3][1][0][12]: -1
+dirloopset[3][1][0][13]: 16
+dirloopset[3][1][0][14]: 1
+dirloopset[3][1][0][15]: -1
+dirloopset[3][1][0][16]: 16
+dirloopset[3][1][0][17]: 1
+dirloopset[3][1][1][0]: 0
+dirloopset[3][1][1][1]: 0
+dirloopset[3][1][1][2]: 1
+dirloopset[3][1][1][3]: -1
+dirloopset[3][1][1][4]: -1
+dirloopset[3][1][1][5]: 1
+dirloopset[3][1][1][6]: -1
+dirloopset[3][1][1][7]: 16
+dirloopset[3][1][1][8]: 1
+dirloopset[3][1][1][9]: -1
+dirloopset[3][1][1][10]: 16
+dirloopset[3][1][1][11]: 1
+dirloopset[3][1][1][12]: -1
+dirloopset[3][1][1][13]: 16
+dirloopset[3][1][1][14]: 1
+dirloopset[3][1][1][15]: -1
+dirloopset[3][1][1][16]: 16
+dirloopset[3][1][1][17]: 1
+dirloopset[3][2][0][0]: -1
+dirloopset[3][2][0][1]: 16
+dirloopset[3][2][0][2]: 1
+dirloopset[3][2][0][3]: -1
+dirloopset[3][2][0][4]: 16
+dirloopset[3][2][0][5]: 1
+dirloopset[3][2][0][6]: 15
+dirloopset[3][2][0][7]: 15
+dirloopset[3][2][0][8]: 1
+dirloopset[3][2][0][9]: 16
+dirloopset[3][2][0][10]: 16
+dirloopset[3][2][0][11]: 1
+dirloopset[3][2][0][12]: -1
+dirloopset[3][2][0][13]: 16
+dirloopset[3][2][0][14]: 1
+dirloopset[3][2][0][15]: -1
+dirloopset[3][2][0][16]: 16
+dirloopset[3][2][0][17]: 1
+dirloopset[3][2][1][0]: -1
+dirloopset[3][2][1][1]: 16
+dirloopset[3][2][1][2]: 1
+dirloopset[3][2][1][3]: -1
+dirloopset[3][2][1][4]: 16
+dirloopset[3][2][1][5]: 1
+dirloopset[3][2][1][6]: 15
+dirloopset[3][2][1][7]: 15
+dirloopset[3][2][1][8]: 1
+dirloopset[3][2][1][9]: 16
+dirloopset[3][2][1][10]: 16
+dirloopset[3][2][1][11]: 1
+dirloopset[3][2][1][12]: -1
+dirloopset[3][2][1][13]: 16
+dirloopset[3][2][1][14]: 1
+dirloopset[3][2][1][15]: -1
+dirloopset[3][2][1][16]: 16
+dirloopset[3][2][1][17]: 1
+dirloopset[3][3][0][0]: 0
+dirloopset[3][3][0][1]: 0
+dirloopset[3][3][0][2]: 0
+dirloopset[3][3][0][3]: 0
+dirloopset[3][3][0][4]: 0
+dirloopset[3][3][0][5]: 0
+dirloopset[3][3][0][6]: 0
+dirloopset[3][3][0][7]: 0
+dirloopset[3][3][0][8]: 0
+dirloopset[3][3][0][9]: 0
+dirloopset[3][3][0][10]: 0
+dirloopset[3][3][0][11]: 0
+dirloopset[3][3][0][12]: 0
+dirloopset[3][3][0][13]: 0
+dirloopset[3][3][0][14]: 0
+dirloopset[3][3][0][15]: 0
+dirloopset[3][3][0][16]: 0
+dirloopset[3][3][0][17]: 0
+dirloopset[3][3][1][0]: 0
+dirloopset[3][3][1][1]: 0
+dirloopset[3][3][1][2]: 0
+dirloopset[3][3][1][3]: 0
+dirloopset[3][3][1][4]: 0
+dirloopset[3][3][1][5]: 0
+dirloopset[3][3][1][6]: 0
+dirloopset[3][3][1][7]: 0
+dirloopset[3][3][1][8]: 0
+dirloopset[3][3][1][9]: 0
+dirloopset[3][3][1][10]: 0
+dirloopset[3][3][1][11]: 0
+dirloopset[3][3][1][12]: 0
+dirloopset[3][3][1][13]: 0
+dirloopset[3][3][1][14]: 0
+dirloopset[3][3][1][15]: 0
+dirloopset[3][3][1][16]: 0
+dirloopset[3][3][1][17]: 0
+dirloopset[3][4][0][0]: 0
+dirloopset[3][4][0][1]: 0
+dirloopset[3][4][0][2]: 0
+dirloopset[3][4][0][3]: 0
+dirloopset[3][4][0][4]: 0
+dirloopset[3][4][0][5]: 0
+dirloopset[3][4][0][6]: 0
+dirloopset[3][4][0][7]: 0
+dirloopset[3][4][0][8]: 0
+dirloopset[3][4][0][9]: 0
+dirloopset[3][4][0][10]: 0
+dirloopset[3][4][0][11]: 0
+dirloopset[3][4][0][12]: 0
+dirloopset[3][4][0][13]: 0
+dirloopset[3][4][0][14]: 0
+dirloopset[3][4][0][15]: 0
+dirloopset[3][4][0][16]: 0
+dirloopset[3][4][0][17]: 0
+dirloopset[3][4][1][0]: 0
+dirloopset[3][4][1][1]: 0
+dirloopset[3][4][1][2]: 0
+dirloopset[3][4][1][3]: 0
+dirloopset[3][4][1][4]: 0
+dirloopset[3][4][1][5]: 0
+dirloopset[3][4][1][6]: 0
+dirloopset[3][4][1][7]: 0
+dirloopset[3][4][1][8]: 0
+dirloopset[3][4][1][9]: 0
+dirloopset[3][4][1][10]: 0
+dirloopset[3][4][1][11]: 0
+dirloopset[3][4][1][12]: 0
+dirloopset[3][4][1][13]: 0
+dirloopset[3][4][1][14]: 0
+dirloopset[3][4][1][15]: 0
+dirloopset[3][4][1][16]: 0
+dirloopset[3][4][1][17]: 0
+dirloopset[3][5][0][0]: 0
+dirloopset[3][5][0][1]: 0
+dirloopset[3][5][0][2]: 0
+dirloopset[3][5][0][3]: 0
+dirloopset[3][5][0][4]: 0
+dirloopset[3][5][0][5]: 0
+dirloopset[3][5][0][6]: 0
+dirloopset[3][5][0][7]: 0
+dirloopset[3][5][0][8]: 0
+dirloopset[3][5][0][9]: 0
+dirloopset[3][5][0][10]: 0
+dirloopset[3][5][0][11]: 0
+dirloopset[3][5][0][12]: 0
+dirloopset[3][5][0][13]: 0
+dirloopset[3][5][0][14]: 0
+dirloopset[3][5][0][15]: 0
+dirloopset[3][5][0][16]: 0
+dirloopset[3][5][0][17]: 0
+dirloopset[3][5][1][0]: 0
+dirloopset[3][5][1][1]: 0
+dirloopset[3][5][1][2]: 0
+dirloopset[3][5][1][3]: 0
+dirloopset[3][5][1][4]: 0
+dirloopset[3][5][1][5]: 0
+dirloopset[3][5][1][6]: 0
+dirloopset[3][5][1][7]: 0
+dirloopset[3][5][1][8]: 0
+dirloopset[3][5][1][9]: 0
+dirloopset[3][5][1][10]: 0
+dirloopset[3][5][1][11]: 0
+dirloopset[3][5][1][12]: 0
+dirloopset[3][5][1][13]: 0
+dirloopset[3][5][1][14]: 0
+dirloopset[3][5][1][15]: 0
+dirloopset[3][5][1][16]: 0
+dirloopset[3][5][1][17]: 0
+dirloopset[4][0][0][0]: 15
+dirloopset[4][0][0][1]: 15
+dirloopset[4][0][0][2]: 1
+dirloopset[4][0][0][3]: 16
+dirloopset[4][0][0][4]: 16
+dirloopset[4][0][0][5]: 1
+dirloopset[4][0][0][6]: -1
+dirloopset[4][0][0][7]: 16
+dirloopset[4][0][0][8]: 1
+dirloopset[4][0][0][9]: -1
+dirloopset[4][0][0][10]: 16
+dirloopset[4][0][0][11]: 1
+dirloopset[4][0][0][12]: -1
+dirloopset[4][0][0][13]: 16
+dirloopset[4][0][0][14]: 1
+dirloopset[4][0][0][15]: -1
+dirloopset[4][0][0][16]: 16
+dirloopset[4][0][0][17]: 1
+dirloopset[4][0][1][0]: 15
+dirloopset[4][0][1][1]: 15
+dirloopset[4][0][1][2]: 1
+dirloopset[4][0][1][3]: 16
+dirloopset[4][0][1][4]: 16
+dirloopset[4][0][1][5]: 1
+dirloopset[4][0][1][6]: -1
+dirloopset[4][0][1][7]: 16
+dirloopset[4][0][1][8]: 1
+dirloopset[4][0][1][9]: -1
+dirloopset[4][0][1][10]: 16
+dirloopset[4][0][1][11]: 1
+dirloopset[4][0][1][12]: -1
+dirloopset[4][0][1][13]: 16
+dirloopset[4][0][1][14]: 1
+dirloopset[4][0][1][15]: -1
+dirloopset[4][0][1][16]: 16
+dirloopset[4][0][1][17]: 1
+dirloopset[4][1][0][0]: 0
+dirloopset[4][1][0][1]: 0
+dirloopset[4][1][0][2]: 1
+dirloopset[4][1][0][3]: -1
+dirloopset[4][1][0][4]: -1
+dirloopset[4][1][0][5]: 1
+dirloopset[4][1][0][6]: -1
+dirloopset[4][1][0][7]: 16
+dirloopset[4][1][0][8]: 1
+dirloopset[4][1][0][9]: -1
+dirloopset[4][1][0][10]: 16
+dirloopset[4][1][0][11]: 1
+dirloopset[4][1][0][12]: -1
+dirloopset[4][1][0][13]: 16
+dirloopset[4][1][0][14]: 1
+dirloopset[4][1][0][15]: -1
+dirloopset[4][1][0][16]: 16
+dirloopset[4][1][0][17]: 1
+dirloopset[4][1][1][0]: 0
+dirloopset[4][1][1][1]: 0
+dirloopset[4][1][1][2]: 1
+dirloopset[4][1][1][3]: -1
+dirloopset[4][1][1][4]: -1
+dirloopset[4][1][1][5]: 1
+dirloopset[4][1][1][6]: -1
+dirloopset[4][1][1][7]: 16
+dirloopset[4][1][1][8]: 1
+dirloopset[4][1][1][9]: -1
+dirloopset[4][1][1][10]: 16
+dirloopset[4][1][1][11]: 1
+dirloopset[4][1][1][12]: -1
+dirloopset[4][1][1][13]: 16
+dirloopset[4][1][1][14]: 1
+dirloopset[4][1][1][15]: -1
+dirloopset[4][1][1][16]: 16
+dirloopset[4][1][1][17]: 1
+dirloopset[4][2][0][0]: -1
+dirloopset[4][2][0][1]: 16
+dirloopset[4][2][0][2]: 1
+dirloopset[4][2][0][3]: -1
+dirloopset[4][2][0][4]: 16
+dirloopset[4][2][0][5]: 1
+dirloopset[4][2][0][6]: 15
+dirloopset[4][2][0][7]: 15
+dirloopset[4][2][0][8]: 1
+dirloopset[4][2][0][9]: 16
+dirloopset[4][2][0][10]: 16
+dirloopset[4][2][0][11]: 1
+dirloopset[4][2][0][12]: -1
+dirloopset[4][2][0][13]: 16
+dirloopset[4][2][0][14]: 1
+dirloopset[4][2][0][15]: -1
+dirloopset[4][2][0][16]: 16
+dirloopset[4][2][0][17]: 1
+dirloopset[4][2][1][0]: -1
+dirloopset[4][2][1][1]: 16
+dirloopset[4][2][1][2]: 1
+dirloopset[4][2][1][3]: -1
+dirloopset[4][2][1][4]: 16
+dirloopset[4][2][1][5]: 1
+dirloopset[4][2][1][6]: 15
+dirloopset[4][2][1][7]: 15
+dirloopset[4][2][1][8]: 1
+dirloopset[4][2][1][9]: 16
+dirloopset[4][2][1][10]: 16
+dirloopset[4][2][1][11]: 1
+dirloopset[4][2][1][12]: -1
+dirloopset[4][2][1][13]: 16
+dirloopset[4][2][1][14]: 1
+dirloopset[4][2][1][15]: -1
+dirloopset[4][2][1][16]: 16
+dirloopset[4][2][1][17]: 1
+dirloopset[4][3][0][0]: 0
+dirloopset[4][3][0][1]: 0
+dirloopset[4][3][0][2]: 0
+dirloopset[4][3][0][3]: 0
+dirloopset[4][3][0][4]: 0
+dirloopset[4][3][0][5]: 0
+dirloopset[4][3][0][6]: 0
+dirloopset[4][3][0][7]: 0
+dirloopset[4][3][0][8]: 0
+dirloopset[4][3][0][9]: 0
+dirloopset[4][3][0][10]: 0
+dirloopset[4][3][0][11]: 0
+dirloopset[4][3][0][12]: 0
+dirloopset[4][3][0][13]: 0
+dirloopset[4][3][0][14]: 0
+dirloopset[4][3][0][15]: 0
+dirloopset[4][3][0][16]: 0
+dirloopset[4][3][0][17]: 0
+dirloopset[4][3][1][0]: 0
+dirloopset[4][3][1][1]: 0
+dirloopset[4][3][1][2]: 0
+dirloopset[4][3][1][3]: 0
+dirloopset[4][3][1][4]: 0
+dirloopset[4][3][1][5]: 0
+dirloopset[4][3][1][6]: 0
+dirloopset[4][3][1][7]: 0
+dirloopset[4][3][1][8]: 0
+dirloopset[4][3][1][9]: 0
+dirloopset[4][3][1][10]: 0
+dirloopset[4][3][1][11]: 0
+dirloopset[4][3][1][12]: 0
+dirloopset[4][3][1][13]: 0
+dirloopset[4][3][1][14]: 0
+dirloopset[4][3][1][15]: 0
+dirloopset[4][3][1][16]: 0
+dirloopset[4][3][1][17]: 0
+dirloopset[4][4][0][0]: 0
+dirloopset[4][4][0][1]: 0
+dirloopset[4][4][0][2]: 0
+dirloopset[4][4][0][3]: 0
+dirloopset[4][4][0][4]: 0
+dirloopset[4][4][0][5]: 0
+dirloopset[4][4][0][6]: 0
+dirloopset[4][4][0][7]: 0
+dirloopset[4][4][0][8]: 0
+dirloopset[4][4][0][9]: 0
+dirloopset[4][4][0][10]: 0
+dirloopset[4][4][0][11]: 0
+dirloopset[4][4][0][12]: 0
+dirloopset[4][4][0][13]: 0
+dirloopset[4][4][0][14]: 0
+dirloopset[4][4][0][15]: 0
+dirloopset[4][4][0][16]: 0
+dirloopset[4][4][0][17]: 0
+dirloopset[4][4][1][0]: 0
+dirloopset[4][4][1][1]: 0
+dirloopset[4][4][1][2]: 0
+dirloopset[4][4][1][3]: 0
+dirloopset[4][4][1][4]: 0
+dirloopset[4][4][1][5]: 0
+dirloopset[4][4][1][6]: 0
+dirloopset[4][4][1][7]: 0
+dirloopset[4][4][1][8]: 0
+dirloopset[4][4][1][9]: 0
+dirloopset[4][4][1][10]: 0
+dirloopset[4][4][1][11]: 0
+dirloopset[4][4][1][12]: 0
+dirloopset[4][4][1][13]: 0
+dirloopset[4][4][1][14]: 0
+dirloopset[4][4][1][15]: 0
+dirloopset[4][4][1][16]: 0
+dirloopset[4][4][1][17]: 0
+dirloopset[4][5][0][0]: 0
+dirloopset[4][5][0][1]: 0
+dirloopset[4][5][0][2]: 0
+dirloopset[4][5][0][3]: 0
+dirloopset[4][5][0][4]: 0
+dirloopset[4][5][0][5]: 0
+dirloopset[4][5][0][6]: 0
+dirloopset[4][5][0][7]: 0
+dirloopset[4][5][0][8]: 0
+dirloopset[4][5][0][9]: 0
+dirloopset[4][5][0][10]: 0
+dirloopset[4][5][0][11]: 0
+dirloopset[4][5][0][12]: 0
+dirloopset[4][5][0][13]: 0
+dirloopset[4][5][0][14]: 0
+dirloopset[4][5][0][15]: 0
+dirloopset[4][5][0][16]: 0
+dirloopset[4][5][0][17]: 0
+dirloopset[4][5][1][0]: 0
+dirloopset[4][5][1][1]: 0
+dirloopset[4][5][1][2]: 0
+dirloopset[4][5][1][3]: 0
+dirloopset[4][5][1][4]: 0
+dirloopset[4][5][1][5]: 0
+dirloopset[4][5][1][6]: 0
+dirloopset[4][5][1][7]: 0
+dirloopset[4][5][1][8]: 0
+dirloopset[4][5][1][9]: 0
+dirloopset[4][5][1][10]: 0
+dirloopset[4][5][1][11]: 0
+dirloopset[4][5][1][12]: 0
+dirloopset[4][5][1][13]: 0
+dirloopset[4][5][1][14]: 0
+dirloopset[4][5][1][15]: 0
+dirloopset[4][5][1][16]: 0
+dirloopset[4][5][1][17]: 0
+dirloopset[5][0][0][0]: 12
+dirloopset[5][0][0][1]: 15
+dirloopset[5][0][0][2]: 1
+dirloopset[5][0][0][3]: 16
+dirloopset[5][0][0][4]: 19
+dirloopset[5][0][0][5]: 1
+dirloopset[5][0][0][6]: -4
+dirloopset[5][0][0][7]: 19
+dirloopset[5][0][0][8]: 1
+dirloopset[5][0][0][9]: -4
+dirloopset[5][0][0][10]: 19
+dirloopset[5][0][0][11]: 1
+dirloopset[5][0][0][12]: -4
+dirloopset[5][0][0][13]: 19
+dirloopset[5][0][0][14]: 1
+dirloopset[5][0][0][15]: -4
+dirloopset[5][0][0][16]: 19
+dirloopset[5][0][0][17]: 1
+dirloopset[5][0][1][0]: 12
+dirloopset[5][0][1][1]: 15
+dirloopset[5][0][1][2]: 1
+dirloopset[5][0][1][3]: 16
+dirloopset[5][0][1][4]: 19
+dirloopset[5][0][1][5]: 1
+dirloopset[5][0][1][6]: -4
+dirloopset[5][0][1][7]: 19
+dirloopset[5][0][1][8]: 1
+dirloopset[5][0][1][9]: -4
+dirloopset[5][0][1][10]: 19
+dirloopset[5][0][1][11]: 1
+dirloopset[5][0][1][12]: -4
+dirloopset[5][0][1][13]: 19
+dirloopset[5][0][1][14]: 1
+dirloopset[5][0][1][15]: -4
+dirloopset[5][0][1][16]: 19
+dirloopset[5][0][1][17]: 1
+dirloopset[5][1][0][0]: 0
+dirloopset[5][1][0][1]: 3
+dirloopset[5][1][0][2]: 1
+dirloopset[5][1][0][3]: -4
+dirloopset[5][1][0][4]: -1
+dirloopset[5][1][0][5]: 1
+dirloopset[5][1][0][6]: -4
+dirloopset[5][1][0][7]: 19
+dirloopset[5][1][0][8]: 1
+dirloopset[5][1][0][9]: -4
+dirloopset[5][1][0][10]: 19
+dirloopset[5][1][0][11]: 1
+dirloopset[5][1][0][12]: -4
+dirloopset[5][1][0][13]: 19
+dirloopset[5][1][0][14]: 1
+dirloopset[5][1][0][15]: -4
+dirloopset[5][1][0][16]: 19
+dirloopset[5][1][0][17]: 1
+dirloopset[5][1][1][0]: 0
+dirloopset[5][1][1][1]: 3
+dirloopset[5][1][1][2]: 1
+dirloopset[5][1][1][3]: -4
+dirloopset[5][1][1][4]: -1
+dirloopset[5][1][1][5]: 1
+dirloopset[5][1][1][6]: -4
+dirloopset[5][1][1][7]: 19
+dirloopset[5][1][1][8]: 1
+dirloopset[5][1][1][9]: -4
+dirloopset[5][1][1][10]: 19
+dirloopset[5][1][1][11]: 1
+dirloopset[5][1][1][12]: -4
+dirloopset[5][1][1][13]: 19
+dirloopset[5][1][1][14]: 1
+dirloopset[5][1][1][15]: -4
+dirloopset[5][1][1][16]: 19
+dirloopset[5][1][1][17]: 1
+dirloopset[5][2][0][0]: -4
+dirloopset[5][2][0][1]: 19
+dirloopset[5][2][0][2]: 1
+dirloopset[5][2][0][3]: -4
+dirloopset[5][2][0][4]: 19
+dirloopset[5][2][0][5]: 1
+dirloopset[5][2][0][6]: 12
+dirloopset[5][2][0][7]: 15
+dirloopset[5][2][0][8]: 1
+dirloopset[5][2][0][9]: 16
+dirloopset[5][2][0][10]: 19
+dirloopset[5][2][0][11]: 1
+dirloopset[5][2][0][12]: -4
+dirloopset[5][2][0][13]: 19
+dirloopset[5][2][0][14]: 1
+dirloopset[5][2][0][15]: -4
+dirloopset[5][2][0][16]: 19
+dirloopset[5][2][0][17]: 1
+dirloopset[5][2][1][0]: -4
+dirloopset[5][2][1][1]: 19
+dirloopset[5][2][1][2]: 1
+dirloopset[5][2][1][3]: -4
+dirloopset[5][2][1][4]: 19
+dirloopset[5][2][1][5]: 1
+dirloopset[5][2][1][6]: 12
+dirloopset[5][2][1][7]: 15
+dirloopset[5][2][1][8]: 1
+dirloopset[5][2][1][9]: 16
+dirloopset[5][2][1][10]: 19
+dirloopset[5][2][1][11]: 1
+dirloopset[5][2][1][12]: -4
+dirloopset[5][2][1][13]: 19
+dirloopset[5][2][1][14]: 1
+dirloopset[5][2][1][15]: -4
+dirloopset[5][2][1][16]: 19
+dirloopset[5][2][1][17]: 1
+dirloopset[5][3][0][0]: 0
+dirloopset[5][3][0][1]: 0
+dirloopset[5][3][0][2]: 0
+dirloopset[5][3][0][3]: 0
+dirloopset[5][3][0][4]: 0
+dirloopset[5][3][0][5]: 0
+dirloopset[5][3][0][6]: 0
+dirloopset[5][3][0][7]: 0
+dirloopset[5][3][0][8]: 0
+dirloopset[5][3][0][9]: 0
+dirloopset[5][3][0][10]: 0
+dirloopset[5][3][0][11]: 0
+dirloopset[5][3][0][12]: 0
+dirloopset[5][3][0][13]: 0
+dirloopset[5][3][0][14]: 0
+dirloopset[5][3][0][15]: 0
+dirloopset[5][3][0][16]: 0
+dirloopset[5][3][0][17]: 0
+dirloopset[5][3][1][0]: 0
+dirloopset[5][3][1][1]: 0
+dirloopset[5][3][1][2]: 0
+dirloopset[5][3][1][3]: 0
+dirloopset[5][3][1][4]: 0
+dirloopset[5][3][1][5]: 0
+dirloopset[5][3][1][6]: 0
+dirloopset[5][3][1][7]: 0
+dirloopset[5][3][1][8]: 0
+dirloopset[5][3][1][9]: 0
+dirloopset[5][3][1][10]: 0
+dirloopset[5][3][1][11]: 0
+dirloopset[5][3][1][12]: 0
+dirloopset[5][3][1][13]: 0
+dirloopset[5][3][1][14]: 0
+dirloopset[5][3][1][15]: 0
+dirloopset[5][3][1][16]: 0
+dirloopset[5][3][1][17]: 0
+dirloopset[5][4][0][0]: 0
+dirloopset[5][4][0][1]: 0
+dirloopset[5][4][0][2]: 0
+dirloopset[5][4][0][3]: 0
+dirloopset[5][4][0][4]: 0
+dirloopset[5][4][0][5]: 0
+dirloopset[5][4][0][6]: 0
+dirloopset[5][4][0][7]: 0
+dirloopset[5][4][0][8]: 0
+dirloopset[5][4][0][9]: 0
+dirloopset[5][4][0][10]: 0
+dirloopset[5][4][0][11]: 0
+dirloopset[5][4][0][12]: 0
+dirloopset[5][4][0][13]: 0
+dirloopset[5][4][0][14]: 0
+dirloopset[5][4][0][15]: 0
+dirloopset[5][4][0][16]: 0
+dirloopset[5][4][0][17]: 0
+dirloopset[5][4][1][0]: 0
+dirloopset[5][4][1][1]: 0
+dirloopset[5][4][1][2]: 0
+dirloopset[5][4][1][3]: 0
+dirloopset[5][4][1][4]: 0
+dirloopset[5][4][1][5]: 0
+dirloopset[5][4][1][6]: 0
+dirloopset[5][4][1][7]: 0
+dirloopset[5][4][1][8]: 0
+dirloopset[5][4][1][9]: 0
+dirloopset[5][4][1][10]: 0
+dirloopset[5][4][1][11]: 0
+dirloopset[5][4][1][12]: 0
+dirloopset[5][4][1][13]: 0
+dirloopset[5][4][1][14]: 0
+dirloopset[5][4][1][15]: 0
+dirloopset[5][4][1][16]: 0
+dirloopset[5][4][1][17]: 0
+dirloopset[5][5][0][0]: 0
+dirloopset[5][5][0][1]: 0
+dirloopset[5][5][0][2]: 0
+dirloopset[5][5][0][3]: 0
+dirloopset[5][5][0][4]: 0
+dirloopset[5][5][0][5]: 0
+dirloopset[5][5][0][6]: 0
+dirloopset[5][5][0][7]: 0
+dirloopset[5][5][0][8]: 0
+dirloopset[5][5][0][9]: 0
+dirloopset[5][5][0][10]: 0
+dirloopset[5][5][0][11]: 0
+dirloopset[5][5][0][12]: 0
+dirloopset[5][5][0][13]: 0
+dirloopset[5][5][0][14]: 0
+dirloopset[5][5][0][15]: 0
+dirloopset[5][5][0][16]: 0
+dirloopset[5][5][0][17]: 0
+dirloopset[5][5][1][0]: 0
+dirloopset[5][5][1][1]: 0
+dirloopset[5][5][1][2]: 0
+dirloopset[5][5][1][3]: 0
+dirloopset[5][5][1][4]: 0
+dirloopset[5][5][1][5]: 0
+dirloopset[5][5][1][6]: 0
+dirloopset[5][5][1][7]: 0
+dirloopset[5][5][1][8]: 0
+dirloopset[5][5][1][9]: 0
+dirloopset[5][5][1][10]: 0
+dirloopset[5][5][1][11]: 0
+dirloopset[5][5][1][12]: 0
+dirloopset[5][5][1][13]: 0
+dirloopset[5][5][1][14]: 0
+dirloopset[5][5][1][15]: 0
+dirloopset[5][5][1][16]: 0
+dirloopset[5][5][1][17]: 0
+dirloopset[6][0][0][0]: 15
+dirloopset[6][0][0][1]: 15
+dirloopset[6][0][0][2]: 1
+dirloopset[6][0][0][3]: 16
+dirloopset[6][0][0][4]: 16
+dirloopset[6][0][0][5]: 1
+dirloopset[6][0][0][6]: -1
+dirloopset[6][0][0][7]: 16
+dirloopset[6][0][0][8]: 1
+dirloopset[6][0][0][9]: -1
+dirloopset[6][0][0][10]: 16
+dirloopset[6][0][0][11]: 1
+dirloopset[6][0][0][12]: -1
+dirloopset[6][0][0][13]: 16
+dirloopset[6][0][0][14]: 1
+dirloopset[6][0][0][15]: -1
+dirloopset[6][0][0][16]: 16
+dirloopset[6][0][0][17]: 1
+dirloopset[6][0][1][0]: 15
+dirloopset[6][0][1][1]: 15
+dirloopset[6][0][1][2]: 1
+dirloopset[6][0][1][3]: 16
+dirloopset[6][0][1][4]: 16
+dirloopset[6][0][1][5]: 1
+dirloopset[6][0][1][6]: -1
+dirloopset[6][0][1][7]: 16
+dirloopset[6][0][1][8]: 1
+dirloopset[6][0][1][9]: -1
+dirloopset[6][0][1][10]: 16
+dirloopset[6][0][1][11]: 1
+dirloopset[6][0][1][12]: -1
+dirloopset[6][0][1][13]: 16
+dirloopset[6][0][1][14]: 1
+dirloopset[6][0][1][15]: -1
+dirloopset[6][0][1][16]: 16
+dirloopset[6][0][1][17]: 1
+dirloopset[6][1][0][0]: 0
+dirloopset[6][1][0][1]: 0
+dirloopset[6][1][0][2]: 1
+dirloopset[6][1][0][3]: -1
+dirloopset[6][1][0][4]: -1
+dirloopset[6][1][0][5]: 1
+dirloopset[6][1][0][6]: -1
+dirloopset[6][1][0][7]: 16
+dirloopset[6][1][0][8]: 1
+dirloopset[6][1][0][9]: -1
+dirloopset[6][1][0][10]: 16
+dirloopset[6][1][0][11]: 1
+dirloopset[6][1][0][12]: -1
+dirloopset[6][1][0][13]: 16
+dirloopset[6][1][0][14]: 1
+dirloopset[6][1][0][15]: -1
+dirloopset[6][1][0][16]: 16
+dirloopset[6][1][0][17]: 1
+dirloopset[6][1][1][0]: 0
+dirloopset[6][1][1][1]: 0
+dirloopset[6][1][1][2]: 1
+dirloopset[6][1][1][3]: -1
+dirloopset[6][1][1][4]: -1
+dirloopset[6][1][1][5]: 1
+dirloopset[6][1][1][6]: -1
+dirloopset[6][1][1][7]: 16
+dirloopset[6][1][1][8]: 1
+dirloopset[6][1][1][9]: -1
+dirloopset[6][1][1][10]: 16
+dirloopset[6][1][1][11]: 1
+dirloopset[6][1][1][12]: -1
+dirloopset[6][1][1][13]: 16
+dirloopset[6][1][1][14]: 1
+dirloopset[6][1][1][15]: -1
+dirloopset[6][1][1][16]: 16
+dirloopset[6][1][1][17]: 1
+dirloopset[6][2][0][0]: -1
+dirloopset[6][2][0][1]: 16
+dirloopset[6][2][0][2]: 1
+dirloopset[6][2][0][3]: -1
+dirloopset[6][2][0][4]: 16
+dirloopset[6][2][0][5]: 1
+dirloopset[6][2][0][6]: 15
+dirloopset[6][2][0][7]: 15
+dirloopset[6][2][0][8]: 1
+dirloopset[6][2][0][9]: 16
+dirloopset[6][2][0][10]: 16
+dirloopset[6][2][0][11]: 1
+dirloopset[6][2][0][12]: -1
+dirloopset[6][2][0][13]: 16
+dirloopset[6][2][0][14]: 1
+dirloopset[6][2][0][15]: -1
+dirloopset[6][2][0][16]: 16
+dirloopset[6][2][0][17]: 1
+dirloopset[6][2][1][0]: -1
+dirloopset[6][2][1][1]: 16
+dirloopset[6][2][1][2]: 1
+dirloopset[6][2][1][3]: -1
+dirloopset[6][2][1][4]: 16
+dirloopset[6][2][1][5]: 1
+dirloopset[6][2][1][6]: 15
+dirloopset[6][2][1][7]: 15
+dirloopset[6][2][1][8]: 1
+dirloopset[6][2][1][9]: 16
+dirloopset[6][2][1][10]: 16
+dirloopset[6][2][1][11]: 1
+dirloopset[6][2][1][12]: -1
+dirloopset[6][2][1][13]: 16
+dirloopset[6][2][1][14]: 1
+dirloopset[6][2][1][15]: -1
+dirloopset[6][2][1][16]: 16
+dirloopset[6][2][1][17]: 1
+dirloopset[6][3][0][0]: 0
+dirloopset[6][3][0][1]: 0
+dirloopset[6][3][0][2]: 0
+dirloopset[6][3][0][3]: 0
+dirloopset[6][3][0][4]: 0
+dirloopset[6][3][0][5]: 0
+dirloopset[6][3][0][6]: 0
+dirloopset[6][3][0][7]: 0
+dirloopset[6][3][0][8]: 0
+dirloopset[6][3][0][9]: 0
+dirloopset[6][3][0][10]: 0
+dirloopset[6][3][0][11]: 0
+dirloopset[6][3][0][12]: 0
+dirloopset[6][3][0][13]: 0
+dirloopset[6][3][0][14]: 0
+dirloopset[6][3][0][15]: 0
+dirloopset[6][3][0][16]: 0
+dirloopset[6][3][0][17]: 0
+dirloopset[6][3][1][0]: 0
+dirloopset[6][3][1][1]: 0
+dirloopset[6][3][1][2]: 0
+dirloopset[6][3][1][3]: 0
+dirloopset[6][3][1][4]: 0
+dirloopset[6][3][1][5]: 0
+dirloopset[6][3][1][6]: 0
+dirloopset[6][3][1][7]: 0
+dirloopset[6][3][1][8]: 0
+dirloopset[6][3][1][9]: 0
+dirloopset[6][3][1][10]: 0
+dirloopset[6][3][1][11]: 0
+dirloopset[6][3][1][12]: 0
+dirloopset[6][3][1][13]: 0
+dirloopset[6][3][1][14]: 0
+dirloopset[6][3][1][15]: 0
+dirloopset[6][3][1][16]: 0
+dirloopset[6][3][1][17]: 0
+dirloopset[6][4][0][0]: 0
+dirloopset[6][4][0][1]: 0
+dirloopset[6][4][0][2]: 0
+dirloopset[6][4][0][3]: 0
+dirloopset[6][4][0][4]: 0
+dirloopset[6][4][0][5]: 0
+dirloopset[6][4][0][6]: 0
+dirloopset[6][4][0][7]: 0
+dirloopset[6][4][0][8]: 0
+dirloopset[6][4][0][9]: 0
+dirloopset[6][4][0][10]: 0
+dirloopset[6][4][0][11]: 0
+dirloopset[6][4][0][12]: 0
+dirloopset[6][4][0][13]: 0
+dirloopset[6][4][0][14]: 0
+dirloopset[6][4][0][15]: 0
+dirloopset[6][4][0][16]: 0
+dirloopset[6][4][0][17]: 0
+dirloopset[6][4][1][0]: 0
+dirloopset[6][4][1][1]: 0
+dirloopset[6][4][1][2]: 0
+dirloopset[6][4][1][3]: 0
+dirloopset[6][4][1][4]: 0
+dirloopset[6][4][1][5]: 0
+dirloopset[6][4][1][6]: 0
+dirloopset[6][4][1][7]: 0
+dirloopset[6][4][1][8]: 0
+dirloopset[6][4][1][9]: 0
+dirloopset[6][4][1][10]: 0
+dirloopset[6][4][1][11]: 0
+dirloopset[6][4][1][12]: 0
+dirloopset[6][4][1][13]: 0
+dirloopset[6][4][1][14]: 0
+dirloopset[6][4][1][15]: 0
+dirloopset[6][4][1][16]: 0
+dirloopset[6][4][1][17]: 0
+dirloopset[6][5][0][0]: 0
+dirloopset[6][5][0][1]: 0
+dirloopset[6][5][0][2]: 0
+dirloopset[6][5][0][3]: 0
+dirloopset[6][5][0][4]: 0
+dirloopset[6][5][0][5]: 0
+dirloopset[6][5][0][6]: 0
+dirloopset[6][5][0][7]: 0
+dirloopset[6][5][0][8]: 0
+dirloopset[6][5][0][9]: 0
+dirloopset[6][5][0][10]: 0
+dirloopset[6][5][0][11]: 0
+dirloopset[6][5][0][12]: 0
+dirloopset[6][5][0][13]: 0
+dirloopset[6][5][0][14]: 0
+dirloopset[6][5][0][15]: 0
+dirloopset[6][5][0][16]: 0
+dirloopset[6][5][0][17]: 0
+dirloopset[6][5][1][0]: 0
+dirloopset[6][5][1][1]: 0
+dirloopset[6][5][1][2]: 0
+dirloopset[6][5][1][3]: 0
+dirloopset[6][5][1][4]: 0
+dirloopset[6][5][1][5]: 0
+dirloopset[6][5][1][6]: 0
+dirloopset[6][5][1][7]: 0
+dirloopset[6][5][1][8]: 0
+dirloopset[6][5][1][9]: 0
+dirloopset[6][5][1][10]: 0
+dirloopset[6][5][1][11]: 0
+dirloopset[6][5][1][12]: 0
+dirloopset[6][5][1][13]: 0
+dirloopset[6][5][1][14]: 0
+dirloopset[6][5][1][15]: 0
+dirloopset[6][5][1][16]: 0
+dirloopset[6][5][1][17]: 0
+dirloopset[7][0][0][0]: 12
+dirloopset[7][0][0][1]: 15
+dirloopset[7][0][0][2]: 1
+dirloopset[7][0][0][3]: 16
+dirloopset[7][0][0][4]: 19
+dirloopset[7][0][0][5]: 1
+dirloopset[7][0][0][6]: -4
+dirloopset[7][0][0][7]: 19
+dirloopset[7][0][0][8]: 1
+dirloopset[7][0][0][9]: -4
+dirloopset[7][0][0][10]: 19
+dirloopset[7][0][0][11]: 1
+dirloopset[7][0][0][12]: -4
+dirloopset[7][0][0][13]: 19
+dirloopset[7][0][0][14]: 1
+dirloopset[7][0][0][15]: -4
+dirloopset[7][0][0][16]: 19
+dirloopset[7][0][0][17]: 1
+dirloopset[7][0][1][0]: 12
+dirloopset[7][0][1][1]: 15
+dirloopset[7][0][1][2]: 1
+dirloopset[7][0][1][3]: 16
+dirloopset[7][0][1][4]: 19
+dirloopset[7][0][1][5]: 1
+dirloopset[7][0][1][6]: -4
+dirloopset[7][0][1][7]: 19
+dirloopset[7][0][1][8]: 1
+dirloopset[7][0][1][9]: -4
+dirloopset[7][0][1][10]: 19
+dirloopset[7][0][1][11]: 1
+dirloopset[7][0][1][12]: -4
+dirloopset[7][0][1][13]: 19
+dirloopset[7][0][1][14]: 1
+dirloopset[7][0][1][15]: -4
+dirloopset[7][0][1][16]: 19
+dirloopset[7][0][1][17]: 1
+dirloopset[7][1][0][0]: 0
+dirloopset[7][1][0][1]: 3
+dirloopset[7][1][0][2]: 1
+dirloopset[7][1][0][3]: -4
+dirloopset[7][1][0][4]: -1
+dirloopset[7][1][0][5]: 1
+dirloopset[7][1][0][6]: -4
+dirloopset[7][1][0][7]: 19
+dirloopset[7][1][0][8]: 1
+dirloopset[7][1][0][9]: -4
+dirloopset[7][1][0][10]: 19
+dirloopset[7][1][0][11]: 1
+dirloopset[7][1][0][12]: -4
+dirloopset[7][1][0][13]: 19
+dirloopset[7][1][0][14]: 1
+dirloopset[7][1][0][15]: -4
+dirloopset[7][1][0][16]: 19
+dirloopset[7][1][0][17]: 1
+dirloopset[7][1][1][0]: 0
+dirloopset[7][1][1][1]: 3
+dirloopset[7][1][1][2]: 1
+dirloopset[7][1][1][3]: -4
+dirloopset[7][1][1][4]: -1
+dirloopset[7][1][1][5]: 1
+dirloopset[7][1][1][6]: -4
+dirloopset[7][1][1][7]: 19
+dirloopset[7][1][1][8]: 1
+dirloopset[7][1][1][9]: -4
+dirloopset[7][1][1][10]: 19
+dirloopset[7][1][1][11]: 1
+dirloopset[7][1][1][12]: -4
+dirloopset[7][1][1][13]: 19
+dirloopset[7][1][1][14]: 1
+dirloopset[7][1][1][15]: -4
+dirloopset[7][1][1][16]: 19
+dirloopset[7][1][1][17]: 1
+dirloopset[7][2][0][0]: -4
+dirloopset[7][2][0][1]: 19
+dirloopset[7][2][0][2]: 1
+dirloopset[7][2][0][3]: -4
+dirloopset[7][2][0][4]: 19
+dirloopset[7][2][0][5]: 1
+dirloopset[7][2][0][6]: 12
+dirloopset[7][2][0][7]: 15
+dirloopset[7][2][0][8]: 1
+dirloopset[7][2][0][9]: 16
+dirloopset[7][2][0][10]: 19
+dirloopset[7][2][0][11]: 1
+dirloopset[7][2][0][12]: -4
+dirloopset[7][2][0][13]: 19
+dirloopset[7][2][0][14]: 1
+dirloopset[7][2][0][15]: -4
+dirloopset[7][2][0][16]: 19
+dirloopset[7][2][0][17]: 1
+dirloopset[7][2][1][0]: -4
+dirloopset[7][2][1][1]: 19
+dirloopset[7][2][1][2]: 1
+dirloopset[7][2][1][3]: -4
+dirloopset[7][2][1][4]: 19
+dirloopset[7][2][1][5]: 1
+dirloopset[7][2][1][6]: 12
+dirloopset[7][2][1][7]: 15
+dirloopset[7][2][1][8]: 1
+dirloopset[7][2][1][9]: 16
+dirloopset[7][2][1][10]: 19
+dirloopset[7][2][1][11]: 1
+dirloopset[7][2][1][12]: -4
+dirloopset[7][2][1][13]: 19
+dirloopset[7][2][1][14]: 1
+dirloopset[7][2][1][15]: -4
+dirloopset[7][2][1][16]: 19
+dirloopset[7][2][1][17]: 1
+dirloopset[7][3][0][0]: 0
+dirloopset[7][3][0][1]: 0
+dirloopset[7][3][0][2]: 0
+dirloopset[7][3][0][3]: 0
+dirloopset[7][3][0][4]: 0
+dirloopset[7][3][0][5]: 0
+dirloopset[7][3][0][6]: 0
+dirloopset[7][3][0][7]: 0
+dirloopset[7][3][0][8]: 0
+dirloopset[7][3][0][9]: 0
+dirloopset[7][3][0][10]: 0
+dirloopset[7][3][0][11]: 0
+dirloopset[7][3][0][12]: 0
+dirloopset[7][3][0][13]: 0
+dirloopset[7][3][0][14]: 0
+dirloopset[7][3][0][15]: 0
+dirloopset[7][3][0][16]: 0
+dirloopset[7][3][0][17]: 0
+dirloopset[7][3][1][0]: 0
+dirloopset[7][3][1][1]: 0
+dirloopset[7][3][1][2]: 0
+dirloopset[7][3][1][3]: 0
+dirloopset[7][3][1][4]: 0
+dirloopset[7][3][1][5]: 0
+dirloopset[7][3][1][6]: 0
+dirloopset[7][3][1][7]: 0
+dirloopset[7][3][1][8]: 0
+dirloopset[7][3][1][9]: 0
+dirloopset[7][3][1][10]: 0
+dirloopset[7][3][1][11]: 0
+dirloopset[7][3][1][12]: 0
+dirloopset[7][3][1][13]: 0
+dirloopset[7][3][1][14]: 0
+dirloopset[7][3][1][15]: 0
+dirloopset[7][3][1][16]: 0
+dirloopset[7][3][1][17]: 0
+dirloopset[7][4][0][0]: 0
+dirloopset[7][4][0][1]: 0
+dirloopset[7][4][0][2]: 0
+dirloopset[7][4][0][3]: 0
+dirloopset[7][4][0][4]: 0
+dirloopset[7][4][0][5]: 0
+dirloopset[7][4][0][6]: 0
+dirloopset[7][4][0][7]: 0
+dirloopset[7][4][0][8]: 0
+dirloopset[7][4][0][9]: 0
+dirloopset[7][4][0][10]: 0
+dirloopset[7][4][0][11]: 0
+dirloopset[7][4][0][12]: 0
+dirloopset[7][4][0][13]: 0
+dirloopset[7][4][0][14]: 0
+dirloopset[7][4][0][15]: 0
+dirloopset[7][4][0][16]: 0
+dirloopset[7][4][0][17]: 0
+dirloopset[7][4][1][0]: 0
+dirloopset[7][4][1][1]: 0
+dirloopset[7][4][1][2]: 0
+dirloopset[7][4][1][3]: 0
+dirloopset[7][4][1][4]: 0
+dirloopset[7][4][1][5]: 0
+dirloopset[7][4][1][6]: 0
+dirloopset[7][4][1][7]: 0
+dirloopset[7][4][1][8]: 0
+dirloopset[7][4][1][9]: 0
+dirloopset[7][4][1][10]: 0
+dirloopset[7][4][1][11]: 0
+dirloopset[7][4][1][12]: 0
+dirloopset[7][4][1][13]: 0
+dirloopset[7][4][1][14]: 0
+dirloopset[7][4][1][15]: 0
+dirloopset[7][4][1][16]: 0
+dirloopset[7][4][1][17]: 0
+dirloopset[7][5][0][0]: 0
+dirloopset[7][5][0][1]: 0
+dirloopset[7][5][0][2]: 0
+dirloopset[7][5][0][3]: 0
+dirloopset[7][5][0][4]: 0
+dirloopset[7][5][0][5]: 0
+dirloopset[7][5][0][6]: 0
+dirloopset[7][5][0][7]: 0
+dirloopset[7][5][0][8]: 0
+dirloopset[7][5][0][9]: 0
+dirloopset[7][5][0][10]: 0
+dirloopset[7][5][0][11]: 0
+dirloopset[7][5][0][12]: 0
+dirloopset[7][5][0][13]: 0
+dirloopset[7][5][0][14]: 0
+dirloopset[7][5][0][15]: 0
+dirloopset[7][5][0][16]: 0
+dirloopset[7][5][0][17]: 0
+dirloopset[7][5][1][0]: 0
+dirloopset[7][5][1][1]: 0
+dirloopset[7][5][1][2]: 0
+dirloopset[7][5][1][3]: 0
+dirloopset[7][5][1][4]: 0
+dirloopset[7][5][1][5]: 0
+dirloopset[7][5][1][6]: 0
+dirloopset[7][5][1][7]: 0
+dirloopset[7][5][1][8]: 0
+dirloopset[7][5][1][9]: 0
+dirloopset[7][5][1][10]: 0
+dirloopset[7][5][1][11]: 0
+dirloopset[7][5][1][12]: 0
+dirloopset[7][5][1][13]: 0
+dirloopset[7][5][1][14]: 0
+dirloopset[7][5][1][15]: 0
+dirloopset[7][5][1][16]: 0
+dirloopset[7][5][1][17]: 0
+dirloopset[8][0][0][0]: 15
+dirloopset[8][0][0][1]: 15
+dirloopset[8][0][0][2]: 1
+dirloopset[8][0][0][3]: 16
+dirloopset[8][0][0][4]: 16
+dirloopset[8][0][0][5]: 1
+dirloopset[8][0][0][6]: -1
+dirloopset[8][0][0][7]: 16
+dirloopset[8][0][0][8]: 1
+dirloopset[8][0][0][9]: -1
+dirloopset[8][0][0][10]: 16
+dirloopset[8][0][0][11]: 1
+dirloopset[8][0][0][12]: -1
+dirloopset[8][0][0][13]: 16
+dirloopset[8][0][0][14]: 1
+dirloopset[8][0][0][15]: -1
+dirloopset[8][0][0][16]: 16
+dirloopset[8][0][0][17]: 1
+dirloopset[8][0][1][0]: 15
+dirloopset[8][0][1][1]: 15
+dirloopset[8][0][1][2]: 1
+dirloopset[8][0][1][3]: 16
+dirloopset[8][0][1][4]: 16
+dirloopset[8][0][1][5]: 1
+dirloopset[8][0][1][6]: -1
+dirloopset[8][0][1][7]: 16
+dirloopset[8][0][1][8]: 1
+dirloopset[8][0][1][9]: -1
+dirloopset[8][0][1][10]: 16
+dirloopset[8][0][1][11]: 1
+dirloopset[8][0][1][12]: -1
+dirloopset[8][0][1][13]: 16
+dirloopset[8][0][1][14]: 1
+dirloopset[8][0][1][15]: -1
+dirloopset[8][0][1][16]: 16
+dirloopset[8][0][1][17]: 1
+dirloopset[8][1][0][0]: 0
+dirloopset[8][1][0][1]: 0
+dirloopset[8][1][0][2]: 1
+dirloopset[8][1][0][3]: -1
+dirloopset[8][1][0][4]: -1
+dirloopset[8][1][0][5]: 1
+dirloopset[8][1][0][6]: -1
+dirloopset[8][1][0][7]: 16
+dirloopset[8][1][0][8]: 1
+dirloopset[8][1][0][9]: -1
+dirloopset[8][1][0][10]: 16
+dirloopset[8][1][0][11]: 1
+dirloopset[8][1][0][12]: -1
+dirloopset[8][1][0][13]: 16
+dirloopset[8][1][0][14]: 1
+dirloopset[8][1][0][15]: -1
+dirloopset[8][1][0][16]: 16
+dirloopset[8][1][0][17]: 1
+dirloopset[8][1][1][0]: 0
+dirloopset[8][1][1][1]: 0
+dirloopset[8][1][1][2]: 1
+dirloopset[8][1][1][3]: -1
+dirloopset[8][1][1][4]: -1
+dirloopset[8][1][1][5]: 1
+dirloopset[8][1][1][6]: -1
+dirloopset[8][1][1][7]: 16
+dirloopset[8][1][1][8]: 1
+dirloopset[8][1][1][9]: -1
+dirloopset[8][1][1][10]: 16
+dirloopset[8][1][1][11]: 1
+dirloopset[8][1][1][12]: -1
+dirloopset[8][1][1][13]: 16
+dirloopset[8][1][1][14]: 1
+dirloopset[8][1][1][15]: -1
+dirloopset[8][1][1][16]: 16
+dirloopset[8][1][1][17]: 1
+dirloopset[8][2][0][0]: -1
+dirloopset[8][2][0][1]: 16
+dirloopset[8][2][0][2]: 1
+dirloopset[8][2][0][3]: -1
+dirloopset[8][2][0][4]: 16
+dirloopset[8][2][0][5]: 1
+dirloopset[8][2][0][6]: 15
+dirloopset[8][2][0][7]: 15
+dirloopset[8][2][0][8]: 1
+dirloopset[8][2][0][9]: 16
+dirloopset[8][2][0][10]: 16
+dirloopset[8][2][0][11]: 1
+dirloopset[8][2][0][12]: -1
+dirloopset[8][2][0][13]: 16
+dirloopset[8][2][0][14]: 1
+dirloopset[8][2][0][15]: -1
+dirloopset[8][2][0][16]: 16
+dirloopset[8][2][0][17]: 1
+dirloopset[8][2][1][0]: -1
+dirloopset[8][2][1][1]: 16
+dirloopset[8][2][1][2]: 1
+dirloopset[8][2][1][3]: -1
+dirloopset[8][2][1][4]: 16
+dirloopset[8][2][1][5]: 1
+dirloopset[8][2][1][6]: 15
+dirloopset[8][2][1][7]: 15
+dirloopset[8][2][1][8]: 1
+dirloopset[8][2][1][9]: 16
+dirloopset[8][2][1][10]: 16
+dirloopset[8][2][1][11]: 1
+dirloopset[8][2][1][12]: -1
+dirloopset[8][2][1][13]: 16
+dirloopset[8][2][1][14]: 1
+dirloopset[8][2][1][15]: -1
+dirloopset[8][2][1][16]: 16
+dirloopset[8][2][1][17]: 1
+dirloopset[8][3][0][0]: 0
+dirloopset[8][3][0][1]: 0
+dirloopset[8][3][0][2]: 0
+dirloopset[8][3][0][3]: 0
+dirloopset[8][3][0][4]: 0
+dirloopset[8][3][0][5]: 0
+dirloopset[8][3][0][6]: 0
+dirloopset[8][3][0][7]: 0
+dirloopset[8][3][0][8]: 0
+dirloopset[8][3][0][9]: 0
+dirloopset[8][3][0][10]: 0
+dirloopset[8][3][0][11]: 0
+dirloopset[8][3][0][12]: 0
+dirloopset[8][3][0][13]: 0
+dirloopset[8][3][0][14]: 0
+dirloopset[8][3][0][15]: 0
+dirloopset[8][3][0][16]: 0
+dirloopset[8][3][0][17]: 0
+dirloopset[8][3][1][0]: 0
+dirloopset[8][3][1][1]: 0
+dirloopset[8][3][1][2]: 0
+dirloopset[8][3][1][3]: 0
+dirloopset[8][3][1][4]: 0
+dirloopset[8][3][1][5]: 0
+dirloopset[8][3][1][6]: 0
+dirloopset[8][3][1][7]: 0
+dirloopset[8][3][1][8]: 0
+dirloopset[8][3][1][9]: 0
+dirloopset[8][3][1][10]: 0
+dirloopset[8][3][1][11]: 0
+dirloopset[8][3][1][12]: 0
+dirloopset[8][3][1][13]: 0
+dirloopset[8][3][1][14]: 0
+dirloopset[8][3][1][15]: 0
+dirloopset[8][3][1][16]: 0
+dirloopset[8][3][1][17]: 0
+dirloopset[8][4][0][0]: 0
+dirloopset[8][4][0][1]: 0
+dirloopset[8][4][0][2]: 0
+dirloopset[8][4][0][3]: 0
+dirloopset[8][4][0][4]: 0
+dirloopset[8][4][0][5]: 0
+dirloopset[8][4][0][6]: 0
+dirloopset[8][4][0][7]: 0
+dirloopset[8][4][0][8]: 0
+dirloopset[8][4][0][9]: 0
+dirloopset[8][4][0][10]: 0
+dirloopset[8][4][0][11]: 0
+dirloopset[8][4][0][12]: 0
+dirloopset[8][4][0][13]: 0
+dirloopset[8][4][0][14]: 0
+dirloopset[8][4][0][15]: 0
+dirloopset[8][4][0][16]: 0
+dirloopset[8][4][0][17]: 0
+dirloopset[8][4][1][0]: 0
+dirloopset[8][4][1][1]: 0
+dirloopset[8][4][1][2]: 0
+dirloopset[8][4][1][3]: 0
+dirloopset[8][4][1][4]: 0
+dirloopset[8][4][1][5]: 0
+dirloopset[8][4][1][6]: 0
+dirloopset[8][4][1][7]: 0
+dirloopset[8][4][1][8]: 0
+dirloopset[8][4][1][9]: 0
+dirloopset[8][4][1][10]: 0
+dirloopset[8][4][1][11]: 0
+dirloopset[8][4][1][12]: 0
+dirloopset[8][4][1][13]: 0
+dirloopset[8][4][1][14]: 0
+dirloopset[8][4][1][15]: 0
+dirloopset[8][4][1][16]: 0
+dirloopset[8][4][1][17]: 0
+dirloopset[8][5][0][0]: 0
+dirloopset[8][5][0][1]: 0
+dirloopset[8][5][0][2]: 0
+dirloopset[8][5][0][3]: 0
+dirloopset[8][5][0][4]: 0
+dirloopset[8][5][0][5]: 0
+dirloopset[8][5][0][6]: 0
+dirloopset[8][5][0][7]: 0
+dirloopset[8][5][0][8]: 0
+dirloopset[8][5][0][9]: 0
+dirloopset[8][5][0][10]: 0
+dirloopset[8][5][0][11]: 0
+dirloopset[8][5][0][12]: 0
+dirloopset[8][5][0][13]: 0
+dirloopset[8][5][0][14]: 0
+dirloopset[8][5][0][15]: 0
+dirloopset[8][5][0][16]: 0
+dirloopset[8][5][0][17]: 0
+dirloopset[8][5][1][0]: 0
+dirloopset[8][5][1][1]: 0
+dirloopset[8][5][1][2]: 0
+dirloopset[8][5][1][3]: 0
+dirloopset[8][5][1][4]: 0
+dirloopset[8][5][1][5]: 0
+dirloopset[8][5][1][6]: 0
+dirloopset[8][5][1][7]: 0
+dirloopset[8][5][1][8]: 0
+dirloopset[8][5][1][9]: 0
+dirloopset[8][5][1][10]: 0
+dirloopset[8][5][1][11]: 0
+dirloopset[8][5][1][12]: 0
+dirloopset[8][5][1][13]: 0
+dirloopset[8][5][1][14]: 0
+dirloopset[8][5][1][15]: 0
+dirloopset[8][5][1][16]: 0
+dirloopset[8][5][1][17]: 0
+end: init_placeongrid_griddecomposition
+useghostplusactive=0 extrazones4emf=0
+Setting orders
+Boundary number checks
+Changed do_{conserved/source/transverse_flux}_integration to 0 since avgscheme[1]=0 avgscheme[2]=0 avgscheme[3]=0
+Setting interp loop
+dimen=1 lim=20 avgo=0
+dimen=2 lim=20 avgo=0
+dimen=3 lim=20 avgo=0
+fluxloop[dimen=1][0] = 1
+fluxloop[dimen=1][1] = 0
+fluxloop[dimen=1][2] = 0
+fluxloop[dimen=1][3] = 1
+fluxloop[dimen=1][4] = 0
+fluxloop[dimen=1][5] = 16
+fluxloop[dimen=1][6] = -4
+fluxloop[dimen=1][7] = 19
+fluxloop[dimen=1][8] = -4
+fluxloop[dimen=1][9] = 19
+fluxloop[dimen=2][0] = 0
+fluxloop[dimen=2][1] = 1
+fluxloop[dimen=2][2] = 0
+fluxloop[dimen=2][3] = 2
+fluxloop[dimen=2][4] = -4
+fluxloop[dimen=2][5] = 19
+fluxloop[dimen=2][6] = 0
+fluxloop[dimen=2][7] = 16
+fluxloop[dimen=2][8] = -4
+fluxloop[dimen=2][9] = 19
+fluxloop[dimen=3][0] = 0
+fluxloop[dimen=3][1] = 0
+fluxloop[dimen=3][2] = 1
+fluxloop[dimen=3][3] = 3
+fluxloop[dimen=3][4] = -4
+fluxloop[dimen=3][5] = 19
+fluxloop[dimen=3][6] = -4
+fluxloop[dimen=3][7] = 19
+fluxloop[dimen=3][8] = 0
+fluxloop[dimen=3][9] = 16
+emffluxloop[dimen=1][0] = 0
+emffluxloop[dimen=1][1] = 1
+emffluxloop[dimen=1][2] = 1
+emffluxloop[dimen=1][3] = 4
+emffluxloop[dimen=1][4] = -4
+emffluxloop[dimen=1][5] = 19
+emffluxloop[dimen=1][6] = -4
+emffluxloop[dimen=1][7] = 19
+emffluxloop[dimen=1][8] = -4
+emffluxloop[dimen=1][9] = 19
+emffluxloop[dimen=2][0] = 1
+emffluxloop[dimen=2][1] = 0
+emffluxloop[dimen=2][2] = 1
+emffluxloop[dimen=2][3] = 0
+emffluxloop[dimen=2][4] = -4
+emffluxloop[dimen=2][5] = 19
+emffluxloop[dimen=2][6] = -4
+emffluxloop[dimen=2][7] = 19
+emffluxloop[dimen=2][8] = -4
+emffluxloop[dimen=2][9] = 19
+emffluxloop[dimen=3][0] = 1
+emffluxloop[dimen=3][1] = 1
+emffluxloop[dimen=3][2] = 0
+emffluxloop[dimen=3][3] = 0
+emffluxloop[dimen=3][4] = -4
+emffluxloop[dimen=3][5] = 19
+emffluxloop[dimen=3][6] = -4
+emffluxloop[dimen=3][7] = 19
+emffluxloop[dimen=3][8] = -4
+emffluxloop[dimen=3][9] = 19
+Uconsevolveloop[0] = 0
+Uconsevolveloop[1] = 0
+Uconsevolveloop[2] = 0
+Uconsevolveloop[3] = 0
+Uconsevolveloop[4] = 0
+Uconsevolveloop[5] = 15
+Uconsevolveloop[6] = 0
+Uconsevolveloop[7] = 15
+Uconsevolveloop[8] = 0
+Uconsevolveloop[9] = 15
+Uconsloop[0] = 0
+Uconsloop[1] = 0
+Uconsloop[2] = 0
+Uconsloop[3] = 0
+Uconsloop[4] = 0
+Uconsloop[5] = 15
+Uconsloop[6] = 0
+Uconsloop[7] = 15
+Uconsloop[8] = 0
+Uconsloop[9] = 15
+emfUconsloop[0] = 0
+emfUconsloop[1] = 0
+emfUconsloop[2] = 0
+emfUconsloop[3] = 0
+emfUconsloop[4] = 0
+emfUconsloop[5] = 15
+emfUconsloop[6] = 0
+emfUconsloop[7] = 15
+emfUconsloop[8] = 0
+emfUconsloop[9] = 15
+Reporting bound loop
+boundvartype=0
+numnpr=8
+numbnd[1]=4
+numbnd[2]=4
+numbnd[3]=4
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=19
+inboundloop[dimen=1]=-4 outboundloop[dimen=1]=19
+riin=0 riout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=19
+inboundloop[dimen=2]=-4 outboundloop[dimen=2]=19
+rjin=0 rjout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=19
+inboundloop[dimen=3]=-4 outboundloop[dimen=3]=19
+rkin=0 rkout=15
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=1
+numnpr=8
+numbnd[1]=1
+numbnd[2]=1
+numbnd[3]=1
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=16
+inboundloop[dimen=1]=-1 outboundloop[dimen=1]=16
+riin=0 riout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=16
+inboundloop[dimen=2]=-1 outboundloop[dimen=2]=16
+rjin=0 rjout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=16
+inboundloop[dimen=3]=-1 outboundloop[dimen=3]=16
+rkin=0 rkout=15
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=2
+numnpr=8
+numbnd[1]=4
+numbnd[2]=4
+numbnd[3]=4
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=19
+inboundloop[dimen=1]=-4 outboundloop[dimen=1]=19
+riin=0 riout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=19
+inboundloop[dimen=2]=-4 outboundloop[dimen=2]=19
+rjin=0 rjout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=19
+inboundloop[dimen=3]=-4 outboundloop[dimen=3]=19
+rkin=0 rkout=15
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=3
+numnpr=8
+numbnd[1]=1
+numbnd[2]=1
+numbnd[3]=1
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=16
+inboundloop[dimen=1]=-1 outboundloop[dimen=1]=16
+riin=0 riout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=16
+inboundloop[dimen=2]=-1 outboundloop[dimen=2]=16
+rjin=0 rjout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=16
+inboundloop[dimen=3]=-1 outboundloop[dimen=3]=16
+rkin=0 rkout=15
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=4
+numnpr=1
+numbnd[1]=1
+numbnd[2]=1
+numbnd[3]=1
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=16
+inboundloop[dimen=1]=-1 outboundloop[dimen=1]=16
+riin=0 riout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=16
+inboundloop[dimen=2]=-1 outboundloop[dimen=2]=16
+rjin=0 rjout=15
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=16
+inboundloop[dimen=3]=-1 outboundloop[dimen=3]=16
+rkin=0 rkout=15
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=5
+numnpr=9
+numbnd[1]=4
+numbnd[2]=4
+numbnd[3]=4
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=19
+inboundloop[dimen=1]=-4 outboundloop[dimen=1]=19
+riin=0 riout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=19
+inboundloop[dimen=2]=-4 outboundloop[dimen=2]=19
+rjin=0 rjout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=19
+inboundloop[dimen=3]=-4 outboundloop[dimen=3]=19
+rkin=0 rkout=16
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=6
+numnpr=9
+numbnd[1]=1
+numbnd[2]=1
+numbnd[3]=1
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=16
+inboundloop[dimen=1]=-1 outboundloop[dimen=1]=16
+riin=0 riout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=16
+inboundloop[dimen=2]=-1 outboundloop[dimen=2]=16
+rjin=0 rjout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=16
+inboundloop[dimen=3]=-1 outboundloop[dimen=3]=16
+rkin=0 rkout=16
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=7
+numnpr=4
+numbnd[1]=4
+numbnd[2]=4
+numbnd[3]=4
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=19
+inboundloop[dimen=1]=-4 outboundloop[dimen=1]=19
+riin=0 riout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=19
+inboundloop[dimen=2]=-4 outboundloop[dimen=2]=19
+rjin=0 rjout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-4
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=19
+inboundloop[dimen=3]=-4 outboundloop[dimen=3]=19
+rkin=0 rkout=16
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+boundvartype=8
+numnpr=4
+numbnd[1]=1
+numbnd[2]=1
+numbnd[3]=1
+Note inout/lowhigh iter has POINTDOWN=1 and POINTUP=0
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=1]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=1]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=1]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=1]=16
+inboundloop[dimen=1]=-1 outboundloop[dimen=1]=16
+riin=0 riout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=2]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=2]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=2]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=2]=16
+inboundloop[dimen=2]=-1 outboundloop[dimen=2]=16
+rjin=0 rjout=16
+inoutlohi[inoutboundary=1][lowhighrange=1][dimen=3]=-1
+inoutlohi[inoutboundary=1][lowhighrange=0][dimen=3]=-1
+inoutlohi[inoutboundary=0][lowhighrange=1][dimen=3]=16
+inoutlohi[inoutboundary=0][lowhighrange=0][dimen=3]=16
+inboundloop[dimen=3]=-1 outboundloop[dimen=3]=16
+rkin=0 rkout=16
+dosetbc[dir=0]=1
+dosetbc[dir=1]=1
+dosetbc[dir=2]=1
+dosetbc[dir=3]=1
+dosetbc[dir=4]=1
+dosetbc[dir=5]=1
+set_drsing() START
+set_drsing() END
+drsing=                    0
+set_position_stores() BEGIN
+proc: .grmhd.0003 : Exiting cc: 2714 nstep: 0

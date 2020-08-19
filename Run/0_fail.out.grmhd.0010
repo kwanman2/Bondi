@@ -1,0 +1,41 @@
+WARNING: With SENSITIVE!=LONGDOUBLETYPE you may have problems for some integral or counting quantities (e.g. DTd too small or many zones to integrate over)
+WARNING: PRODUCTION set to 0, code may be slower
+WARNING: DODISS/DOLUMVSR/DODISSVSR/DOENTROPY!=DONOENTROPY set to 1, code may be slower
+WARNING: interporder[dimen=1 lim=20]=7 -1 > TIMEORDER=2 is unstable in region where Courant condition setting dt
+WARNING: interporder[dimen=2 lim=20]=7 -1 > TIMEORDER=2 is unstable in region where Courant condition setting dt
+WARNING: interporder[dimen=3 lim=20]=7 -1 > TIMEORDER=2 is unstable in region where Courant condition setting dt
+WARNING: UORHOLIMIT=                 1000 for totalsize[1]=160
+WARNING: BSQORHOLIMIT=                   50 for totalsize[2]=32
+WARNING: BSQOULIMIT=                  250 for totalsize[2]=32
+WARNING: UORHOLIMIT=                 1000 for totalsize[2]=32
+WARNING: BSQORHOLIMIT=                   50 for totalsize[3]=16
+WARNING: BSQOULIMIT=                  250 for totalsize[3]=16
+WARNING: UORHOLIMIT=                 1000 for totalsize[3]=16
+******SUPERWARNING******: If far from black hole, even with apparently g^{t\phi}\sim 0 at the 10^{-34} level, still leads to exponential spurious growth in u^3 u_3 and B^3 to catastrophic levels!!  For KS metric with a\neq 0, best to use analytical gcon that leads to exactly g^{t\phi}=0 and so \beta[\phi]=0.
+WARNING: Using DIFFNUMREC can be very slow, but more accurate than DIFFGAMMIE.
+WARNING: WHICHEOM==WITHGDET is inferior to WHICHEOM==WITHNOGDET and setting NOGDETU1=NOGDETU2=1 near the poles where force balance is difficult to ensure.  If pressure constant, then NOGDET method ensures force balance between flux and source terms.
+dxdxp[1][1]=0 is too small.  Ensure SINGSMALL=2.22045e-12 > 1.52588e-05
+dxdxp[2][2]=0 is too small.  Ensure SINGSMALL=2.22045e-12 > 1.52588e-05
+dxdxp[3][3]=0 is too small.  Ensure SINGSMALL=2.22045e-12 > 1.52588e-05
+dxdxp[1][1]=0 is too small.  Ensure SINGSMALL=2.22045e-12 > 1.52588e-05
+dxdxp[2][2]=0 is too small.  Ensure SINGSMALL=2.22045e-12 > 1.52588e-05
+dxdxp[3][3]=0 is too small.  Ensure SINGSMALL=2.22045e-12 > 1.52588e-05
+gaussj: Singular Matrix-2
+Singularity check didn't work
+whichcoord=-1 anglesing=1 centersing=1 truedim=2
+inputmatrix[0][0]=                    1
+inputmatrix[0][1]=                    0
+inputmatrix[0][2]=                    0
+inputmatrix[0][3]=                    0
+inputmatrix[1][0]=                    0
+inputmatrix[1][1]=                    0
+inputmatrix[1][2]=                    0
+inputmatrix[1][3]=                    0
+inputmatrix[2][0]=                    0
+inputmatrix[2][1]=                    0
+inputmatrix[2][2]=                    0
+inputmatrix[2][3]=                    0
+inputmatrix[3][0]=                    0
+inputmatrix[3][1]=                    0
+inputmatrix[3][2]=                    0
+inputmatrix[3][3]=                    0
