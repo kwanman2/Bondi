@@ -70,32 +70,17 @@
 #define DOENER (0)
 
 //which problem
-#define MONOPOLE_PROBLEM_1D 1
-#define MONOPOLE_PROBLEM_2D 2
-#define BZ_MONOPOLE_2D 3
-#define TORUS_PROBLEM 4
-#define BONDI_PROBLEM_1D 5
-#define BONDI_PROBLEM_2D 6
-#define BONDI_LOW_AM 7
-#define SNDWAVE_TEST 8
-#define ENTWAVE_TEST 9
+#define MONOPOLE_PROBLEM_2D 1
+#define QUASI_BONDI_PROBLEM 2
+#define BONDI_PROBLEM 3
 
-#define WHICHPROBLEM BONDI_LOW_AM
+#define WHICHPROBLEM QUASI_BONDI_PROBLEM
 #define DOKTOT   1
 #define DOCYLINDRIFYCOORDS 0
 
 /** here are the few things that we change frequently **/
 
-#if WHICHPROBLEM == MONOPOLE_PROBLEM_1D
-#define N1       (128)        /* number of physical zones in X1-direction */
-#define N2       (1)          /* number of physical zones in X2-direction */
-#define N3       (1)          /* number of physical zones in X3-direction */
-#define GR       (1)          /* whether or not to use GR */
-#define BL       (1)          /* whether or not to use BL coords */
-#define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
-#define PERIODIC (0)          /* whether or not to use periodic boundary conditions */
-#define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == MONOPOLE_PROBLEM_2D
+#if WHICHPROBLEM == MONOPOLE_PROBLEM_2D
 #define N1       (128)         /* number of physical zones in X1-direction */
 #define N2       (128)         /* number of physical zones in X2-direction */
 #define N3       (1)          /* number of physical zones in X3-direction */
@@ -104,68 +89,23 @@
 #define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
 #define PERIODIC (0)          /* whether or not to use periodic boundary conditions */
 #define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == BZ_MONOPOLE_2D
-#define N1       (128)        /* number of physical zones in X1-direction */
-#define N2       (128)        /* number of physical zones in X2-direction */
-#define N3       (1)          /* number of physical zones in X3-direction */
-#define GR       (1)          /* whether or not to use GR */
-#define BL       (1)          /* whether or not to use BL coords */
-#define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
-#define PERIODIC (0)          /* whether or not to use periodic boundary conditions */
-#define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == TORUS_PROBLEM
-#define N1       (64)         /* number of physical zones in X1-direction */  //change back to 256x256
-#define N2       (64)         /* number of physical zones in X2-direction */
-#define N3       (1)          /* number of physical zones in X3-direction */
-#define GR       (1)          /* whether or not to use GR */
-#define BL       (1)          /* whether or not to use BL coords */
-#define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
-#define PERIODIC (0)          /* whether or not to use periodic boundary conditions */
-#define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == BONDI_PROBLEM_1D
-#define N1       (64)         /* number of physical zones in X1-direction */
-#define N2       (1)          /* number of physical zones in X2-direction */
-#define N3       (1)          /* number of physical zones in X3-direction */
-#define GR       (1)          /* whether or not to use GR */
-#define BL       (1)          /* whether or not to use BL coords */
-#define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
-#define PERIODIC (0)          /* whether or not to use periodic boundary conditions */
-#define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == BONDI_PROBLEM_2D
-#define N1       (64)         /* number of physical zones in X1-direction */
-#define N2       (64)         /* number of physical zones in X2-direction */
-#define N3       (1)          /* number of physical zones in X3-direction */
-#define GR       (1)          /* whether or not to use GR */
-#define BL       (1)          /* whether or not to use BL coords */
-#define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
-#define PERIODIC (0)          /* whether or not to use periodic boundary conditions */
-#define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == BONDI_LOW_AM
+#elif WHICHPROBLEM == QUASI_BONDI_PROBLEM
 #define N1       (16)         /* number of physical zones in X1-direction */
 #define N2       (16)         /* number of physical zones in X2-direction */
 #define N3       (16)          /* number of physical zones in X3-direction */
 #define GR       (1)          /* whether or not to use GR */
-#define BL       (1)          /* whether or not to use BL coords */
+#define BL       (1)          /* whether or not to use BLs */
 #define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
 #define PERIODIC (1)          /* whether or not to use periodic boundary conditions */
 #define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == SNDWAVE_TEST
-#define N1       (32)         /* number of physical zones in X1-direction */
-#define N2       (1)          /* number of physical zones in X2-direction */
+#elif WHICHPROBLEM == BONDI_PROBLEM
+#define N1       (64)         /* number of physical zones in X1-direction */
+#define N2       (64)         /* number of physical zones in X2-direction */
 #define N3       (1)          /* number of physical zones in X3-direction */
-#define GR       (0)          /* whether or not to use GR */
-#define BL       (0)          /* whether or not to use BL coords */
-#define INFLOW   (1)          /* whether or not to allow inflow at boundaries */
-#define PERIODIC (1)          /* whether or not to use periodic boundary conditions */
-#define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
-#elif WHICHPROBLEM == ENTWAVE_TEST
-#define N1/*ent*/(32)         /* number of physical zones in X1-direction */
-#define N2       (1)        /* number of physical zones in X2-direction */
-#define N3       (1)          /* number of physical zones in X3-direction */
-#define GR       (0)          /* whether or not to use GR */
-#define BL       (0)          /* whether or not to use BL coords */
-#define INFLOW   (1)          /* whether or not to allow inflow at boundaries */
-#define PERIODIC (1)          /* whether or not to use periodic boundary conditions */
+#define GR       (1)          /* whether or not to use GR */
+#define BL       (1)          /* whether or not to use BL coords */
+#define INFLOW   (0)          /* whether or not to allow inflow at boundaries */
+#define PERIODIC (0)          /* whether or not to use periodic boundary conditions */
 #define OUTFLOW  (0)          /* whether or not to use outflow boundary conditions in all directions */
 #endif
 
@@ -191,7 +131,7 @@
 
 #define NDIM       (4)        /* number of total dimensions.  Never changes */
 #define NPG        (5)        /* number of positions on grid for grid functions */
-#define COMPDIM    (3)        /* number of non-trivial spatial dimensions used in computation */    //tom 3-dimensional
+#define COMPDIM    (3)        /* number of non-trivial spatial dimensions used in computation */    //3d simulation
 
 #define NIMG       (5)        /* Number of types of diagnostics to save into fdump */
 
@@ -215,7 +155,7 @@
 
 #define FLOORFACTOR (1.)
 #define BSQORHOMAX (50.*FLOORFACTOR)
-#define BSQOUMAX (250.*FLOORFACTOR)
+#define BSQOUMAX (2500.*FLOORFACTOR)
 #define UORHOMAX (50.*FLOORFACTOR)
 
 //add mass in the drift frame (=1) instead of fluid frame (=0)
@@ -597,7 +537,7 @@ void diag_flux(double F1[][N2M][N3M][NPR], double F2[][N2M][N3M][NPR]) ;
 size_t dump(int dump_cnt, int is_dry_run) ;
 size_t gdump(int is_dry_run) ;
 size_t gdump2(int is_dry_run) ;
-//void fdump(int dumpno); tom: useless
+void fdump(int dumpno);
 
 
 void fail(int fail_type) ;
