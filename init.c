@@ -73,8 +73,8 @@ double normalize_B_by_beta(double beta_target, double (*p)[N2M][N3M][NPR], doubl
 
 #define NORMALIZE_FIELD_BY_MAX_RATIO (1)
 #define NORMALIZE_FIELD_BY_BETAMIN (2)
-#define WHICH_FIELD_NORMALIZATION NORMALIZE_FIELD_BY_BETAMIN
-//end magnetic field
+#define WHICH_FIELD_NORMALIZATION NORMALIZE_FIELD_BY_MAX_RATIO
+//end magnetic field        //tom: don't use NORMALIZE_FIELD_BY_BETAMIN in harmpi
 //////////////////////
 
 
@@ -99,6 +99,10 @@ void init()
     break;
   }
 
+}
+
+double max(double A, double B) {
+    return (A > B) ? A : B;
 }
 
 #define M_PI 3.14159265358979323846
@@ -134,7 +138,7 @@ void init_quasi_bondi()
   a = 0.9 ;
 
   //kappa =1.e-3; to be calculated
-  beta = 100. ;
+  beta = 60. ;
 
 
   /* some numerical parameters */
@@ -147,9 +151,9 @@ void init_quasi_bondi()
   Rout = 1e5;
   rbr = 300.;                   //tom
   npow2=4.0; //power exponent
-  cpow2=2.0; //exponent prefactor (the larger it is, the more hyperexponentiation is)   //tom
+  cpow2=1.0; //exponent prefactor (the larger it is, the more hyperexponentiation is)   //tom
   rhor = (1. + sqrt(1. - a * a));
-  mdot = 10.0;
+  mdot = 10000.0;
   rc = 0.0;
 
   z1 = 1 + pow(1 - a * a, 1. / 3.) * (pow(1 + a, 1. / 3.) + pow(1 - a, 1. / 3.));
@@ -202,10 +206,10 @@ void init_quasi_bondi()
     }
   }
 
-  E = 0.0005; //tom
+  E = 0.0001; //tom
 
   /* output choices */
-  tf = 10000.0 ;
+  tf = 100000.0 ;
 
   DTd = 10.; /* dumping frequency, in units of M */
   DTl = 10. ;	/* logfile frequency, in units of M */
@@ -241,16 +245,16 @@ void init_quasi_bondi()
         }
         get_phys_coord(i,j,k,&r,&th,&phi) ;
 
-        ssth = sin(sin(th)) ;   //angular distribution
+        ssth = sin(th)* sin(th);   //angular distribution
 
 
-        if(r > 1.5 * rhor) {        //tom: the inner edge of disk       //subject to be modified
+        if(r > 1.5 * rhor) {        //tom: the inner edge of disk
             
             //ur = -ur0 / sqrt(r / rhor);     //analytic bondi approximate solution
             ur = -sqrt(2 / r);   //free-fall
             uh = 0.;
-            if (r < isco) {
-                up = ssth * sqrt(r / isco);     //approach to 0 below ISCO
+            if (r < isco && r < rc) {
+                up = ssth * sqrt(r / (isco * isco));     //approach to 0 below ISCO
             }
             else if (r < rc) {
                 up = ssth / sqrt(r); //keplerian
@@ -261,23 +265,28 @@ void init_quasi_bondi()
 
             rho = mdot / (-4 * M_PI * r * r * ur);
 
-            guess = 100; //tom: guess r_s, arbitrary
+            guess = 1000; //tom: guess r_s, arbitrary
+            double l = lb * ssth;
             for (n = 1; n < 10; n++) {
-                f1 = E - pow(lb * ssth, 2) / (2 * pow(guess, 2)) + 1 / (2 * (guess - 1)) - (gam + 1) / (2 * (gam - 1)) * (guess / (4 * pow((guess - 1), 2)) - pow(lb * ssth, 2) / (2 * pow(guess, 2)));
-                f2 = pow(lb * ssth, 2) / pow(guess, 3) - 1 / (2 * pow((guess - 1), 2)) - (gam + 1) / (2 * (gam - 1)) * (1 / (4 * pow((guess - 1), 2)) - guess / (2 * pow((guess - 1), 3)) + pow(lb * ssth, 2) / pow(guess, 3));
+                f1 = E - pow(l, 2) / (2 * pow(guess, 2)) + 1 / (2 * (guess - 1)) - ((gam + 1) / (2 * (gam - 1))) * (guess / (4 * pow(guess - 1, 2)) - pow(l, 2) / (2 * pow(guess, 2)));
+                f2 = pow(l, 2) / pow(guess, 3) - 1 / (2 * pow(guess - 1, 2)) - ((gam + 1) / (2 * (gam - 1))) * (1 / (4 * pow(guess - 1, 2)) - guess / (2 * pow(guess - 1, 3)) + pow(l, 2) / pow(guess, 3));
                 guess = guess - f1 / f2;
             }
+            guess *= 2;     //tom: fix, somehow the radius is underestimated by the factor of 2, I haven't found a problem from the above code yet
 
             kappa = pow(4 * M_PI * guess * guess * pow(sqrt(2 / guess), (2 / (gam - 1) + 1)) / (mdot * pow(gam, 1 / (gam - 1))), (gam - 1));
+            //kappa = 1.e-3;   //temp
 
-            //if (MASTER == mpi_rank) {
-            if (j == 0 & k == 0 & i % 20 == 0) {            //debug check
+            if (MASTER == mpi_rank) {
+            //if (j == 0 & k == 0 & i % 20 == 0) {            //debug check
                 fprintf(stderr, "circularization radius: %g\n", rc);
                 fprintf(stderr, "Estimated bondi radius with E=%g: %g\n", E, guess);
                 fprintf(stderr, "specific entropy: %g\n", kappa);
             }
 
-            u = kappa * pow(rho, gam - 1.) / (gam - 1.);   //tom
+            //u = kappa * pow(rho, gam - 1.) / (gam - 1.);   //tom
+            //u = kappa * pow(rho, gam) / (gam - 1.);
+            u = 0.0002;     //floor value, for no angular momentum flows, check
 
             if (u > umax) umax = u;
 
@@ -477,17 +486,20 @@ void init_quasi_bondi()
       /* finally, normalize to set field strength */
       beta_act = (gam - 1.) * umax / (0.5 * bsq_max);
 
-      if (MASTER == mpi_rank)
+      if (MASTER == mpi_rank) {
           fprintf(stderr, "initial beta: %g (target: %g)\n", beta_act, beta);
-
+          fprintf(stderr, "umax: %g \n", umax);
+          fprintf(stderr, "bsq_max: %g \n", bsq_max);
+      }
       if (WHICH_FIELD_NORMALIZATION == NORMALIZE_FIELD_BY_BETAMIN) {
-          beta_act = normalize_B_by_beta(beta, p, 10 * rmax, &norm);
+          beta_act = normalize_B_by_beta_tom(beta, p, 0.01 * Rout, &norm);
       }
       else if (WHICH_FIELD_NORMALIZATION == NORMALIZE_FIELD_BY_MAX_RATIO) {
           beta_act = normalize_B_by_maxima_ratio(beta, p, &norm);
       }
-      else if 
-
+      if (MASTER == mpi_rank)
+          fprintf(stderr, "final beta: %g (target: %g)\n", beta_act, beta);
+  }
     
   /* enforce boundary conditions */
   fixup(p) ;
@@ -505,7 +517,7 @@ void init_quasi_bondi()
 
 
 
-//note that only axisymmetric A is supported        //tom: only consider the poloidal
+//note that only axisymmetric A is supported       
 double compute_B_from_A( double (*A)[N2+D2][N3+D3], double (*p)[N2M][N3M][NPR] )
 {
   double bsq_max = 0., bsq_ij ;
@@ -598,7 +610,7 @@ double normalize_B_by_beta(double beta_target, double (*p)[N2M][N3M][NPR], doubl
     get_geometry(i,j,k,CENT,&geom) ;
     bsq_ij = bsq_calc(p[i][j][k],&geom) ;
     u_ij = p[i][j][k][UU];
-    beta_ij = (gam - 1.)*u_ij/(0.5*(bsq_ij+SMALL)) ;
+    beta_ij = (gam - 1.)*u_ij/(0.5*(bsq_ij+SMALL)) ; 
     if(beta_ij < beta_min) beta_min = beta_ij ;
   }
 #ifdef MPI
@@ -609,14 +621,14 @@ double normalize_B_by_beta(double beta_target, double (*p)[N2M][N3M][NPR], doubl
   /* finally, normalize to set field strength */
   beta_act = beta_min;
   
-  norm = sqrt(beta_act/beta_target) ;
-  beta_min = 1e100;
-  ZLOOP {
-    p[i][j][k][B1] *= norm ;
+  norm = sqrt(beta_act/beta_target) ; 
+  beta_min = 1e100; 
+  ZLOOP { 
+    p[i][j][k][B1] *= norm ; 
     p[i][j][k][B2] *= norm ;
     p[i][j][k][B3] *= norm ;
     get_geometry(i,j,k,CENT,&geom) ;
-    bsq_ij = bsq_calc(p[i][j][k],&geom) ;
+    bsq_ij = bsq_calc(p[i][j][k],&geom) ;  
     u_ij = p[i][j][k][UU];
     beta_ij = (gam - 1.)*u_ij/(0.5*(bsq_ij+SMALL)) ;
     if(beta_ij < beta_min) beta_min = beta_ij ;
@@ -635,114 +647,68 @@ double normalize_B_by_beta(double beta_target, double (*p)[N2M][N3M][NPR], doubl
   return(beta_act);
 }
 
-// assumes normal field definition
-int user1_normalize_field(FTYPE beta, FTYPE(*prim)[NSTORE2][NSTORE3][NPR], FTYPE(*pstag)[NSTORE2][NSTORE3][NPR], FTYPE(*ucons)[NSTORE2][NSTORE3][NPR], FTYPE(*vpot)[NSTORE1 + SHIFTSTORE1][NSTORE2 + SHIFTSTORE2][NSTORE3 + SHIFTSTORE3], FTYPE(*Bhat)[NSTORE2][NSTORE3][NPR])
+double normalize_B_by_beta_tom(double beta_target, double(*p)[N2M][N3M][NPR], double range, double* norm_value)
 {
-    FTYPE bsq_max, norm, beta_act;
-    FTYPE myptotmax;
-    FTYPE betamin;
-    int get_maxes(FTYPE(*prim)[NSTORE2][NSTORE3][NPR], FTYPE * bsq_max, FTYPE * myptotmax, FTYPE * beta_min);
-
-
-    if (EOMTYPE == EOMFFDE || EOMTYPE == EOMFFDE2) return(0); // do nothing
-
-
-    // get initial maximum
-    get_maxes(prim, &bsq_max, &myptotmax, &betamin);        //tom done
-    trifprintf("initial bsq_max: %21.15g ptotmax: %21.15g betamin=%21.15g\n", bsq_max, myptotmax, betamin);
-
-#if(FIELDBETANORMMETHOD==0)
-    // get normalization parameter
-    beta_act = myptotmax / (0.5 * bsq_max);
-    norm = sqrt(beta_act / beta);
-#elif(FIELDBETANORMMETHOD==1)
-    beta_act = betamin;
-    norm = sqrt(beta_act / beta);
+    double beta_min = 1e100, beta_ij, beta_act, bsq_ij, u_ij, umax = 0., bsq_max = 0.;
+    double norm;
+    int i, j, k;
+    struct of_geom geom;
+    double X[NDIM], r, th, ph;
+    
+    ZLOOP{
+      coord(i, j, k, CENT, X);
+      bl_coord(X, &r, &th, &ph);
+      if (r > range) {
+        continue;
+      }
+      get_geometry(i,j,k,CENT,&geom);
+      bsq_ij = bsq_calc(p[i][j][k],&geom);
+      u_ij = p[i][j][k][UU];
+      beta_ij = (gam - 1.) * u_ij / (0.5 * (bsq_ij + SMALL));            
+      if (beta_ij < beta_min) beta_min = beta_ij;
+    } 
+#ifdef MPI
+        //exchange the info between the MPI processes to get the true max
+    MPI_Allreduce(MPI_IN_PLACE, &beta_min, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
 #endif
-    trifprintf("initial beta: %21.15g (should be %21.15g) norm=%21.15g\n", beta_act, beta, norm);
+    
+    //tom: neglect radiation pressure
 
+    /* finally, normalize to set field strength */
+    beta_act = beta_min;
 
-    // not quite right since only correct static field energy, not moving field energy
-    normalize_field_withnorm(norm, prim, pstag, ucons, vpot, Bhat);
+    if (MASTER == mpi_rank) {
+        fprintf(stderr, "beta_min: %g \n", beta_act);
+    }
+    norm = sqrt(beta_act / beta_target);           //normalization factor
+    if (MASTER == mpi_rank) {
+        fprintf(stderr, "norm: %g \n", norm);
+    }
+    //beta_min = 1e100;     //check
+    bsq_max = 0;
+    ZLOOP{
+      p[i][j][k][B1] *= norm;                          //normalization
+      p[i][j][k][B2] *= norm;
+      p[i][j][k][B3] *= norm;
+      get_geometry(i,j,k,CENT,&geom);
+      bsq_ij = bsq_calc(p[i][j][k],&geom);           //check
+      u_ij = p[i][j][k][UU];
+      beta_ij = (gam - 1.) * u_ij / (0.5 * (bsq_ij + SMALL));
+      if (beta_ij < beta_min) beta_min = beta_ij;
+    }
 
-    // get new maxes to check if beta is correct
-    get_maxes(prim, &bsq_max, &myptotmax, &betamin);
-    trifprintf("new initial bsq_max: %21.15g ptotmax: %21.15g betamin=%21.15g\n", bsq_max, myptotmax, betamin);
-
-#if(FIELDBETANORMMETHOD==0)
-    beta_act = myptotmax / (0.5 * bsq_max);
-#elif(FIELDBETANORMMETHOD==1)
-    beta_act = betamin;
+#ifdef MPI
+        //exchange the info between the MPI processes to get the true max
+    MPI_Allreduce(MPI_IN_PLACE, &beta_min, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
 #endif
-    trifprintf("final beta: %21.15g (should be %21.15g)\n", beta_act, beta);
 
+    beta_act = beta_min;
 
-    return(0);
-}
+    if (norm_value) {
+        *norm_value = norm;
+    }
 
-int normalize_field_withnorm(FTYPE norm, FTYPE(*prim)[NSTORE2][NSTORE3][NPR], FTYPE(*pstag)[NSTORE2][NSTORE3][NPR], FTYPE(*ucons)[NSTORE2][NSTORE3][NPR], FTYPE(*vpot)[NSTORE1 + SHIFTSTORE1][NSTORE2 + SHIFTSTORE2][NSTORE3 + SHIFTSTORE3], FTYPE(*Bhat)[NSTORE2][NSTORE3][NPR])
-{
-
-
-#pragma omp parallel
-    {
-        int i, j, k, pl, pliter;
-
-        OPENMP3DLOOPVARSDEFINE;
-
-        ///////  COMPZLOOP {
-        OPENMP3DLOOPSETUPZLOOP;
-#pragma omp for schedule(OPENMPSCHEDULE(),OPENMPCHUNKSIZE(blocksize)) nowait // next vpot assignment is independent
-        OPENMP3DLOOPBLOCK{
-          OPENMP3DLOOPBLOCK2IJK(i,j,k);
-
-
-        // normalize primitive
-        MACP0A1(prim,i,j,k,B1) *= norm;
-        MACP0A1(prim,i,j,k,B2) *= norm;
-        MACP0A1(prim,i,j,k,B3) *= norm;
-
-        // normalize conserved quantity
-        MACP0A1(ucons,i,j,k,B1) *= norm;
-        MACP0A1(ucons,i,j,k,B2) *= norm;
-        MACP0A1(ucons,i,j,k,B3) *= norm;
-
-        // normalize staggered field primitive
-        if (FLUXB == FLUXCTSTAG) {
-          MACP0A1(pstag,i,j,k,B1) *= norm;
-          MACP0A1(pstag,i,j,k,B2) *= norm;
-          MACP0A1(pstag,i,j,k,B3) *= norm;
-        }
-
-        // normalize higher-order field
-        if (HIGHERORDERMEM) {
-          MACP0A1(Bhat,i,j,k,B1) *= norm;
-          MACP0A1(Bhat,i,j,k,B2) *= norm;
-          MACP0A1(Bhat,i,j,k,B3) *= norm;
-        }
-        }// end 3D LOOP
-
-
-
-        // normalize vector potential if tracking
-            if (TRACKVPOT) {
-
-                /////////      COMPFULLLOOPP1{
-                OPENMP3DLOOPSETUPFULLP1;
-#pragma omp for schedule(OPENMPSCHEDULE(),OPENMPCHUNKSIZE(blocksize)) nowait // next vpot assignment is independent
-                OPENMP3DLOOPBLOCK{
-                  OPENMP3DLOOPBLOCK2IJK(i,j,k);
-
-                  MACP1A0(vpot,1,i,j,k) *= norm;
-                  MACP1A0(vpot,2,i,j,k) *= norm;
-                  MACP1A0(vpot,3,i,j,k) *= norm;
-                }// end 3D LOOP
-            }
-
-    }// end parallel region (and implied barrier)
-
-    return(0);
-
+    return(beta_act);
 }
 
 
