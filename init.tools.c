@@ -370,8 +370,8 @@ int user1_init_primitives(int inittype, FTYPE (*prim)[NSTORE2][NSTORE3][NPR], FT
   //
   /////////////////////////////// 
   // at this point densities are still standard, so just send "prim"
-  trifprintf("Normalize densities\n");
-  normalize_densities(prim);
+  //trifprintf("Normalize densities\n");
+  //normalize_densities(prim);      //tom: disable: don't need for bondi problem
 
 
 
@@ -1064,7 +1064,7 @@ int user1_set_atmosphere(int atmospheretype, int whichcond, int whichvel, struct
   // default
   PLOOP(pliter,pl) prlocal[pl]=pr[pl];
 
-  if(DOEVOLVERHO){
+  if(DOEVOLVERHO){                  //tom: global.depmnemonics.h define it to 1 for EOMTYPE==EOMGRMHD
     // Bondi-like atmosphere
     if(rescaletype==4){
       if(atmospheretype==1){
@@ -1075,6 +1075,11 @@ int user1_set_atmosphere(int atmospheretype, int whichcond, int whichvel, struct
         // couple rescaletype to atmosphere type
         if(r>40.0) prlocal[RHO] = RHOMIN*pow(r,-2.0);
         else prlocal[RHO] = RHOMIN*pow(40.0,-2.0);
+      }
+      else if (atmospheretype == 3) {
+          // couple rescaletype to atmosphere type
+          if (r < 2*Rhor) prlocal[RHO] = RHOMIN;
+          else prlocal[RHO] = RHOMIN * pow(r, -1.5);
       }
     }
     else{

@@ -11,9 +11,9 @@
 #undef N3
 #endif
 
-#define N1 16
-#define N2 16
-#define N3 16
+#define N1 8
+#define N2 8
+#define N3 8	//tom
 
 // atch adjusts
 #undef MAXWELL
@@ -179,14 +179,14 @@
 #undef DOPOLEDEATH
 #undef DOPOLESMOOTH
 #undef DOPOLEGAMMADEATH
-#define DOPOLEDEATH 0
-#define DOPOLESMOOTH 1
-#define DOPOLEGAMMADEATH 0
+#define DOPOLEDEATH 1	//tom
+#define DOPOLESMOOTH 0	//tom
+#define DOPOLEGAMMADEATH 1	//tom: refer to harmrad init.h
 // Note that if DOPOLESMOOTH>=DOPOLEGAMMADEATH or DOPOLESMOOTH>=DOPOLEDEATH, then DOPOLEGAMMADEATH or DOPOLEDEATH do nothing -- they are overwritten by DOPOLESMOOTH.
 
 
 #undef IF3DSPCTHENMPITRANSFERATPOLE
-#define IF3DSPCTHENMPITRANSFERATPOLE 1
+#define IF3DSPCTHENMPITRANSFERATPOLE 0	//tom: refer to harmrad: // need to reject outliers and use full 3D info before this is used again.  Otherwise (more) problems at r>rbr when hyperexpoential grid is used.
 
 
 
@@ -198,7 +198,7 @@
 #define FIELDSTAGMEM 1 // testing
 #define HIGHERORDERMEM 0
 #define MAXBND 4 // 4 for PARAFLAT, 6 for WENO5BND wo/a2c stuff : 11 for full point-field FLUXRECON method
-#define PRODUCTION 0	//tom: set to 2 after debug
+#define PRODUCTION 1	//tom: set to 2 after debug
 //#define FULLOUTPUT MAXBND
 #define FULLOUTPUT 0
 
@@ -210,7 +210,7 @@
 //#define EMAILMESSAGE "Done with GRMHD run DEFAULT"
 #define PERFTEST 0
 #define DOAVG 0
-#define DOJETDIAG 1
+#define DOJETDIAG 0
 #define DOAVG2 0
 #define DODEBUG 1
 #define DO_WENO_DEBUG 0
@@ -221,7 +221,7 @@
 #define LIMITDTWITHSOURCETERM 0 // causes problems, drops dt too low
 #define USEGRAVITYDTINDTLIMIT 0
 #define RESTRICTDTSETTINGINSIDEHORIZON 2
-#define DODISS 1
+#define DODISS 0
 #define DOLUMVSR 0
 #define DODISSVSR 0
 #define DOSELFGRAVVSR 0
@@ -245,7 +245,7 @@
 //#define WHICHEOM (ISSPCMCOORD(MCOORD) ? WITHNOGDET : WITHGDET) // now default is WITHNOGDET for normal problems -- assumes half or full \theta hemispheres since main benefit is near poles. // still seems wrong -- need to test.
 #define REMOVERESTMASSFROMUU 2
 #define RELTYPE RELEOM
-#define EOMTYPE EOMGRMHD
+#define EOMTYPE EOMGRMHD		//tom notes: grmhd only; in harmrad, an extra #define EOMRADTYPE EOMRADM1CLOSURE
 //#define EOMTYPE EOMFFDE
 //#define EOMTYPE EOMCOLDGRMHD
 #define UTOPRIMTRYAGAIN 0
@@ -297,8 +297,8 @@
 // Hawley uses 0.06283 (0.02Pi)
 
 #define DOSTOREPOSITIONDATA 1 // DEBUG
-//#define CONNDERTYPE DIFFGAMMIE // DEBUG
-#define CONNDERTYPE DIFFNUMREC
+#define CONNDERTYPE DIFFGAMMIE // DEBUG		//tom
+//#define CONNDERTYPE DIFFNUMREC
 #define VOLUMEDIFF 0
 #define GDETVOLDIFF 0 // doesn't help much
 #define FIXGDETSPC_WHEN_1DRADIAL 1
@@ -318,7 +318,7 @@
 #define DOENOFLUXMEMORY 0
 #define BOUNDARYINTERPADJUST 0  //should be set to zero always
 #define COMPUTEFRDOT 0
-#define CALCFARADAYANDCURRENTS 1
+#define CALCFARADAYANDCURRENTS 0 // WALD->1 //tom: from harmrad
 #define WHICHCURRENTCALC CURRENTCALC1
 #define FARADAYT0 1
 #define CURRENTST0 1
@@ -380,7 +380,7 @@
 #define DODUMPOTHER 0
 
 #undef FLUXDUMP
-#define FLUXDUMP 0
+#define FLUXDUMP 1	//tom: output fluxdump, original: 0
 
 struct Ccoordparams {
   double timescalefactor;

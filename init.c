@@ -102,8 +102,8 @@
 #define WHICHPROBLEM BONDI //THICKDISK // NORMALTORUS // choice
 
 
-static SFTYPE rhomax=0,umax=0,bsq_max=0; // OPENMPMARK: These are ok file globals since set using critical construct
-static SFTYPE beta,randfact,rin; // OPENMPMARK: Ok file global since set as constant before used
+static SFTYPE rhomax = 0, umax = 0, uradmax = 0, utotmax = 0, pmax = 0, pradmax = 0, ptotmax = 0, bsq_max = 0; // OPENMPMARK: These are ok file globals since set using critical construct
+static SFTYPE beta, randfact, rin, rinfield, routfield; // OPENMPMARK: Ok file global since set as constant before used
 static FTYPE rhodisk;
 
 
@@ -114,7 +114,7 @@ int inittypeglobal; // for bounds to communicate detail of what doing
 
 
 
-int prepre_init_specific_init(void) //tom bondi: not using
+int prepre_init_specific_init(void) 
 {
   int funreturn;
 
@@ -142,7 +142,7 @@ int prepre_init_specific_init(void) //tom bondi: not using
 }
 
 
-int pre_init_specific_init(void)        //tom bondi: not using
+int pre_init_specific_init(void) 
 {
 
   if(WHICHPROBLEM==THICKDISK){
@@ -239,7 +239,7 @@ int init_defcoord(void)
   // define coordinate type
   defcoord = JET4COORDS;
 #elif(WHICHPROBLEM==BONDI)
-  defcoord = UNIFORMCOORDS;     //tom
+  defcoord = RAMESHCOORDS;     //tom
 #endif
   return(0);
 }
@@ -249,7 +249,7 @@ int init_grid(void)
 {
   
   // metric stuff first
-    a = 0.0;
+    a = 0.9;
     //a = 0.9375 ;  //tom
 
   
@@ -269,9 +269,9 @@ int init_grid(void)
   R0 = -3.0;
   Rout = 1E5;
 #elif(WHICHPROBLEM==BONDI)  //tom
-  R0 = -2 * Rhor;
+  R0 = 0.0;
   Rin = 0.7 * Rhor;
-  Rout = 1E4;
+  Rout = 1E5;
 #endif
 
  
@@ -344,7 +344,7 @@ int init_global(void)
   BCtype[X1DN] = FREEOUTFLOW;
   rescaletype = 4;
   BSQORHOLIMIT = 50.;
-  BSQOULIMIT = 250.;             //I forgot what are those
+  BSQOULIMIT = 2500.;             
   RHOMIN = 1E-6;                //keep the similar setting from harmpi
   UUMIN = 1E-8;                  //tom
 #endif
@@ -395,6 +395,8 @@ int init_global(void)
   /* output choices */
   tf = 1E5;             //tom
 
+  gam = 4. / 3.; //tom
+
 #endif
 
 
@@ -403,7 +405,7 @@ int init_global(void)
 
 }
 
-// assumes normalized density
+// assumes normalized density 
 int init_atmosphere(int *whichvel, int*whichcoord,int i, int j, int k, FTYPE *pr)
 {
   int funreturn;
@@ -449,7 +451,7 @@ int init_grid_post_set_grid(FTYPE (*prim)[NSTORE2][NSTORE3][NPR], FTYPE (*pstag)
   //rin = (1. + h_over_r)*Risco;
   rin = Risco;
 #elif(WHICHPROBLEM==BONDI)      //tom
-  beta = 200;
+  beta = 60.;
 #elif(WHICHPROBLEM==GRBJET)
 #endif
 
@@ -773,7 +775,7 @@ int init_dsandvels_thindisk(int *whichvel, int*whichcoord, int i, int j, int k, 
   }
 }
 
-
+//tom: no need to be normalized
 ///////// notes: where to set gam?
 int init_dsandvels_bondi(int* whichvel, int* whichcoord, int i, int j, int k, FTYPE* pr, FTYPE* pstag)  //tom
 {
@@ -782,15 +784,15 @@ int init_dsandvels_bondi(int* whichvel, int* whichcoord, int i, int j, int k, FT
     FTYPE X[NDIM], V[NDIM], r, th, ph;
     struct of_geom realgeomdontuse;
     struct of_geom* ptrrealgeom = &realgeomdontuse;
-    SFTYPE l, rc, mdot, ur0;
+    SFTYPE l, rc, mdot, E;
     SFTYPE kappa;
     SFTYPE rh;
     //  FTYPE pratm[NPR];
     int pl, pliter;
 
     rc = 0.0;
-    mdot = 2.0;
-    ur0 = 0.3;      //tom
+    mdot = 10000.0; //tom
+    E = 0.0001; //tom
 
     coord(i, j, k, CENT, X);
     bl_coord(X, V);
@@ -798,17 +800,21 @@ int init_dsandvels_bondi(int* whichvel, int* whichcoord, int i, int j, int k, FT
     th = V[2];
     ph = V[3];
 
+    double z1 = 1 + pow(1 - a * a, 1. / 3.) * (pow(1 + a, 1. / 3.) + pow(1 - a, 1. / 3.));
+    double z2 = pow(3 * a * a + z1 * z1, 1. / 2.);
+    double isco = 3 + z2 - (a / abs(a)) * pow((3 - z1) * (3 + z1 + 2 * z2), 1. / 2.);
+
     //angular momentum below bondi radius in the equatorial plane (assuming angular momentum is conserved in the infall phase)
     l = sqrt(rc);
 
-    ssth = sin(sin(th));
+    ssth = sin(th)*sin(th);
 
 
     if (r < 1.5 * Rhor) {           //tom: inside the inner edge of the disk/ density distribution
 
 
-        //get_geometry(i, j, k, CENT, ptrrealgeom); // true coordinate system
-        set_atmosphere(-1, WHICHVEL, ptrrealgeom, pr); // set velocity in chosen WHICHVEL frame in any coordinate system        //tom: what's this
+        get_geometry(i, j, k, CENT, ptrrealgeom); // true coordinate system
+        //set_atmosphere(-1, WHICHVEL, ptrrealgeom, pr); // set velocity in chosen WHICHVEL frame in any coordinate system        //tom: not firm
 
         rho = RHOMIN * 1.E-10;
         u = UUMIN * 1.E-10;
@@ -826,44 +832,42 @@ int init_dsandvels_bondi(int* whichvel, int* whichcoord, int i, int j, int k, FT
         pr[U2] = uh;
         pr[U3] = up;
 
-        // just define some field
-        pr[B1] = 0.0;
-        pr[B2] = 0.0;
-        pr[B3] = 0.0;
-
-        *whichvel = WHICHVEL;           //tom mark: ??
+        *whichvel = WHICHVEL;           
         //*whichcoord = PRIMECOORDS;
         *whichcoord = BLCOORDS;
         return(0);
     }
     else {
-        if (r < rc) {
-            ur = -ur0 / sqrt(rc / Rhor);     //analytic bondi approximate solution
-            //ur = 0.;
-            uh = 0.;
+        ur = -sqrt(2 / r);   //free-fall
+        uh = 0.;
+        if (r < isco && r < rc) {
+            up = ssth * sqrt(r / (isco * isco));      //approach to 0 below ISCO
+        }
+        else if (r < rc) {
             up = ssth / sqrt(r); //keplerian
         }
         else {
-            ur = -ur0 / sqrt(r / Rhor);
-            //ur = 0.;
-            uh = 0.;
             up = l * ssth / r;  //(assuming angular momentum is conserved in the infall phase)
         }
         
-        rho = RHOMIN * 1.E-10 + mdot / (-4 * M_PI * r * r * ur);
-
+        rho = mdot / (-4 * M_PI * r * r * ur);
+        
         //specific entropy
-        double n, f1, f2, guess,E;
-        E = 0.0005; //tom
-        guess = 100; //tom: guess r_s, arbitrary
+        double n, f1, f2, guess;
+        guess = 1000; //tom: guess r_s, arbitrary
         for (n = 1; n < 10; n++) {
             f1 = E - pow(l * ssth, 2) / (2 * pow(guess, 2)) + 1 / (2 * (guess - 1)) - (gam + 1) / (2 * (gam - 1)) * (guess / (4 * pow((guess - 1), 2)) - pow(l * ssth, 2) / (2 * pow(guess, 2)));
             f2 = pow(l * ssth, 2) / pow(guess, 3) - 1 / (2 * pow((guess - 1), 2)) - (gam + 1) / (2 * (gam - 1)) * (1 / (4 * pow((guess - 1), 2)) - guess / (2 * pow((guess - 1), 3)) + pow(l * ssth, 2) / pow(guess, 3));
             guess = guess - f1 / f2;
         }
-        kappa = pow(4 * M_PI * guess * guess * pow(ur0 / sqrt(guess / Rhor), (2 / (gam - 1) + 1)) / (mdot * pow(gam, 1 / (gam - 1))), (gam - 1));
+        guess *= 2;     //tom: fix, somehow the radius is underestimated by the factor of 2, I haven't found a problem from the above code yet
 
-        u = kappa * pow(rho, gam) / (gam - 1.);     //tom: maybe wrong, double check. The K mentioned in the paper, specific entropy, maybe different from kappa
+        kappa = pow(4 * M_PI * guess * guess * pow(sqrt(2 / guess), (2 / (gam - 1) + 1)) / (mdot * pow(gam, 1 / (gam - 1))), (gam - 1));
+        
+        //kappa = 1.e-3;
+
+        //u = kappa * pow(rho, gam) / (gam - 1.);     
+        u = kappa * pow(rho, gam - 1.) / (gam - 1.);
 
 
         pr[RHO] = rho;
@@ -884,7 +888,7 @@ int init_dsandvels_bondi(int* whichvel, int* whichcoord, int i, int j, int k, FT
             PLOOPBONLY(pl) pstag[pl] = pr[pl];
         }*/
 
-        *whichvel = VEL4;               //tom: ??
+        *whichvel = VELREL4;               //tom: 
         *whichcoord = BLCOORDS;
         return(0);
     }
@@ -894,6 +898,7 @@ int init_dsandvels_bondi(int* whichvel, int* whichcoord, int i, int j, int k, FT
 
 
 
+#define NOFIELD -1
 #define DISK1FIELD 0
 #define DISK2FIELD 1
 #define VERTFIELD 2
@@ -901,14 +906,20 @@ int init_dsandvels_bondi(int* whichvel, int* whichcoord, int i, int j, int k, FT
 #define DISK2VERT 4
 #define BLANDFORDQUAD 5
 #define TOROIDALFIELD 6
-#define FIELDJONMAD 7   //tom
+#define OHSUGAFIELD 7
+#define MONOPOLAR 8
+#define OLEKFIELD 9
+#define FIELDJONMAD 10
+#define FIELDWALD 11        //tom: don't use this here
+#define MONOPOLE 12         //tom: don't use this here
+#define SPLITMONOPOLE 13    //tom: don't use this here
 
 
 #if(WHICHPROBLEM==THICKDISK)
 //#define FIELDTYPE TOROIDALFIELD
 #define FIELDTYPE DISK2FIELD
 #else
-#define FIELDTYPE TOROIDALFIELD //DISK1FIELD //tom
+#define FIELDTYPE FIELDJONMAD //DISK1FIELD //tom
 #endif
 
 
@@ -976,212 +987,406 @@ FTYPE setblandfordfield(FTYPE r, FTYPE th)
 
 // assumes normal field in pr
 // SUPERNOTE: A_i must be computed consistently across all CPUs.  So, for example, cannot use randomization of vector potential here.
-int init_vpot_user(int *whichcoord, int l, SFTYPE time, int i, int j, int k, int loc, FTYPE (*prim)[NSTORE2][NSTORE3][NPR], FTYPE *V, FTYPE *A)
+int init_vpot_user(int* whichcoord, int l, SFTYPE time, int i, int j, int k, int loc, FTYPE(*prim)[NSTORE2][NSTORE3][NPR], FTYPE* V, FTYPE* A)
 {
-  SFTYPE rho_av, u_av,q;
-  FTYPE r,th,ph;
-  FTYPE vpot;
-  FTYPE setblandfordfield(FTYPE r, FTYPE th);
+    SFTYPE rho_av, p_av, u_av, q;
+    FTYPE r, th, ph;
+    FTYPE vpot;
+    FTYPE setblandfordfield(FTYPE r, FTYPE th);
 
 
-#define FRACAPHICUT 0.2
-  //#define FRACAPHICUT 0.1
+    FTYPE FRACAPHICUT;
 
 
-
-  vpot=0.0;
-
-
-
-  // since init_vpot() is called for all i,j,k, can't use
-  // non-existence values, so limit averaging:
-  if((i==-N1BND)&&(j==-N2BND)){
-    rho_av = MACP0A1(prim,i,j,k,RHO);
-    u_av = MACP0A1(prim,i,j,k,UU);
-  }
-  else if(i==-N1BND){
-    rho_av = AVGN_2(prim,i,j,k,RHO);
-    u_av = AVGN_2(prim,i,j,k,UU);
-  }
-  else if(j==-N2BND){
-    rho_av = AVGN_1(prim,i,j,k,RHO);
-    u_av = AVGN_1(prim,i,j,k,UU);
-  }
-  else{ // normal cells
-    rho_av = AVGN_for3(prim,i,j,k,RHO);
-    u_av = AVGN_for3(prim,i,j,k,UU);
-  }
+    //#define FRACAPHICUT 0.1
+    FRACAPHICUT = 0.2; // for weak field
+    //    FRACAPHICUT=0.001; // for disk-filling field that is more MAD like
 
 
+    //FRACAPHICUT = 1E-6;
 
+    vpot = 0.0;
 
+    FTYPE* pr = &MACP0A1(prim, i, j, k, 0);
 
-  if(FIELDTYPE==TOROIDALFIELD){
-    
-    if(l==2){// A_\theta (MCOORD)
-      
-      r=V[1];
-      th=V[2];
+#if(1)
+    int ibound = 0, jbound = 0, kbound = 0;
+    if (i == -N1BND || i == N1 - 1 + N1BND) ibound = 1 && N1NOT1;
+    if (j == -N2BND || j == N2 - 1 + N2BND) jbound = 1 && N2NOT1;
+    if (k == -N3BND || k == N3 - 1 + N3BND) kbound = 1 && N3NOT1;
 
-      //      q = r*r*r*fabs(sin(th)) * 1.0 ; // constant B^\phi
-      q = r*r*r;
+    int iout = 0, jout = 0, kout = 0;
+    if (i<-N1BND || i>N1 - 1 + N1BND) iout = 1 && N1NOT1;
+    if (j<-N2BND || j>N2 - 1 + N2BND) jout = 1 && N2NOT1;
+    if (k<-N3BND || k>N3 - 1 + N3BND) kout = 1 && N3NOT1;
+#endif
 
-      q=q/(r); // makes more uniform in radius
-
-      q = q*(u_av / umax - FRACAPHICUT); // weight by internal energy density
-      //      q = (rho_av / rhomax - FRACAPHICUT);
-
-      if(q<0.0) q=0.0;
-
-      vpot += q;
-      
+    // since init_vpot() is called for all i,j,k, can't use
+    // non-existence values, so limit averaging:
+    if (iout || jout || kout) {
+        rho_av = p_av = 0.0;
     }
-  }
-
-
-  FTYPE rpow;
-  rpow=3.0/4.0; // Using rpow=1 leads to quite strong field at large radius, and for standard atmosphere will lead to \sigma large at all radii, which is very difficult to deal with -- especially with grid sectioning where outer moving wall keeps opening up highly magnetized region
-  //  FTYPE FIELDROT=M_PI*0.5;
-  FTYPE FIELDROT=0.0;
-  FTYPE hpow=2.0;
-
-
-  if(l==2){// A_\theta
-
-    r=V[1];
-    th=V[2];
-    ph=V[3];
-
-
-    /* vertical field version*/
-    if((FIELDTYPE==VERTFIELD)||(FIELDTYPE==DISK1VERT)||(FIELDTYPE==DISK2VERT)){
-      vpot += -(pow(r,rpow)*pow(sin(th),hpow)*sin(FIELDROT)*sin(ph));
+    else if (ibound || jbound || kbound) {
+        //    if(ibound||jbound||kbound){
+        //  if(i==-N1BND && j==-N2BND){
+        rho_av = pr[RHO];
+        p_av = pressure_rho0_u_simple(i, j, k, CENT, pr[RHO], pr[UU]);
+        //if (EOMRADTYPE != EOMRADNONE) p_av += pr[URAD0] * (4.0 / 3.0 - 1.0); //tom: this is pure harm3d
     }
-
-
-  }
-
-  if(l==3){// A_\phi
-
-    r=V[1];
-    th=V[2];
-    ph=V[3];
-
-
-    // Blandford quadrapole field version
-    if(FIELDTYPE==BLANDFORDQUAD){
-      vpot += setblandfordfield(r,th);
-    }
-
-    /* vertical field version*/
-    if((FIELDTYPE==VERTFIELD)||(FIELDTYPE==DISK1VERT)||(FIELDTYPE==DISK2VERT)){
-      //vpot += 0.5*pow(r,rpow)*sin(th)*sin(th) ;
-      vpot += pow(r,rpow)*pow(sin(th),hpow)*(cos(FIELDROT) - cos(ph)*cot(th)*sin(FIELDROT));
+    /* else if(i==-N1BND){ */
+    /*   rho_av = AVGN_2(prim,i,j,k,RHO); */
+    /*   u_av = AVGN_2(prim,i,j,k,UU); // simple cheat to avoid defining new AVGN macros */
+    /*   p_av = pressure_rho0_u_simple(i,j,k,loc,rho_av,u_av); */
+    /*   if(EOMRADTYPE!=EOMRADNONE) p_av += AVGN_2(prim,i,j,k,URAD0)*(4.0/3.0-1.0); */
+    /* } */
+    /* else if(j==-N2BND){ */
+    /*   rho_av = AVGN_1(prim,i,j,k,RHO); */
+    /*   u_av = AVGN_1(prim,i,j,k,UU); */
+    /*   p_av = pressure_rho0_u_simple(i,j,k,loc,rho_av,u_av); */
+    /*   if(EOMRADTYPE!=EOMRADNONE) p_av += AVGN_1(prim,i,j,k,URAD0)*(4.0/3.0-1.0); */
+    /* } */
+    else { // normal cells
+        if (loc == CORN3) {
+            rho_av = AVGN_for3(prim, i, j, k, RHO);
+            u_av = AVGN_for3(prim, i, j, k, UU);
+            p_av = pressure_rho0_u_simple(i, j, k, loc, rho_av, u_av);
+            //if (EOMRADTYPE != EOMRADNONE) p_av += AVGN_for3(prim, i, j, k, URAD0) * (4.0 / 3.0 - 1.0); //tom: this is pure harm3d
+        }
+        else if (loc == CORN2) {
+            rho_av = AVGN_for2(prim, i, j, k, RHO);
+            u_av = AVGN_for2(prim, i, j, k, UU);
+            p_av = pressure_rho0_u_simple(i, j, k, loc, rho_av, u_av);
+            //if (EOMRADTYPE != EOMRADNONE) p_av += AVGN_for2(prim, i, j, k, URAD0) * (4.0 / 3.0 - 1.0); //tom: this is pure harm3d
+        }
+        else if (loc == CORN1) {
+            rho_av = AVGN_for1(prim, i, j, k, RHO);
+            u_av = AVGN_for1(prim, i, j, k, UU);
+            p_av = pressure_rho0_u_simple(i, j, k, loc, rho_av, u_av);
+            //if (EOMRADTYPE != EOMRADNONE) p_av += AVGN_for1(prim, i, j, k, URAD0) * (4.0 / 3.0 - 1.0); //tom: this is pure harm3d
+        }
+        else {
+            dualfprintf(fail_file, "No such setup for loc=%d\n", loc);
+            myexit(34782985);
+        }
     }
 
 
-    /* field-in-disk version */
-    if(FIELDTYPE==DISK1FIELD || FIELDTYPE==DISK1VERT){
-      q = rho_av / rhomax - 0.2;
-      if (q > 0.)      vpot += q;
+
+
+    if (FIELDTYPE == TOROIDALFIELD) {
+
+        if (l == 2) {// A_\theta (MCOORD)
+
+            r = V[1];
+            th = V[2];
+
+            //      q = r*r*r*fabs(sin(th)) * 1.0 ; // constant B^\phi
+            q = r * r * r;
+
+            q = q / (r); // makes more uniform in radius
+
+            q = q * (p_av / ptotmax - FRACAPHICUT); // weight by pressure
+            //      q = (rho_av / rhomax - FRACAPHICUT);
+
+            if (q < 0.0) q = 0.0;
+
+            vpot += q;
+
+        }
     }
 
 
-    if(FIELDTYPE==DISK2FIELD || FIELDTYPE==DISK2VERT){
-      // average of density that lives on CORN3
+    FTYPE rpow;
+    rpow = 3.0 / 4.0; // Using rpow=1 leads to quite strong field at large radius, and for standard atmosphere will lead to \sigma large at all radii, which is very difficult to deal with -- especially with grid sectioning where outer moving wall keeps opening up highly magnetized region
+    //  FTYPE FIELDROT=M_PI*0.5;
+    FTYPE FIELDROT = 0.0;
+    FTYPE hpow = 2.0;
+    // FTYPE rpow=1.0; // previous SUPERMAD, now just use 3/4
+    rpow = 0.85; // jane:1.0 so libetatot constant vs. radius
 
 
-#define FRACAPHICUT 0.2
-      //#define FRACAPHICUT 0.1
+    if (l == 2) {// A_\theta
 
-      //      q = (rho_av / rhomax - FRACAPHICUT);
-      q = (u_av / umax - FRACAPHICUT);
+        r = V[1];
+        th = V[2];
+        ph = V[3];
 
-      //#define QPOWER 0.5
-#define QPOWER (1.0)
 
-#define POWERNU (2.0)
-      //#define POWERNU (4.0)
+        /* vertical field version*/
+        if ((FIELDTYPE == VERTFIELD) || (FIELDTYPE == DISK1VERT) || (FIELDTYPE == DISK2VERT)) {
+            vpot += -(pow(r, rpow) * pow(sin(th), hpow) * sin(FIELDROT) * sin(ph));
+        }
 
-      //      if (q > 0.)      vpot += q*q*pow(r*fabs(sin(th)),POWERNU);
-      FTYPE fact1,fact2,SSS,TTT;
-      fact1=pow(fabs(q),QPOWER)*pow(r*fabs(sin(th)),POWERNU);
-      SSS=rin*0.5;
-      TTT=0.28;
-      fact2=sin(log(r/SSS)/TTT);
 
-      if (q > 0.)      vpot += fact1*fact2;
-      //      if (q > 0.)      vpot += q*q;
+    }
 
-      }
+    if (l == 3) {// A_\phi
+
+        r = V[1];
+        th = V[2];
+        ph = V[3];
+
+
+        // Blandford quadrapole field version
+        if (FIELDTYPE == BLANDFORDQUAD) {
+            vpot += setblandfordfield(r, th);
+        }
+
+        /* vertical field version*/
+        if ((FIELDTYPE == VERTFIELD) || (FIELDTYPE == DISK1VERT) || (FIELDTYPE == DISK2VERT)) {
+            //vpot += 0.5*pow(r,rpow)*sin(th)*sin(th) ;
+            vpot += pow(r, rpow) * pow(sin(th), hpow) * (cos(FIELDROT) - cos(ph) * cot(th) * sin(FIELDROT));
+        }
+
+
+        if (FIELDTYPE == MONOPOLAR) {
+            vpot += (1.0 - cos(th));
+        }
+
+        if (FIELDTYPE == OLEKFIELD) {
+            vpot += MAX(pow(r, 4.0) * pow(rho_av, 2.0) * 1E40 - 0.02, 0.0) * pow(sin(th), 4.0);
+        }
 
 #define JONMADHPOW (4.0)
 #define JONMADR0 (-5.0)
-#define JONMADRIN (2.0)
-#define JONMADROUT (200) //jane: transition to monopolar field
+#define JONMADRIN (8.0)
+#define JONMADROUT (500) //jane: transition to monopolar field
 
-      FTYPE jonmadhpow;
-      FTYPE interp;
-      interp = (r - Rhor) / (r + 1E-10);
-      if (interp < 0.0) interp = 0.0;
-      if (interp > 1.0) interp = 1.0;
+        FTYPE jonmadhpow;
+        FTYPE interp;
+        interp = (r - Rhor) / (r + 1E-10);
+        if (interp < 0.0) interp = 0.0;
+        if (interp > 1.0) interp = 1.0;
 
-      jonmadhpow = JONMADHPOW * interp + 0.0 * (1.0 - interp);
+        jonmadhpow = JONMADHPOW * interp + 0.0 * (1.0 - interp);
 
-      FTYPE thetafactout, thetafactin, thetafact1;
-      thetafactin = 1.0 - cos(th);
-      if (th > 0.5 * M_PI) thetafactin = 1.0 - cos(M_PI - th);
-      thetafactout = pow(sin(th), 1.0 + jonmadhpow);
-      thetafact1 = thetafactout * interp + thetafactin * (1.0 - interp);
+        FTYPE thetafactout, thetafactin, thetafact1;
+        thetafactin = 1.0 - cos(th);
+        if (th > 0.5 * M_PI) thetafactin = 1.0 - cos(M_PI - th);
+        thetafactout = pow(sin(th), 1.0 + jonmadhpow);
+        thetafact1 = thetafactout * interp + thetafactin * (1.0 - interp);
 
-      FTYPE interp2;
-      interp2 = (r - JONMADROUT) / (r + 1E-10);
-      if (interp2 < 0.0) interp2 = 0.0;
-      if (interp2 > 1.0) interp2 = 1.0;
+        FTYPE interp2;
+        interp2 = (r - JONMADROUT) / (r + 1E-10);
+        if (interp2 < 0.0) interp2 = 0.0;
+        if (interp2 > 1.0) interp2 = 1.0;
 
-      FTYPE thetafactout2, thetafactin2, thetafact2;
-      thetafactin2 = thetafact1;
-      thetafactout2 = 1.0 - cos(th);
-      if (th > 0.5 * M_PI) thetafactout2 = 1.0 - cos(M_PI - th);
-      thetafact2 = thetafactout2 * interp2 + thetafactin2 * (1.0 - interp2);
+        FTYPE thetafactout2, thetafactin2, thetafact2;
+        thetafactin2 = thetafact1;
+        thetafactout2 = 1.0 - cos(th);
+        if (th > 0.5 * M_PI) thetafactout2 = 1.0 - cos(M_PI - th);
+        thetafact2 = thetafactout2 * interp2 + thetafactin2 * (1.0 - interp2);
 
-      FTYPE thetafact;
-      thetafact = thetafact2;
+        FTYPE thetafact;
+        thetafact = thetafact2;
 
-      FTYPE rfact;
-      rfact = MAX(pow(r - JONMADR0, rpow) * 1E40 - 0.02, 0.0);
-      if (r >= JONMADROUT) {
-          rfact = MAX(pow(JONMADROUT - JONMADR0, rpow) * 1E40 - 0.02, 0.0);
-      }
-      if (r <= JONMADRIN) {
-          rfact = MAX(pow(JONMADRIN - JONMADR0, rpow) * 1E40 - 0.02, 0.0);
-      }
+        FTYPE rfact;
+        rfact = MAX(pow(r - JONMADR0, rpow) * 1E40 - 0.02, 0.0);
+        if (r >= JONMADROUT) {
+            rfact = MAX(pow(JONMADROUT - JONMADR0, rpow) * 1E40 - 0.02, 0.0);
+        }
+        if (r <= JONMADRIN) {
+            rfact = MAX(pow(JONMADRIN - JONMADR0, rpow) * 1E40 - 0.02, 0.0);
+        }
 
-      if (FIELDTYPE == FIELDJONMAD) {
+        if (FIELDTYPE == FIELDJONMAD) {
 
-          vpot += rfact * thetafact;
+            vpot += rfact * thetafact;
 
-          if (V[2]<1E-5 || V[2]>M_PI - 1E-5) {
-              vpot = 0;
-          }
+            if (V[2]<1E-5 || V[2]>M_PI - 1E-5) {
+                vpot = 0;
+            }
 
 
-      }
+        }
+
+
+
+
+
+        /* field-in-disk version */
+        if (FIELDTYPE == DISK1FIELD || FIELDTYPE == DISK1VERT) {
+            q = rho_av / rhomax - 0.2;
+            if (r < rin) q = 0.0;
+            if (q > 0.)      vpot += q;
+        }
+
+        if (FIELDTYPE == OHSUGAFIELD) {
+            q = rho_av / rhomax - 0.2;
+            if (r < rin) q = 0.0;
+            if (q > 0.)      vpot += q;
+        }
+
+
+        if (FIELDTYPE == DISK2FIELD || FIELDTYPE == DISK2VERT) {
+            // average of density that lives on CORN3
+
+
+            //#define FRACAPHICUT 0.1
+            //#define FRACAPHICUT 0.1
+
+            //      q = (rho_av / rhomax - FRACAPHICUT);
+            //      q = (p_av / ptotmax - FRACAPHICUT); // was used for rada0.94, etc. models.
+            
+            //q = (p_av);                                         //(WHICHPROBLEM == RADDONUT && (RADNT_DONUTTYPE == DONUTTHINDISK || RADNT_DONUTTYPE == DONUTTHINDISK2 || RADNT_DONUTTYPE == DONUTTHINDISK3))
+            //        dualfprintf(fail_file,"qorig=%g\n",q);
+            //if (rho_av / (rhomax * pow(r, thindiskrhopow)) - FRACAPHICUT < 0) q = 0;    //(WHICHPROBLEM == RADDONUT && (RADNT_DONUTTYPE == DONUTTHINDISK || RADNT_DONUTTYPE == DONUTTHINDISK2 || RADNT_DONUTTYPE == DONUTTHINDISK3))
+            //        dualfprintf(fail_file,"qnew=%g : %g %g\n",q,rho_av/rhomax,FRACAPHICUT);
+            
+            q = 1E-30 * (p_av / ptotmax * 1E30 - FRACAPHICUT);      //else other
+            //        dualfprintf(fail_file,"qorig=%g\n",q);
+            if (rho_av / rhomax - FRACAPHICUT < 0) q = 0;
+            //        dualfprintf(fail_file,"qnew=%g : %g %g\n",q,rho_av/rhomax,FRACAPHICUT);
+
+            //#define QPOWER 0.5
+#define QPOWER (1.0)
+
+#define POWERNU (2.0) // 2.5 for toroidal field SUPERMAD paper
+      //#define POWERNU (4.0)
+
+      //      if (q > 0.)      vpot += q*q*pow(r*fabs(sin(th)),POWERNU);
+            FTYPE fact1, fact2, SSS, TTT;
+            fact1 = pow(fabs(q), QPOWER) * pow(r * fabs(sin(th)), POWERNU);
+            // fact1=pow(fabs(q),QPOWER)*pow(r,POWERNU); // for SUPERMAD paper
+            if (r < rin) fact1 = 0.0;
+            SSS = rin * 0.5;
+            TTT = 0.28;
+            fact2 = sin(log(r / SSS) / TTT);
+            fact2 = 1.0; // forces to avoid flipping.
+
+            if (q > 0.)      vpot += fact1 * fact2;
+            //      if (q > 0.)      vpot += q*q;
+            if (PRODUCTION == 0) dualfprintf(fail_file, "ijk=%d %d %d : ptotmax=%g p_av=%g q=%g %g %g rin=%g vpot=%g : rho_av=%g rhomax=%g\n", i, j, k, ptotmax, p_av, q, fact1, fact2, rin, vpot, rho_av, rhomax);
+        }
+
 
 
     }
+    /*
+    if (FIELDTYPE == SPLITMONOPOLE || FIELDTYPE == MONOPOLE || FIELDTYPE == FIELDWALD) {
 
-  //////////////////////////////////
-  //
-  // finally assign what's returned
-  //
-  //////////////////////////////////
-  *A = vpot;
-  *whichcoord = MCOORD;
+        r = V[1];
+        th = V[2];
+        ph = V[3];
 
 
+        if (FIELDTYPE == SPLITMONOPOLE || FIELDTYPE == MONOPOLE) return(0); // otherwise setup poloidal components using vector potential
+        else if (FIELDTYPE == FIELDWALD) {
 
-  return(0);
+            FTYPE mcov[NDIM], mcon[NDIM], kcov[NDIM], kcon[NDIM];
+
+
+            mcon[TT] = 0;
+            mcon[RR] = 0;
+            mcon[TH] = 0;
+            mcon[PH] = 1.0;
+
+            kcon[TT] = 1.0;
+            kcon[RR] = 0;
+            kcon[TH] = 0;
+            kcon[PH] = 0;
+
+            // get metric grid geometry for these ICs
+            int getprim = 0;
+            struct of_geom geomrealdontuse;
+            struct of_geom* ptrgeomreal = &geomrealdontuse;
+            *whichcoord = MCOORD;
+            gset_genloc(getprim, *whichcoord, i, j, k, loc, ptrgeomreal);
+
+            lower_vec(mcon, ptrgeomreal, mcov);
+            lower_vec(kcon, ptrgeomreal, kcov);
+
+
+            // below so field is b^2/rho=BSQORHOWALD at horizon
+            FTYPE Rhorlocal = rhor_calc(0);
+            B0WALD = sqrt(BSQORHOWALD * RADNT_RHOATMMIN * pow(Rhorlocal / RADNT_ROUT, -1.5));  //ton: only for rad
+            TILTWALD = THETAROT;
+            aforwald = a;
+
+            if (1 || fabs(TILTWALD - 0.0) < 1E-10) { // 1|| for now since issue with uu0 at maximum near outer radius when tilt=90deg-1E-5
+                if (l == WALDWHICHACOV || WALDWHICHACOV == -1) {
+                    vpot += -0.5 * B0WALD * (mcov[l] + 2.0 * aforwald * kcov[l]);
+                }
+
+
+            }
+            else { // need all A_i's for tilted field
+
+              // STEP1:
+              // r,\theta,\phi are such that BH spin stays in z-hat and field is tilted.  So we need to provide r,\theta,\phi in coordinates wher z-hat is along spin axis.
+
+              // Original V at this point is with tilted BH spin, but solution below is for spin along z-axis, so find Vmetric[corresponding to when BH spin is along z-axis]
+                FTYPE Vmetric[NDIM];
+                rotate_VtoVmetric(MCOORD, TILTWALD, V, Vmetric);
+
+                FTYPE rV = Vmetric[1];
+                FTYPE thV = Vmetric[2];
+                FTYPE phV = Vmetric[3];
+
+                // STEP2: Now get solution in setup where BH spin along z-axis always and it is the field that is rotated
+                // B0y=0
+                FTYPE B0z = 1.0; // B0z
+                FTYPE B0x = 0.0; // B0x
+
+                FTYPE delta, sigma, rp, rm, psi;
+
+                delta = rV * rV - 2.0 * MBH * rV + a * a;
+                sigma = rV * rV + a * a * cos(thV) * cos(thV);
+                rp = MBH + sqrt(MBH * MBH - a * a);
+                rm = MBH - sqrt(MBH * MBH - a * a);
+
+                psi = phV; // + a/(rp-rm)*log((rV-rp)/(rV-rm)); // ph originally is phi[BL] and psi is phi[KS].
+
+                FTYPE Acovblnonrot[NDIM];
+
+                Acovblnonrot[0] = -1. * a * B0z + (a * B0z * MBH * rV * (1. + Power(Cos(thV), 2))) / sigma +
+                    (a * B0x * MBH * Cos(thV) * (rV * Cos(psi) - 1. * a * Sin(psi)) * Sin(thV)) / sigma;
+
+                Acovblnonrot[1] = -1. * B0x * (-1. * MBH + rV) * Cos(thV) * Sin(psi) * Sin(thV);
+
+                Acovblnonrot[2] = -1. * B0x * (Power(rV, 2) * Power(Cos(thV), 2) + Power(a, 2) * Cos(2. * thV) -
+                    1. * MBH * rV * Cos(2. * thV)) * Sin(psi) -
+                    1. * a * B0x * Cos(psi) * (MBH * Power(Cos(thV), 2) + rV * Power(Sin(thV), 2));
+
+
+                Acovblnonrot[3] = -1. * B0x * Cos(thV) * (delta * Cos(psi) +
+                    (MBH * (Power(a, 2) + Power(rV, 2)) * (rV * Cos(psi) - 1. * a * Sin(psi))) /
+                    sigma) * Sin(thV) + B0z * (0.5 * (Power(a, 2) + Power(rV, 2)) -
+                        (1. * Power(a, 2) * MBH * rV * (1. + Power(Cos(thV), 2))) / sigma) *
+                    Power(Sin(thV), 2);
+
+                // STEP3: now take Acovblnonrot -> Acovksnonrot
+                // NOTE: bl2ks transformation assumes BH spin is pointing z-hat, just like Acovblnonrot[] assumes, so have to apply this here before rotation vector.
+                FTYPE Acovksnonrot[NDIM];
+                int jj;
+                DLOOPA(jj) Acovksnonrot[jj] = Acovblnonrot[jj];
+                bltoks_ucov(i, j, k, loc, Acovksnonrot);
+
+                // STEP4: now take Acovksnonrot -> Acovks.
+                // That is, while coordinate position was correctly mapped in STEP1, coordinate vector still needs to be rotated
+                FTYPE Acovks[NDIM];
+                DLOOPA(jj) Acovks[jj] = Acovksnonrot[jj];
+                transVmetrictoV_ucov(TILTWALD, Vmetric, Acovks);
+
+                // now pluck out only the A_l one wanted
+                vpot += Acovks[l];
+
+            }
+        }
+    }
+    */
+
+    //////////////////////////////////
+    //
+    // finally assign what's returned
+    //
+    //////////////////////////////////
+    *A = vpot;
+    *whichcoord = MCOORD;
+
+
+
+    return(0);
 
 }
 
@@ -1318,11 +1523,14 @@ int set_atmosphere(int whichcond, int whichvel, struct of_geom *ptrgeom, FTYPE *
   else if(WHICHPROBLEM==GRBJET){
     atmospheretype=2;
   }
+  else if (WHICHPROBLEM == BONDI) {
+    atmospheretype = 3;
+  }
   else {
     atmospheretype=1; // default
   }
  
-  funreturn=user1_set_atmosphere(atmospheretype, whichcond, whichvel, ptrgeom, pr);  //tom: where is it?
+  funreturn=user1_set_atmosphere(atmospheretype, whichcond, whichvel, ptrgeom, pr);  
   if(funreturn!=0) return(funreturn);
  
   return(0);
