@@ -60,6 +60,8 @@ void coord_transform(double *pr,int i, int j,int k) ;
 double compute_B_from_A( double (*A)[N2+D2][N3+D3], double (*p)[N2M][N3M][NPR] );
 double normalize_B_by_maxima_ratio(double beta_target, double (*p)[N2M][N3M][NPR], double *norm_value);
 double normalize_B_by_beta(double beta_target, double (*p)[N2M][N3M][NPR], double rmax, double *norm_value);
+double normalize_B_ratio_bondi(double beta_target, double(*p)[N2M][N3M][NPR], double rmin, double* norm_value);
+
 
 /////////////////////
 //magnetic field geometry and normalization
@@ -73,7 +75,8 @@ double normalize_B_by_beta(double beta_target, double (*p)[N2M][N3M][NPR], doubl
 
 #define NORMALIZE_FIELD_BY_MAX_RATIO (1)
 #define NORMALIZE_FIELD_BY_BETAMIN (2)
-#define WHICH_FIELD_NORMALIZATION NORMALIZE_FIELD_BY_MAX_RATIO
+#define NORMALIZE_FIELD_BONDI (3)
+#define WHICH_FIELD_NORMALIZATION NORMALIZE_FIELD_BONDI
 //end magnetic field        //tom: don't use NORMALIZE_FIELD_BY_BETAMIN in harmpi
 //////////////////////
 
@@ -129,7 +132,7 @@ void init_quasi_bondi()
 
   double kappa, ssth;
   double rc, mdot, rhor, lb, z1, z2, isco;
-  double E, n, f1, f2, guess;
+  double E, n, f1, f2, rs;
   
   /* some physics parameters */
   gam = 4./3. ;
@@ -138,8 +141,7 @@ void init_quasi_bondi()
   a = 0.9 ;
 
   //kappa =1.e-3; to be calculated
-  beta = 60. ;
-
+  beta = 10;
 
   /* some numerical parameters */
   lim = MC ;
@@ -147,13 +149,14 @@ void init_quasi_bondi()
   cour = .8 ;
   dt = 1.e-5 ;
   R0 = 0.0 ;
-  Rin = 0.87*(1. + sqrt(1. - a*a)) ;  //.98
+  Rin = 0.8*(1. + sqrt(1. - a*a)) ;  //.98 //0.87
   Rout = 1e5;
-  rbr = 300.;                   //tom
+  rbr = 200.;                   //tom
   npow2=4.0; //power exponent
-  cpow2=1.0; //exponent prefactor (the larger it is, the more hyperexponentiation is)   //tom
+  cpow2=1.2; //exponent prefactor (the larger it is, the more hyperexponentiation is)   //tom
   rhor = (1. + sqrt(1. - a * a));
-  mdot = 10000.0;
+  //mdot = 1e3;   //tom
+  mdot = 1000;
   rc = 0.0;
 
   z1 = 1 + pow(1 - a * a, 1. / 3.) * (pow(1 + a, 1. / 3.) + pow(1 - a, 1. / 3.));
@@ -206,10 +209,10 @@ void init_quasi_bondi()
     }
   }
 
-  E = 0.0001; //tom
+  E = 1.e-7; //tom
 
   /* output choices */
-  tf = 100000.0 ;
+  tf = 1000000.0 ;
 
   DTd = 10.; /* dumping frequency, in units of M */
   DTl = 10. ;	/* logfile frequency, in units of M */
@@ -264,34 +267,36 @@ void init_quasi_bondi()
             }
 
             rho = mdot / (-4 * M_PI * r * r * ur);
-
-            guess = 1000; //tom: guess r_s, arbitrary
+            /*
+            rs = 1000; //tom: guess r_s, arbitrary
             double l = lb * ssth;
             for (n = 1; n < 10; n++) {
-                f1 = E - pow(l, 2) / (2 * pow(guess, 2)) + 1 / (2 * (guess - 1)) - ((gam + 1) / (2 * (gam - 1))) * (guess / (4 * pow(guess - 1, 2)) - pow(l, 2) / (2 * pow(guess, 2)));
-                f2 = pow(l, 2) / pow(guess, 3) - 1 / (2 * pow(guess - 1, 2)) - ((gam + 1) / (2 * (gam - 1))) * (1 / (4 * pow(guess - 1, 2)) - guess / (2 * pow(guess - 1, 3)) + pow(l, 2) / pow(guess, 3));
-                guess = guess - f1 / f2;
+                f1 = E - pow(l, 2) / (2 * pow(rs, 2)) + 1 / (2 * (rs - 1)) - ((gam + 1) / (2 * (gam - 1))) * (rs / (4 * pow(rs - 1, 2)) - pow(l, 2) / (2 * pow(rs, 2)));
+                f2 = pow(l, 2) / pow(rs, 3) - 1 / (2 * pow(rs - 1, 2)) - ((gam + 1) / (2 * (gam - 1))) * (1 / (4 * pow(rs - 1, 2)) - rs / (2 * pow(rs - 1, 3)) + pow(l, 2) / pow(rs, 3));
+                rs = rs - f1 / f2;
             }
-            guess *= 2;     //tom: fix, somehow the radius is underestimated by the factor of 2, I haven't found a problem from the above code yet
+            rs *= 2;     //tom: fix, based on the values from Sukova 2017, somehow the radius is always underestimated by the factor of 2, I haven't found a problem from the above algorithm yet
+            */
+            rs = (5 - 3 * gam) / (4 * E * (gam - 1));
 
-            kappa = pow(4 * M_PI * guess * guess * pow(sqrt(2 / guess), (2 / (gam - 1) + 1)) / (mdot * pow(gam, 1 / (gam - 1))), (gam - 1));
+            kappa = pow(4 * M_PI * rs * rs * pow(sqrt(2 / rs), (2 / (gam - 1) + 1)) / (mdot * pow(gam, 1 / (gam - 1))), (gam - 1));
             //kappa = 1.e-3;   //temp
 
             if (MASTER == mpi_rank) {
-            //if (j == 0 & k == 0 & i % 20 == 0) {            //debug check
-                fprintf(stderr, "circularization radius: %g\n", rc);
-                fprintf(stderr, "Estimated bondi radius with E=%g: %g\n", E, guess);
-                fprintf(stderr, "specific entropy: %g\n", kappa);
+                if (j < 1 && k < 1 && i < 4) {            //check
+                    fprintf(stderr, "circularization radius: %g\n", rc);
+                    fprintf(stderr, "Estimated bondi radius with E=%g: %g\n", E, rs);
+                    fprintf(stderr, "specific entropy: %g\n", kappa);
+                }
             }
-
-            //u = kappa * pow(rho, gam - 1.) / (gam - 1.);   //tom
+            u = kappa * pow(rho, gam - 1.) / (gam - 1.);   //tom
             //u = kappa * pow(rho, gam) / (gam - 1.);
-            u = 0.0002;     //floor value, for no angular momentum flows, check
+            //u = 0.00002;     //floor value, for no angular momentum flows, check
 
             if (u > umax) umax = u;
 
             p[i][j][k][RHO] = rho ;
-            p[i][j][k][UU] = u ;
+            p[i][j][k][UU] = u * (1. + 5.e-2 * (rancval - 0.5));
             p[i][j][k][U1] = ur ;
             p[i][j][k][U2] = uh ;
             p[i][j][k][U3] = up ;
@@ -331,6 +336,14 @@ void init_quasi_bondi()
     aphipow = 0.;
   }
 
+  double JONMADHPOW, JONMADR0, JONMADRIN, JONMADROUT, rpow;     //tom: for FIELDJONMAD, 
+  JONMADHPOW = 4.0;
+  JONMADR0 = -5.0;
+  //JONMADR0 = -2.0; 
+  JONMADRIN = 4.0; //tom
+  JONMADROUT = 1000; //jane: transition to monopolar field  /tom: set larger
+  rpow = 1.0;
+
   /* first find corner-centered vector potential */
   ZSLOOP(0,N1-1+D1,0,N2-1+D2,0,N3-1+D3) A[i][j][k] = 0. ;
   ZSLOOP(0,N1-1+D1,0,N2-1+D2,0,N3-1+D3) {
@@ -364,13 +377,13 @@ void init_quasi_bondi()
           A[i][j][k] = 0;
       }
       else if (WHICHFIELD == FIELDJONMAD) {             //subject to be checked
-          double JONMADHPOW, JONMADR0, JONMADRIN, JONMADROUT, rpow;
-          JONMADHPOW = 4.0;
-          JONMADR0 = -5.0;
+          //double JONMADHPOW, JONMADR0, JONMADRIN, JONMADROUT, rpow;   //tom: declare those variables in the upper level in case there are other functions need one of them 
+          //JONMADHPOW = 4.0;
+          //JONMADR0 = -5.0;
           //JONMADR0 = -2.0; 
-          JONMADRIN = 4.0; //inner edge I guess?
-          JONMADROUT = 300; //jane: transition to monopolar field
-          rpow = 1.0;
+          //JONMADRIN = 4.0; //inner edge I guess?
+          //JONMADROUT = 300; //jane: transition to monopolar field
+          //rpow = 1.0;
 
           double jonmadhpow;
           double interp;
@@ -429,7 +442,6 @@ void init_quasi_bondi()
 
       }
       else {
-          // arbitrary
           // OLEKFIELD
           rho_av = 0.25 * (
               p[i][j][k][RHO] +
@@ -480,23 +492,35 @@ void init_quasi_bondi()
   }
 
   if (WHICHFIELD == FIELDJONMAD) {
-      if (MASTER == mpi_rank)
-          fprintf(stderr, "initial b^2_max: %g\n", bsq_max);
+      /*if (MASTER == mpi_rank)
+          fprintf(stderr, "initial b^2_max: %g\n", bsq_max);*/
 
       /* finally, normalize to set field strength */
-      beta_act = (gam - 1.) * umax / (0.5 * bsq_max);
+      /*beta_act = (gam - 1.) * umax / (0.5 * bsq_max);
 
       if (MASTER == mpi_rank) {
           fprintf(stderr, "initial beta: %g (target: %g)\n", beta_act, beta);
           fprintf(stderr, "umax: %g \n", umax);
           fprintf(stderr, "bsq_max: %g \n", bsq_max);
-      }
-      if (WHICH_FIELD_NORMALIZATION == NORMALIZE_FIELD_BY_BETAMIN) {
-          beta_act = normalize_B_by_beta_tom(beta, p, 0.01 * Rout, &norm);
+      }*/
+      if (WHICH_FIELD_NORMALIZATION == NORMALIZE_FIELD_BY_BETAMIN) {    //tom: don't use this
+          beta_act = normalize_B_by_beta(beta, p, 0.01 * Rout, &norm);
       }
       else if (WHICH_FIELD_NORMALIZATION == NORMALIZE_FIELD_BY_MAX_RATIO) {
           beta_act = normalize_B_by_maxima_ratio(beta, p, &norm);
       }
+      else if (WHICH_FIELD_NORMALIZATION == NORMALIZE_FIELD_BONDI) {
+          beta_act = normalize_B_ratio_bondi(beta, p, JONMADRIN, &norm);   //take reference at the density edge
+      }
+      else {
+          if (i_am_the_master) {
+              fprintf(stderr, "Unknown magnetic field normalization %d\n",
+                  WHICH_FIELD_NORMALIZATION);
+              MPI_Finalize();
+              exit(2345);
+          }
+      }
+
       if (MASTER == mpi_rank)
           fprintf(stderr, "final beta: %g (target: %g)\n", beta_act, beta);
   }
@@ -546,19 +570,22 @@ double compute_B_from_A( double (*A)[N2+D2][N3+D3], double (*p)[N2M][N3M][NPR] )
   return(bsq_max);
 }
 
-double normalize_B_by_maxima_ratio(double beta_target, double (*p)[N2M][N3M][NPR], double *norm_value)
+double normalize_B_by_maxima_ratio(double beta_target, double (*p)[N2M][N3M][NPR], double *norm_value) //tom: old way
 {
   double beta_act, bsq_ij, u_ij, umax = 0., bsq_max = 0.;
   double norm;
   int i, j, k;
   struct of_geom geom;
+  double X[NDIM], r, th, ph;
   
-  ZLOOP {
-    get_geometry(i,j,k,CENT,&geom) ;
-    bsq_ij = bsq_calc(p[i][j][k],&geom) ;
-    if(bsq_ij > bsq_max) bsq_max = bsq_ij ;
+  bsq_max = 0;
+
+  ZLOOP{
+    get_geometry(i,j,k,CENT,&geom);                 
+    bsq_ij = bsq_calc(p[i][j][k],&geom);
+    if (bsq_ij > bsq_max) bsq_max = bsq_ij;
     u_ij = p[i][j][k][UU];
-    if(u_ij > umax) umax = u_ij;
+    if (u_ij > umax) umax = u_ij;
   }
 #ifdef MPI
   //exchange the info between the MPI processes to get the true max
@@ -568,9 +595,18 @@ double normalize_B_by_maxima_ratio(double beta_target, double (*p)[N2M][N3M][NPR
 
   /* finally, normalize to set field strength */
   beta_act =(gam - 1.)*umax/(0.5*bsq_max) ;
-  
-  norm = sqrt(beta_act/beta_target) ;
-  bsq_max = 0. ;
+
+  if (MASTER == mpi_rank) {
+      fprintf(stderr, "initial max b^2: %g \n", bsq_max);
+      fprintf(stderr, "initial max u_g: %g \n", umax);
+      fprintf(stderr, "initial beta: %g (target: %g)\n", beta_act, beta_target);
+  }
+
+  norm = sqrt(beta_act/beta_target); 
+  if (MASTER == mpi_rank) {
+      fprintf(stderr, "norm: %g\n", norm);
+  }
+  bsq_max = 0. ; //find the new b^2
   ZLOOP {
     p[i][j][k][B1] *= norm ;
     p[i][j][k][B2] *= norm ;
@@ -590,6 +626,93 @@ double normalize_B_by_maxima_ratio(double beta_target, double (*p)[N2M][N3M][NPR
     *norm_value = norm;
   }
   return(beta_act);
+}
+
+double normalize_B_ratio_bondi(double beta_target, double(*p)[N2M][N3M][NPR], double rmin, double* norm_value) //tom: new
+{
+    double beta_act, bsq_ij, u_ij, umax = 0., bsq_max = 0.;
+    double norm;
+    int i, j, k;
+    struct of_geom geom;
+    double X[NDIM], r, th, ph;
+
+    bsq_max = 0;
+    double closest = 10; //search for the cell with theta closest to pi/2
+    ZLOOP {     
+      coord(i, j, k, CENT, X);  
+      bl_coord(X, &r, &th, &ph);
+      get_geometry(i, j, k, CENT, &geom);       //ph: arbitary unless it is not symetric, but have to pick one range to reduce the search time
+      if (r > 0.98*rmin && r < 1.02*rmin && ph < 0.2 && ph > -0.2 && th > 1.57 && th < 1.63) { //search near the mid-plane, I am a bit confused with the numerical grid so I can't just limited to only do r
+          if (abs(th - M_PI/2 - 0.06) < closest) {
+              closest = th;
+              fprintf(stderr, "r: %g \n", r);                                              // , and the cell usually doesn't exactly located at the equator I am looking for
+              fprintf(stderr, "theta: %g \n", th);
+              //fprintf(stderr, "ph: %g \n", ph);
+              bsq_ij = bsq_calc(p[i][j][k], &geom);
+              if (bsq_ij > bsq_max) bsq_max = bsq_ij;       //tom: measure the things in the certain region above the edge instead, to make sure it is measured closest to the edge
+              u_ij = p[i][j][k][UU];
+              if (u_ij > umax) umax = u_ij;
+          }
+      }
+      if (r > 3*rmin) { //tom: should be beyond
+          continue;
+      }
+    }
+    
+#ifdef MPI
+        //exchange the info between the MPI processes to get the true max
+    MPI_Allreduce(MPI_IN_PLACE, &umax, 1, MPI_DOUBLE, MPI_MAX, MPI_COMM_WORLD);
+    MPI_Allreduce(MPI_IN_PLACE, &bsq_max, 1, MPI_DOUBLE, MPI_MAX, MPI_COMM_WORLD); //
+#endif
+
+    /* finally, normalize to set field strength */
+    beta_act = (gam - 1.) * umax / (0.5 * bsq_max);
+    //beta_act = (gam - 1.) * u_ij / (0.5 * bsq_max);
+
+    if (MASTER == mpi_rank) {
+        fprintf(stderr, "initial max b^2: %g \n", bsq_max);
+        fprintf(stderr, "initial max u_g: %g \n", umax);
+        fprintf(stderr, "initial beta: %g (target: %g)\n", beta_act, beta_target);
+    }
+
+    norm = sqrt(beta_act/beta_target); 
+    //norm = sqrt(beta_act / beta_target) * 80;
+    if (MASTER == mpi_rank) {
+        fprintf(stderr, "norm: %g\n", norm);
+    }
+    bsq_max = 0.; //find the new b^2
+    closest = 10.;
+    ZLOOP{
+      p[i][j][k][B1] *= norm;
+      p[i][j][k][B2] *= norm;
+      p[i][j][k][B3] *= norm; //
+
+      coord(i, j, k, CENT, X); //
+      bl_coord(X, &r, &th, &ph); //
+      get_geometry(i, j, k, CENT, &geom);
+      if (r > 0.98 * rmin && r < 1.02 * rmin && ph < 0.2 && ph > -0.2 && th > 1.57 && th < 1.63) {      //temp
+          if (abs(th - M_PI / 2 - 0.06) < closest) {
+              closest = th;
+              bsq_ij = bsq_calc(p[i][j][k], &geom);
+              if (bsq_ij > bsq_max) bsq_max = bsq_ij; //
+          }
+      }
+      if (r > 3 * rmin) { //tom: should be beyond
+          continue;
+      }
+    }
+#ifdef MPI
+        //exchange the info between the MPI processes to get the true max
+    MPI_Allreduce(MPI_IN_PLACE, &bsq_max, 1, MPI_DOUBLE, MPI_MAX, MPI_COMM_WORLD); //
+#endif
+
+    beta_act = (gam - 1.) * umax / (0.5 * bsq_max);
+    //beta_act = (gam - 1.) * u_ij / (0.5 * bsq_max);
+
+    if (norm_value) {
+        *norm_value = norm;
+    }
+    return(beta_act);
 }
 
 //normalize the magnetic field using the values inside r < rmax
@@ -645,70 +768,6 @@ double normalize_B_by_beta(double beta_target, double (*p)[N2M][N3M][NPR], doubl
   }
 
   return(beta_act);
-}
-
-double normalize_B_by_beta_tom(double beta_target, double(*p)[N2M][N3M][NPR], double range, double* norm_value)
-{
-    double beta_min = 1e100, beta_ij, beta_act, bsq_ij, u_ij, umax = 0., bsq_max = 0.;
-    double norm;
-    int i, j, k;
-    struct of_geom geom;
-    double X[NDIM], r, th, ph;
-    
-    ZLOOP{
-      coord(i, j, k, CENT, X);
-      bl_coord(X, &r, &th, &ph);
-      if (r > range) {
-        continue;
-      }
-      get_geometry(i,j,k,CENT,&geom);
-      bsq_ij = bsq_calc(p[i][j][k],&geom);
-      u_ij = p[i][j][k][UU];
-      beta_ij = (gam - 1.) * u_ij / (0.5 * (bsq_ij + SMALL));            
-      if (beta_ij < beta_min) beta_min = beta_ij;
-    } 
-#ifdef MPI
-        //exchange the info between the MPI processes to get the true max
-    MPI_Allreduce(MPI_IN_PLACE, &beta_min, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
-#endif
-    
-    //tom: neglect radiation pressure
-
-    /* finally, normalize to set field strength */
-    beta_act = beta_min;
-
-    if (MASTER == mpi_rank) {
-        fprintf(stderr, "beta_min: %g \n", beta_act);
-    }
-    norm = sqrt(beta_act / beta_target);           //normalization factor
-    if (MASTER == mpi_rank) {
-        fprintf(stderr, "norm: %g \n", norm);
-    }
-    //beta_min = 1e100;     //check
-    bsq_max = 0;
-    ZLOOP{
-      p[i][j][k][B1] *= norm;                          //normalization
-      p[i][j][k][B2] *= norm;
-      p[i][j][k][B3] *= norm;
-      get_geometry(i,j,k,CENT,&geom);
-      bsq_ij = bsq_calc(p[i][j][k],&geom);           //check
-      u_ij = p[i][j][k][UU];
-      beta_ij = (gam - 1.) * u_ij / (0.5 * (bsq_ij + SMALL));
-      if (beta_ij < beta_min) beta_min = beta_ij;
-    }
-
-#ifdef MPI
-        //exchange the info between the MPI processes to get the true max
-    MPI_Allreduce(MPI_IN_PLACE, &beta_min, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
-#endif
-
-    beta_act = beta_min;
-
-    if (norm_value) {
-        *norm_value = norm;
-    }
-
-    return(beta_act);
 }
 
 
